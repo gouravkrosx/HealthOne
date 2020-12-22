@@ -17,17 +17,10 @@
                 <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                 <h3>Welcome</h3>
                 <p>We are here to help you</p>
-                <input type="submit" name="" value="Login"/><br/>
+                
             </div>
             <div class="col-md-9 register-right">
-                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Patient</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#doctor" role="tab" aria-controls="profile" aria-selected="false">Doctor</a>
-                    </li>
-                </ul>
+                
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <h3 class="register-heading">Fill your details</h3>
@@ -41,10 +34,10 @@
                                     <input type="text" required class="form-control" name="name" placeholder="Enter your name *"  value="<%= typeof name != 'undefined' ? name : '' %>"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" required class="form-control" name="age" placeholder="Age *"  value="<%= typeof age != 'undefined' ? age : '' %>"/>
+                                    <input type="text" required class="form-control" name="address" placeholder="Address *"  value="<%= typeof address != 'undefined' ? address : '' %>"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" required class="form-control" id="password" name="password" placeholder="Password *"  value="<%= typeof password != 'undefined' ? password : '' %>"/>
+                                    <input type="email" required class="form-control" name="email" placeholder="Your Email *" value="<%= typeof email != 'undefined' ? email : '' %>" />
                                 </div>
                                 
                                 <div class="form-group">
@@ -62,16 +55,40 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="email" required class="form-control" name="email" placeholder="Your Email *" value="<%= typeof email != 'undefined' ? email : '' %>" />
+                                    <input type="date" required class="form-control" name="dateOfBirth" placeholder="Date Of Birth *"  value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>"/>
                                 </div>
+                                
                                 <div class="form-group">
                                     <input type="text" minlength="10" required maxlength="10" name="phone" class="form-control" placeholder="Your Phone *" value="<%= typeof phone != 'undefined' ? phone : '' %>" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" required class="form-control" id="password" name="password" placeholder="Password *"  value="<%= typeof password != 'undefined' ? password : '' %>"/>
                                 </div>
                                 
                                 <div class="form-group">
                                     <input type="password" required class="form-control" id="password2" name="password2" placeholder="Confirm Password *"  value="<%= typeof password2 != 'undefined' ? password2 : '' %>"/>
-                                     </div>
+                                </div>
+                                
+                            </div>
+                        
+                        
+                            
+                            <div class="col-md-6">
+                                <label >Emergency Contact Details </label>
+                                <div class="form-group">
+                                    <input type="text" required class="form-control" name="emergencyName" placeholder="Enter Name *"  value="<%= typeof emergencyName != 'undefined' ? emergencyName : '' %>"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" minlength="10" required maxlength="10" name="emergencyPhone" class="form-control" placeholder="Emergency Phone Number *" value="<%= typeof emergencyPhone != 'undefined' ? emergencyPhone : '' %>" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label >. </label>
+                                <div class="form-group">
+                                    <input type="text" required class="form-control" name="emergencyAddress" placeholder="Emergency Address *"  value="<%= typeof emergencyAddress != 'undefined' ? emergencyAddress : '' %>"/>
+                                </div>
                                 <button type="submit" class="btnRegister"  >Register</button>
+                            
                             </div>
                         </div>
                         </form>

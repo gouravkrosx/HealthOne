@@ -17,7 +17,13 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  age: Number,
+  dateOfBirth: Date,
+  address: String,
+  emergencyContacts: {
+    name: String,
+    phone: String,
+    address: String
+  },
   sex: String,
   phone: String,
   illness: String,

@@ -20,10 +20,10 @@ router.get('/Doctor/register', forwardAuthenticated, (req, res) => res.render('R
 // Register
 //-----------doc-----------
 router.post('/Doctor/register', (req, res) => {
-  const { name, age, speciality, phone, sex, email, password, password2 } = req.body;
+  const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, clinicTiming, speciality, phone, sex, email, password, password2 } = req.body;
   let errors = [];
 
-  if (!name || !email || !password || !password2 || !age || !speciality || !phone || !sex) {
+  if (!name || !email || !password || !password2 || !address || !language || !dateOfBirth ||!speciality || !clinicAddress || !clinicTiming || !medicalSchool || !yearsOfPractice || !phone || !sex) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -39,7 +39,13 @@ router.post('/Doctor/register', (req, res) => {
     res.render('RegisterforDoctor', {
       errors,
       name,
-      age, 
+      address, 
+      dateOfBirth,
+      medicalSchool,
+      yearsOfPractice,
+      clinicAddress,
+      clinicTiming,
+      language,
       speciality, 
       phone, 
       sex, 
@@ -54,7 +60,13 @@ router.post('/Doctor/register', (req, res) => {
         res.render('RegisterforDoctor', {
           errors,
           name,
-          age, 
+          address, 
+          dateOfBirth,
+          medicalSchool,
+          yearsOfPractice,
+          clinicTiming,
+          clinicAddress,
+          language,
           speciality, 
           phone, 
           sex, 
@@ -65,7 +77,13 @@ router.post('/Doctor/register', (req, res) => {
       } else {
         const newUser = new DUser({
           name,
-          age, 
+          address, 
+          dateOfBirth: new Date(dateOfBirth),
+          medicalSchool,
+          yearsOfPractice,
+          clinicAddress,
+          clinicTiming,
+          language,
           speciality, 
           phone, 
           sex, 
@@ -98,10 +116,10 @@ router.post('/Doctor/register', (req, res) => {
 
 //----------------patient--------------------
 router.post('/Patient/register', (req, res) => {
-  const { name, age, password, sex, email, phone, password2,  } = req.body;
+  const { name, address, dateOfBirth, password, sex, email, phone, password2,  emergencyName, emergencyPhone, emergencyAddress} = req.body;
   let errors = [];
 
-  if (!name || !email || !password || !password2 || !age || !sex || !phone) {
+  if (!name || !email || !password || !password2 || !address || !dateOfBirth || !sex || !phone || !emergencyName || !emergencyPhone || !emergencyAddress) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -117,7 +135,11 @@ router.post('/Patient/register', (req, res) => {
     res.render('RegisterforPatient', {
       errors,
       name,
-      age,
+      address,
+      dateOfBirth,
+      emergencyAddress,
+      emergencyName,
+      emergencyPhone,
       password,
       sex, 
       email, 
@@ -132,7 +154,11 @@ router.post('/Patient/register', (req, res) => {
         res.render('RegisterforPatient', {
           errors,
           name,
-          age,
+          address,
+          dateOfBirth,
+          emergencyPhone,
+          emergencyName,
+          emergencyAddress,
           password,
           sex, 
           email, 
@@ -142,8 +168,14 @@ router.post('/Patient/register', (req, res) => {
       } else {
         const newUser = new PUser({
           name,
-          age,
+          address,
+          dateOfBirth: new Date(dateOfBirth),
           password,
+          emergencyContacts:{
+            name: emergencyName,
+            phone: emergencyPhone,
+            address: emergencyAddress
+          },
           sex, 
           email, 
           phone,
