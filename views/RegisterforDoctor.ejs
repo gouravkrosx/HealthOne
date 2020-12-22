@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/register.css" type="text/css">
+</head>
+<body>
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                <h3>Welcome</h3>
+                <p>We are here to help you</p>
+                <input type="submit" name="" value="Login"/><br/>
+            </div>
+            <div class="col-md-9 register-right">
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link " id="home-tab" data-toggle="tab" href="#patient" role="tab" aria-controls="home" aria-selected="true">Patient</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#home" role="tab" aria-controls="profile" aria-selected="false">Doctor</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Fill your details</h3>
+                        <% include ./partials/messages %>
+                        <form action="/users/Doctor/register" method="POST">
+                        <div class="row register-form">
+                            
+                            <div class="col-md-6">
+                                
+                                <div class="form-group">
+                                    <input type="text" required class="form-control" name="name" placeholder="Enter your name *" value="<%= typeof name != 'undefined' ? name : '' %>" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" required class="form-control" name="age" placeholder="Age *" value="<%= typeof age != 'undefined' ? age : '' %>" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" required class="form-control" name="speciality" placeholder="Speciality *" value="<%= typeof speciality != 'undefined' ? speciality : '' %>" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" minlength="10" required maxlength="10" name="phone" class="form-control" placeholder="Your Phone *" value="<%= typeof phone != 'undefined' ? phone : '' %>" />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="maxl">
+                                        <label class="radio inline"> 
+                                            <input type="radio" name="sex" value="male" checked>
+                                            <span> Male </span> 
+                                        </label>
+                                        <label class="radio inline"> 
+                                            <input type="radio" name="sex" value="female">
+                                            <span>Female </span> 
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" required class="form-control" name="email" placeholder="Your Email *" value="<%= typeof email != 'undefined' ? email : '' %>" />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="password" required class="form-control" id="password" name="password" placeholder="Password *" value="<%= typeof password != 'undefined' ? password : '' %>" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" required class="form-control" id="confirm_password" name="password2" placeholder="Confirm Password *" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
+                                     </div>
+                                <button type="submit" class="btnRegister"  >Register</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script >
+        var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
+
+        function validatePassword(){
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
+</body>
+</html>
