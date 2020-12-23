@@ -17,19 +17,25 @@ router.get('/welcome', forwardAuthenticated, (req, res) => res.render('welcome')
 router.get('/users/Patient', (req, res) => res.render('Patient'));
 router.get('/users/Doctor', (req, res) => res.render('Doctor'));
 
-
-
-
 //Dashboard 
 
-router.get('/dashboard', ensureAuthenticated, (req, res) => {
-  if(Object.getPrototypeOf(req.user)===PUser.prototype){  
-    res.render('dashboard', {
-        user: req.user
-    })
+//doc
+router.get('/Ddashboard', ensureAuthenticated, (req, res) => {
+  if (Object.getPrototypeOf(req.user) === PUser.prototype) {
+    res.redirect("/");
   }
-  else{
-    res.render('dashboard', {user: req.user});
+  else {
+    res.render('Ddashboard', { user: req.user });
+  }
+});
+
+//patient
+router.get('/Pdashboard', ensureAuthenticated, (req, res) => {
+  if (Object.getPrototypeOf(req.user) === DUser.prototype) {
+    res.redirect("/");
+  }
+  else {
+    res.render('Pdashboard', { user: req.user });
   }
 });
 

@@ -1,118 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/register.css" type="text/css">
 </head>
+
 <body>
     <div class="container register">
         <div class="row">
             <div class="col-md-3 register-left">
-                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
                 <h3>Welcome</h3>
                 <p>We are here to help you</p>
-                
+
             </div>
             <div class="col-md-9 register-right">
-                
+
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <h3 class="register-heading">Fill your details</h3>
                         <% include ./partials/messages %>
-                        <form action="/users/Patient/register" method="POST" enctype="multipart/form-data">
-                        <div class="row register-form">
-                            
-                            <div class="col-md-6">
-                                
-                                <div class="form-group">
-                                    <input type="text" required class="form-control" name="name" placeholder="Enter your name *"  value="<%= typeof name != 'undefined' ? name : '' %>"/>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" required class="form-control" name="address" placeholder="Address *"  value="<%= typeof address != 'undefined' ? address : '' %>"/>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" required class="form-control" name="email" placeholder="Your Email *" value="<%= typeof email != 'undefined' ? email : '' %>" />
-                                </div>
-                                
-                                <div class="form-group">
-                                    <div class="maxl">
-                                        <label class="radio inline"> 
-                                            <input type="radio" name="sex" value="male" checked>
-                                            <span> Male </span> 
-                                        </label>
-                                        <label class="radio inline"> 
-                                            <input type="radio" name="sex" value="female">
-                                            <span>Female </span> 
-                                        </label>
+                            <form action="/users/Patient/register" method="POST" enctype="multipart/form-data">
+                                <div class="row register-form">
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <input type="text" required class="form-control" name="name"
+                                                placeholder="Enter your name *"
+                                                value="<%= typeof name != 'undefined' ? name : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" required class="form-control" name="address"
+                                                placeholder="Address *"
+                                                value="<%= typeof address != 'undefined' ? address : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" required class="form-control" name="email"
+                                                placeholder="Your Email *"
+                                                value="<%= typeof email != 'undefined' ? email : '' %>" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="maxl">
+                                                <label class="radio inline">
+                                                    <input type="radio" name="sex" value="male" checked>
+                                                    <span> Male </span>
+                                                </label>
+                                                <label class="radio inline">
+                                                    <input type="radio" name="sex" value="female">
+                                                    <span>Female </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="date" required class="form-control" name="dateOfBirth"
+                                                placeholder="Date Of Birth *"
+                                                value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text" minlength="10" required maxlength="10" name="phone"
+                                                class="form-control" placeholder="Your Phone *"
+                                                value="<%= typeof phone != 'undefined' ? phone : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" required class="form-control" id="password"
+                                                name="password" placeholder="Password *"
+                                                value="<%= typeof password != 'undefined' ? password : '' %>" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="password" required class="form-control" id="password2"
+                                                name="password2" placeholder="Confirm Password *"
+                                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
+                                        </div>
+
+                                    </div>
+                                    <label for="photo">Upload your profile picture</label>
+
+                                    <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
+                                            name="photo" onchange="loadFile(event)"></p>
+                                    <p><label for="file" style="cursor: pointer;"></label>
+                                    </p>
+                                    <p><img id="output" width="200" /></p>
+
+
+
+
+                                    <div class="col-md-6">
+                                        <label>Emergency Contact Details </label>
+                                        <div class="form-group">
+                                            <input type="text" required class="form-control" name="emergencyName"
+                                                placeholder="Enter Name *"
+                                                value="<%= typeof emergencyName != 'undefined' ? emergencyName : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" minlength="10" required maxlength="10"
+                                                name="emergencyPhone" class="form-control"
+                                                placeholder="Emergency Phone Number *"
+                                                value="<%= typeof emergencyPhone != 'undefined' ? emergencyPhone : '' %>" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>. </label>
+                                        <div class="form-group">
+                                            <input type="text" required class="form-control" name="emergencyAddress"
+                                                placeholder="Emergency Address *"
+                                                value="<%= typeof emergencyAddress != 'undefined' ? emergencyAddress : '' %>" />
+                                        </div>
+                                        <button type="submit" class="btnRegister">Register</button>
+
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="date" required class="form-control" name="dateOfBirth" placeholder="Date Of Birth *"  value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>"/>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <input type="text" minlength="10" required maxlength="10" name="phone" class="form-control" placeholder="Your Phone *" value="<%= typeof phone != 'undefined' ? phone : '' %>" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" required class="form-control" id="password" name="password" placeholder="Password *"  value="<%= typeof password != 'undefined' ? password : '' %>"/>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <input type="password" required class="form-control" id="password2" name="password2" placeholder="Confirm Password *"  value="<%= typeof password2 != 'undefined' ? password2 : '' %>"/>
-                                </div>
-                                
-                            </div>
-                            <label for="photo">Enter Your Photograph</label>
-                            <input type="file" id="photo" required name="photo" accept="image/png, image/jpeg">
-                        
-                            
-                            <div class="col-md-6">
-                                <label >Emergency Contact Details </label>
-                                <div class="form-group">
-                                    <input type="text" required class="form-control" name="emergencyName" placeholder="Enter Name *"  value="<%= typeof emergencyName != 'undefined' ? emergencyName : '' %>"/>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" minlength="10" required maxlength="10" name="emergencyPhone" class="form-control" placeholder="Emergency Phone Number *" value="<%= typeof emergencyPhone != 'undefined' ? emergencyPhone : '' %>" />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label >. </label>
-                                <div class="form-group">
-                                    <input type="text" required class="form-control" name="emergencyAddress" placeholder="Emergency Address *"  value="<%= typeof emergencyAddress != 'undefined' ? emergencyAddress : '' %>"/>
-                                </div>
-                                <button type="submit" class="btnRegister"  >Register</button>
-                            
-                            </div>
-                        </div>
-                        </form>
+                            </form>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
 
     </div>
-    <script >
+
+
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+    <script>
         var password = document.getElementById("password"), confirm_password = document.getElementById("password2");
 
-        function validatePassword(){
-        if(password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
         }
 
         password.onchange = validatePassword;
         confirm_password.onkeyup = validatePassword;
     </script>
 </body>
+
 </html>

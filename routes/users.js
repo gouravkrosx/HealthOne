@@ -239,7 +239,7 @@ router.post('/Patient/register', upload.single('photo'), (req, res) => {
 //----------------patient-------------
 router.post('/Patient/login', (req, res, next) => {
   passport.authenticate('local-P', {
-    successRedirect: '/dashboard',
+    successRedirect: '/Pdashboard',
     failureRedirect: '/users/Patient/login',
     failureFlash: true
   })(req, res, next);
@@ -251,7 +251,7 @@ router.post('/Patient/login', (req, res, next) => {
 //-----------------doctor-----------------
 router.post('/Doctor/login', (req, res, next) => {
   passport.authenticate('local-D', {
-    successRedirect: '/dashboard',
+    successRedirect: '/Ddashboard',
     failureRedirect: '/users/Doctor/login',
     failureFlash: true
   })(req, res, next);
