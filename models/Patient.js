@@ -24,6 +24,10 @@ const UserSchema = new mongoose.Schema({
     phone: String,
     address: String
   },
+  photo: {
+    data: Buffer,
+    contentType: String
+  },
   sex: String,
   phone: String,
   illness: String,

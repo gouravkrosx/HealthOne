@@ -137,7 +137,8 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
 });
 
 //----------------patient--------------------
-router.post('/Patient/register', (req, res) => {
+router.post('/Patient/register', upload.single('photo'), (req, res) => {
+  console.log(req.file);
   const { name, address, dateOfBirth, password, sex, email, phone, password2,  emergencyName, emergencyPhone, emergencyAddress} = req.body;
   let errors = [];
 
@@ -163,6 +164,7 @@ router.post('/Patient/register', (req, res) => {
       emergencyName,
       emergencyPhone,
       password,
+      
       sex, 
       email, 
       phone,
@@ -198,6 +200,10 @@ router.post('/Patient/register', (req, res) => {
             phone: emergencyPhone,
             address: emergencyAddress
           },
+          photo: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: req.file.mimetype
+          },
           sex, 
           email, 
           phone,
@@ -215,7 +221,7 @@ router.post('/Patient/register', (req, res) => {
                   'You are now registered and can log in'
                 );
                 
-            console.log(newUser);
+                console.log(newUser);
                 res.redirect('/users/Patient/login');
               })
               .catch(err => console.log(err));

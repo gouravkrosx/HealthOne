@@ -25,7 +25,7 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <h3 class="register-heading">Fill your details</h3>
                         <% include ./partials/messages %>
-                        <form action="/users/Patient/register" method="POST">
+                        <form action="/users/Patient/register" method="POST" enctype="multipart/form-data">
                         <div class="row register-form">
                             
                             <div class="col-md-6">
@@ -70,7 +70,8 @@
                                 </div>
                                 
                             </div>
-                        
+                            <label for="photo">Enter Your Photograph</label>
+                            <input type="file" id="photo" required name="photo" accept="image/png, image/jpeg">
                         
                             
                             <div class="col-md-6">
