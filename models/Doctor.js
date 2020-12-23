@@ -24,7 +24,10 @@ const UserSchema = new mongoose.Schema({
   language:String,
   clinicAddress: String,
   clinicTiming: String,
-  photo: String,
+  photo: {
+    data: Buffer,
+    contentType: String
+  },
   sex: String,
   phone: String,
   speciality: String,

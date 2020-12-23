@@ -99,7 +99,7 @@
         <p class="lead mb-3">Welcome <%= user.name %></p>
         <p> <%=user%> </p>
         <a href="/users/logout" class="btn btn-secondary">Logout</a>
-        
+        <img src="data:image/<%=user.photo.contentType%>;base64,<%=user.photo.data.toString('base64')%>">
     </div>
 
 </body>

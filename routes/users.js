@@ -2,6 +2,21 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+//multer
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './routes/uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
+});
+ 
+var upload = multer({ storage: storage });
 
 // Load User model
 const DUser = require('../models/Doctor');
@@ -19,7 +34,8 @@ router.get('/Doctor/register', forwardAuthenticated, (req, res) => res.render('R
 
 // Register
 //-----------doc-----------
-router.post('/Doctor/register', (req, res) => {
+router.post('/Doctor/register', upload.single('photo'), (req, res) => {
+  console.log(req.file);
   const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, clinicTiming, speciality, phone, sex, email, password, password2 } = req.body;
   let errors = [];
 
@@ -84,6 +100,10 @@ router.post('/Doctor/register', (req, res) => {
           clinicAddress,
           clinicTiming,
           language,
+          photo: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: req.file.mimetype
+          },
           speciality, 
           phone, 
           sex, 
@@ -91,11 +111,13 @@ router.post('/Doctor/register', (req, res) => {
           password, 
           
         });
-
+        //<img src="data:image/<%=image.img.contentType%>;base64,
+        //<%=image.img.data.toString('base64')%>">
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
             newUser.password = hash;
+            
             
             newUser
               .save()
