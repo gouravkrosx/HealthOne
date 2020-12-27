@@ -93,9 +93,17 @@
                                                 value="<%= typeof speciality != 'undefined' ? speciality : '' %>" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" required class="form-control" name="clinicTiming"
+                                            <!-- <input type="text" required class="form-control" name="clinicTiming"
                                                 placeholder="Clinic Timings *"
-                                                value="<%= typeof clinicTiming != 'undefined' ? clinicTiming : '' %>" />
+                                                value="<%= typeof clinicTiming != 'undefined' ? clinicTiming : '' %>" /> -->
+                                            <p>Choose your clinic timings</p>
+                                            <label for="st">From</label>
+                                            <input type="time" id="st" name="startTime" required>
+                                            <label for="et">To</label>
+                                            <input type="time" id="et" name="endTime" required>
+
+
+
                                         </div>
                                         <div class="form-group">
                                             <input type="text" minlength="10" required maxlength="10" name="phone"

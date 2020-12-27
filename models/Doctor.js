@@ -23,7 +23,14 @@ const UserSchema = new mongoose.Schema({
   yearsOfPractice: String,
   language:String,
   clinicAddress: String,
-  clinicTiming: String,
+  clinicTiming:{
+    start:{
+      type:Date
+    },
+    end:{
+      type:Date
+    }
+  },
   photo: {
     data: Buffer,
     contentType: String

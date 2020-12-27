@@ -34,13 +34,27 @@
     <nav class="navbar navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand">Welcome <%= user.name %></a>
-        <form class="d-flex">
 
-          <a class="find" href="#"><button class="btn btn-info">Fix an Appointment</button></a>
-          <a class="find" href="#"><button class="btn btn-info">Find A Doctor</button></a>
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <a class="find" href="#"><button class="btn btn-info">Fix an Appointment</button></a>
+        <a class="find" href="#"><button class="btn btn-info">Find A Doctor</button></a>
+
+        <form class="d-flex" action="/Pdashboard" method="POST">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Options</label>
+            </div>
+            <select name="category" class="custom-select" id="inputGroupSelect01">
+              <option value="speciality">Speciality</option>
+              <option value="name">Name</option>
+            </select>
+          </div>
+          <input class="form-control me-2" name="search" type="text" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+
+
+
+
         <button class="logout btn btn-info"><a href="/users/logout">Logout</a></button>
       </div>
     </nav>
@@ -80,6 +94,8 @@
       <li><a href="#">Covid Update</a></li>
       <li><a href="#">My Appointments</a></li>
       <li><a href="#">Our Services</a></li>
+      <li><a href="/Pdashboard/PeditProfile">Edit Profile</a></li>
+
     </ul>
   </nav>
   <section class="landing">
