@@ -23,6 +23,7 @@ var upload = multer({ storage: storage });
 //--- Models of db
 const PUser = require('../models/Patient');
 const DUser = require('../models/Doctor');
+const appoint = require('../models/Appointment');
 
 
 //Homepage
@@ -146,7 +147,7 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
       } else {
         if (!foundUser) {
         } else {
-
+          console.log(stime + " " + etime);
           foundUser.name = name;
           foundUser.address = address;
           foundUser.dateOfBirth = new Date(dateOfBirth);
@@ -329,9 +330,29 @@ router.post('/Pdashboard', function (req, res) {
   }
 })
 
+// Appoitment page
+router.get("/Pdashboard/makeAnAppoitment/:did", ensureAuthenticated, function(req, res){
+    DUser.find({_id:req.params.did}, function(err, data){
+      let date = new Date(new Date().getTime() + 24*60*60*1000);
+      let tom = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+       date = new Date(new Date().getTime() + 48*60*60*1000);
+      let tom1 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+       date = new Date(new Date().getTime() + 72*60*60*1000);
+      let tom2 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+       date = new Date(new Date().getTime() + 96*60*60*1000);
+      let tom3 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+      date = new Date(new Date().getTime() + 120*60*60*1000);
+      let tom4 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+      date = new Date(new Date().getTime() + 144*60*60*1000);
+      let tom5 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+      res.render("MakeAppoitment", {doctor: data, patient:req.user , tom:tom, tom1:tom1, tom2:tom2, tom3:tom3, tom4:tom4, tom5:tom5});
+    });
+    //res.send(req.params.did);
+});
 
-
-
+router.post("/Pdashboard/makeAnAppoitment/:did", function(req, res){
+    
+})
 
 
 

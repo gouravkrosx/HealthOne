@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare</title>
+</head>
+<body>
+    <%= patient %>
+    <%= doctor %>
+    <form action="/Pdashboard/makeAnAppoitment/<%= doctor[0]._id %>" method="POST">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Choose a day for your Appointment</label>
+    </div>
+      <select name="category" class="custom-select" id="inputGroupSelect01">
+        <option value="today"><% if(doctor[0].clinicTiming.start.getHours() > new Date().getHours() || (doctor[0].clinicTiming.start.getHours() === new Date().getHours() && doctor[0].clinicTiming.start.getMinutes() > new Date().getMinutes()) ){ %>  today <% } %></option>
+        <option value="<%=tom%>"><%=tom%></option>
+        <option value="<%=tom1%>"><%=tom1%></option>
+        <option value="<%=tom2%>"><%=tom2%></option>
+        <option value="<%=tom3%>"><%=tom3%></option>
+        <option value="<%=tom4%>"><%=tom4%></option>
+        <option value="<%=tom5%>"><%=tom5%></option>
+      </select>
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Choose time</label>
+    </div>
+      <select name="category" class="custom-select" id="inputGroupSelect01">
+        <option value="time"><%= doctor[0].clinicTiming.start.getHours()%>:<%= doctor[0].clinicTiming.start.getMinutes()%> - <%= doctor[0].clinicTiming.end.getHours()%>:<%= doctor[0].clinicTiming.end.getMinutes()%></option>
+      </select>
+    <input type="text" hidden value="<%= doctor[0]._id %>">
+    <input type="submit">
+    </form>
+</body>
+</html>
