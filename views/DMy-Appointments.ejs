@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCare</title>
+</head>
+<body>
+    <h1>My Appointments</h1>
+    <%data.forEach(function(user){%>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top"
+            src="data:image/<%=user.patientPhoto.contentType%>;base64,<%=user.patientPhoto.data.toString('base64')%>"
+            alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">
+                Appointment with <%=user.patientName%>
+              </h5>
+            </div>
+              <li class="list-group-item">
+                <%= user.time.start.getHours()%>:<%= user.time.start.getMinutes()%> - <%= user.time.end.getHours()%>:<%= user.time.end.getMinutes()%>
+              </li>
+            </ul>
+            <div class="card-body">
+              <a href="#" class="card-link">View Profile</a>
+              <a href="#" class="card-link">Cancel Appointment</a>
+            </div>
+        </div>
+        <% })%>
+    
+</body>
+</html>

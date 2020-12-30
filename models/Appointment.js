@@ -2,7 +2,19 @@ const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
     patientId: String,
+    patientName: String,
+    patientPhoto:{
+        data: Buffer,
+        contentType: String
+    },
     doctorId: String,
+    doctorName: String,
+    doctorSpeciality: String,
+    clinicAddress: String,
+    doctorPhoto: {
+        data: Buffer,
+        contentType: String
+    },
     prescription: {
         date: Date,
         text: String
@@ -10,7 +22,10 @@ const appointmentSchema = new mongoose.Schema({
     pFlag: Number,
     dFlag: Number,
     date: Date,
-    time: String,
+    time: {
+        start: Date,
+        end: Date 
+    },
     description: String
 });
 

@@ -66,7 +66,7 @@ router.get('/Pdashboard', ensureAuthenticated, (req, res) => {
 //---------doctor-----------
 
 router.get('/Ddashboard/DeditProfile', ensureAuthenticated, (req, res) => {
-  var yourDate = new Date();
+  var yourDate = req.user.dateOfBirth;
   var daTe = yourDate.toISOString().split('T')[0]
 
   let shr = req.user.clinicTiming.start.getHours();
@@ -333,27 +333,77 @@ router.post('/Pdashboard', function (req, res) {
 // Appoitment page
 router.get("/Pdashboard/makeAnAppoitment/:did", ensureAuthenticated, function(req, res){
     DUser.find({_id:req.params.did}, function(err, data){
-      let date = new Date(new Date().getTime() + 24*60*60*1000);
-      let tom = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+      let date = new Date();
+      let today = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + (date.getDate())  ;
+      date = new Date(new Date().getTime() + 24*60*60*1000);
+      let tom = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + (date.getDate()) ;
        date = new Date(new Date().getTime() + 48*60*60*1000);
-      let tom1 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+      let tom1 = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + (date.getDate()) ;
        date = new Date(new Date().getTime() + 72*60*60*1000);
-      let tom2 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+      let tom2 = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + (date.getDate()) ;
        date = new Date(new Date().getTime() + 96*60*60*1000);
-      let tom3 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+      let tom3 = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + (date.getDate()) ;
       date = new Date(new Date().getTime() + 120*60*60*1000);
-      let tom4 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
+      let tom4 = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + (date.getDate()) ;
       date = new Date(new Date().getTime() + 144*60*60*1000);
-      let tom5 = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
-      res.render("MakeAppoitment", {doctor: data, patient:req.user , tom:tom, tom1:tom1, tom2:tom2, tom3:tom3, tom4:tom4, tom5:tom5});
+      let tom5 = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + (date.getDate()) ;
+      res.render("MakeAppoitment", {doctor: data, patient:req.user , today:today, tom:tom, tom1:tom1, tom2:tom2, tom3:tom3, tom4:tom4, tom5:tom5});
     });
     //res.send(req.params.did);
 });
 
 router.post("/Pdashboard/makeAnAppoitment/:did", function(req, res){
+    console.log(req.user._id);
     
-})
+    var t ;
+      DUser.find({_id: req.body.doctorId}, function(err, data){
+      if(err) console.log(err);
+      else{
+        t = data[0].clinicTiming;
+        console.log(t);
+        
+        const appointment = new appoint({
+          patientId: req.user._id,
+          patientName: req.user.name,
+          patientPhoto: req.user.photo,
+          doctorId: req.params.did,
+          doctorName: data[0].name,
+          doctorSpeciality: data[0].speciality,
+          clinicAddress: data[0].clinicAddress,
+          doctorPhoto: data[0].photo,
+          date:  new Date(req.body.day),
+          time: t
+        });
+        //console.log(t);
+        appointment.save().then(()=>{
+          res.redirect("/Pdashboard/myAppointments");
+        });
+        
+        }
+    })
+    
+});
 
+// Route for showing "My appointments" for patient
+router.get("/Pdashboard/PmyAppointments", ensureAuthenticated,function(req, res){
+  appoint.find({patientId: req.user._id}, function(err, data){
+    if(err)
+      console.log(err);
+    else{
+      res.render("PMy-Appointments", {data:data});
+    }
+  })
+});
 
+//Route for showing "My Appointments" for doctor
+router.get("/Ddashboard/DmyAppointments", ensureAuthenticated, function(req, res){
+  appoint.find({doctorId:req.user._id}, function(err, data){
+    if(err)
+      console.log(err);
+    else{
+      res.render("DMy-Appointments", {data: data});
+    }
+  })
+});
 
 module.exports = router;
