@@ -12,6 +12,7 @@
 <body>
     <%= patient %>
     <%= doctor %>
+    <% include ./partials/messages %>
     <form action="/Pdashboard/makeAnAppoitment/<%= doctor[0]._id %>" method="POST">
     <div class="input-group-prepend">
         <label class="input-group-text" for="inputGroupSelect01">Choose a day for your Appointment</label>

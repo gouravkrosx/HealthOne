@@ -22,6 +22,7 @@ const appointmentSchema = new mongoose.Schema({
     pFlag: Number,
     dFlag: Number,
     date: Date,
+    bookedAt: Date,
     time: {
         start: Date,
         end: Date 
