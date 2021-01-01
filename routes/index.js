@@ -8,6 +8,22 @@ const fs = require('fs');
 const _ = require('lodash');
 const moment = require('moment');
 
+//Change get to delete request
+router.use( function( req, res, next ) {
+  // this middleware will call for each requested
+  // and we checked for the requested query properties
+  // if _method was existed
+  // then we know, clients need to call DELETE request instead
+  if ( req.query._method == 'DELETE' ) {
+      // change the original METHOD
+      // into DELETE method
+      req.method = 'DELETE';
+      // and set requested url to /user/12
+      req.url = req.path;
+  }       
+  next(); 
+});
+
 //multer
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -361,32 +377,46 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function(req, res){
       else{
         t = data[0].clinicTiming;
         console.log(req.body.day);
+        appoint.find({doctorId: req.params.did, date: new Date(req.body.day)}, function(err, arr){
+          if(err)
+            console.log(err);
+          else{
+            if(arr.length>=2){
+              req.flash('error_msg', 'Slots full on '+req.body.day);
+              res.redirect("/Pdashboard/makeAnAppoitment/"+req.params.did);
+            }
+            else{
+              console.log(arr.length);
+              const appointment = new appoint({
+                patientId: req.user._id,
+                patientName: req.user.name,
+                patientPhoto: req.user.photo,
+                doctorId: req.params.did,
+                doctorName: data[0].name,
+                doctorSpeciality: data[0].speciality,
+                clinicAddress: data[0].clinicAddress,
+                doctorPhoto: data[0].photo,
+                date:  new Date(req.body.day),
+                bookedAt: new Date(),
+                time: t
+              });
+              //console.log(t);
+              appointment.save().then(()=>{
+                res.redirect("/Pdashboard/PmyAppointments");
+              });
+              
+            }
+          }
+        })
         
-        const appointment = new appoint({
-          patientId: req.user._id,
-          patientName: req.user.name,
-          patientPhoto: req.user.photo,
-          doctorId: req.params.did,
-          doctorName: data[0].name,
-          doctorSpeciality: data[0].speciality,
-          clinicAddress: data[0].clinicAddress,
-          doctorPhoto: data[0].photo,
-          date:  new Date(req.body.day),
-          time: t
-        });
-        //console.log(t);
-        appointment.save().then(()=>{
-          res.redirect("/Pdashboard/PmyAppointments");
-        });
-        
-        }
+      }
     })
     
 });
 
 // Route for showing "My appointments" for patient
 router.get("/Pdashboard/PmyAppointments", ensureAuthenticated,function(req, res){
-  appoint.find({patientId: req.user._id}, function(err, data){
+  appoint.find({patientId: req.user._id}, null, {sort: {date: 1 , bookedAt: 1}}, function(err, data){
     if(err)
       console.log(err);
     else{
@@ -397,7 +427,7 @@ router.get("/Pdashboard/PmyAppointments", ensureAuthenticated,function(req, res)
 
 //Route for showing "My Appointments" for doctor
 router.get("/Ddashboard/DmyAppointments", ensureAuthenticated, function(req, res){
-  appoint.find({doctorId:req.user._id}, function(err, data){
+  appoint.find({doctorId:req.user._id}, null, {sort: {date: 1 , bookedAt: 1}}, function(err, data){
     if(err)
       console.log(err);
     else{
@@ -405,5 +435,25 @@ router.get("/Ddashboard/DmyAppointments", ensureAuthenticated, function(req, res
     }
   })
 });
+
+//Cancel Appointment for patient
+router.delete("/Pdelete/:id", function(req, res){
+  appoint.remove({_id:req.params.id}, function(err, r){
+    if(err)
+      console.log(err);
+    else
+      res.redirect("/Pdashboard/PmyAppointments");
+  })
+})
+
+//Cancel Appointment for doctor
+router.delete("/Ddelete/:id", function(req, res){
+  appoint.remove({_id:req.params.id}, function(err, r){
+    if(err)
+      console.log(err);
+    else
+      res.redirect("/Ddashboard/DmyAppointments");
+  })
+})
 
 module.exports = router;
