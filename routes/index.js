@@ -8,6 +8,7 @@ const fs = require('fs');
 const _ = require('lodash');
 
 
+
 //multer
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -23,6 +24,7 @@ var upload = multer({ storage: storage });
 //--- Models of db
 const PUser = require('../models/Patient');
 const DUser = require('../models/Doctor');
+const { mainModule } = require('process');
 
 
 //Homepage
@@ -268,14 +270,51 @@ router.post('/Pdashboard/PeditProfile', upload.single('photo'), (req, res) => {
             address: emergencyAddress
           }
 
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(req.body.password, salt, (err, hash) => {
-              if (err) throw err;
-              console.log("old Pass=>" + foundUser.password);
-              foundUser.password = hash;
-              console.log("new Pass=>" + foundUser.password);
-            });
-          });
+          console.log("abhi tak to bhar hi hu");
+
+          PUser.schema.pre('save', async function (next) {
+            console.log('just before saving')
+            console.log(this);
+            console.log(foundUser);
+
+            const rounds = 10; // What you want number for round paasword
+
+            const hash = await bcrypt.hash(this.password, rounds);
+            this.password = hash;
+            next()
+          })
+
+
+          // PUser.schema.pre('save', function (next) {
+          //   var user = this;
+          //   console.log(user);
+          //   console.log(foundUser);
+          //   console.log("chal andr to agya");
+          //   // only hash the password if it has been modified or is new
+          //   if (!user.isModified('hash')) return next();
+          //   // generate a salt
+          //   bcrypt.genSalt(10, function (err, salt) {
+          //     if (err) return next(err);
+          //     // hashing the password using our new salt
+          //     bcrypt.hash(user.hash, salt, function (err, hash) {
+          //       if (err) return next(err);
+          //       // override the password with the hashed one
+          //       foundUser.password = hash;
+          //       user.hash = hash;
+          //       next();
+          //     });
+          //   });
+          // });
+
+
+          // bcrypt.genSalt(10, (err, salt) => {
+          //   bcrypt.hash(req.body.password, salt, (err, hash) => {
+          //     if (err) throw err;
+          //     console.log("old Pass=>" + foundUser.password);
+          //     foundUser.password = hash;
+          //     console.log("new Pass=>" + foundUser.password);
+          //   });
+          // });
 
 
           foundUser.save(function (err) {

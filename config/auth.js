@@ -15,6 +15,8 @@ module.exports = {
     if (!req.isAuthenticated()) {
       return next();
     } else {
+
+      //we did this because when we were logged in patient account, and also we were getting access of patient acc through doctor acc also.
       if (Object.getPrototypeOf(req.user) === PUser.prototype) {
         if (req.url[1] === 'P') {
           res.redirect('/Pdashboard')
