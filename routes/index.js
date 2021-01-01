@@ -6,7 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
-
+const moment = require('moment');
 
 //multer
 var storage = multer.diskStorage({
@@ -360,7 +360,7 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function(req, res){
       if(err) console.log(err);
       else{
         t = data[0].clinicTiming;
-        console.log(t);
+        console.log(req.body.day);
         
         const appointment = new appoint({
           patientId: req.user._id,
@@ -376,7 +376,7 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function(req, res){
         });
         //console.log(t);
         appointment.save().then(()=>{
-          res.redirect("/Pdashboard/myAppointments");
+          res.redirect("/Pdashboard/PmyAppointments");
         });
         
         }

@@ -10,6 +10,7 @@
           
         }
       </style>
+     
 </head>
 <body>
     <h1>My Appointments</h1>
@@ -25,13 +26,17 @@
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            Speciality: <%=user.doctorSpeciality%>
+            <strong>Speciality:</strong> <%=user.doctorSpeciality%>
           </li>
           <li class="list-group-item">
-            Address: <%=user.clinicAddress%>
+            <strong>Address:</strong> <%=user.clinicAddress%>
+          </li>
+          
+          <li class="list-group-item">
+            <strong>Date:</strong>  <%=user.date%>
           </li>
           <li class="list-group-item">
-            <%= user.time.start.getHours()%>:<%= user.time.start.getMinutes()%> - <%= user.time.end.getHours()%>:<%= user.time.end.getMinutes()%>
+            <strong>Time: </strong><%= user.time.start.getHours()%>:<%= user.time.start.getMinutes()%> - <%= user.time.end.getHours()%>:<%= user.time.end.getMinutes()%>
           </li>
         </ul>
         <div class="card-body">
