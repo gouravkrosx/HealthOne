@@ -6,7 +6,23 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
+const moment = require('moment');
 
+//Change get to delete request
+router.use(function (req, res, next) {
+  // this middleware will call for each requested
+  // and we checked for the requested query properties
+  // if _method was existed
+  // then we know, clients need to call DELETE request instead
+  if (req.query._method == 'DELETE') {
+    // change the original METHOD
+    // into DELETE method
+    req.method = 'DELETE';
+    // and set requested url to /user/12
+    req.url = req.path;
+  }
+  next();
+});
 
 
 //multer
@@ -25,6 +41,7 @@ var upload = multer({ storage: storage });
 const PUser = require('../models/Patient');
 const DUser = require('../models/Doctor');
 const { mainModule } = require('process');
+const appoint = require('../models/Appointment');
 
 
 //Homepage
@@ -67,7 +84,7 @@ router.get('/Pdashboard', ensureAuthenticated, (req, res) => {
 //---------doctor-----------
 
 router.get('/Ddashboard/DeditProfile', ensureAuthenticated, (req, res) => {
-  var yourDate = new Date();
+  var yourDate = req.user.dateOfBirth;
   var daTe = yourDate.toISOString().split('T')[0]
 
   let shr = req.user.clinicTiming.start.getHours();
@@ -148,7 +165,7 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
       } else {
         if (!foundUser) {
         } else {
-
+          console.log(stime + " " + etime);
           foundUser.name = name;
           foundUser.address = address;
           foundUser.dateOfBirth = new Date(dateOfBirth);
@@ -368,10 +385,145 @@ router.post('/Pdashboard', function (req, res) {
   }
 })
 
+// Appoitment page
+router.get("/Pdashboard/makeAnAppoitment/:did", ensureAuthenticated, function (req, res) {
+  DUser.find({ _id: req.params.did }, function (err, data) {
+    let date = new Date();
+    let today = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+    date = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+    let tom = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+    date = new Date(new Date().getTime() + 48 * 60 * 60 * 1000);
+    let tom1 = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+    date = new Date(new Date().getTime() + 72 * 60 * 60 * 1000);
+    let tom2 = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+    date = new Date(new Date().getTime() + 96 * 60 * 60 * 1000);
+    let tom3 = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+    date = new Date(new Date().getTime() + 120 * 60 * 60 * 1000);
+    let tom4 = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+    date = new Date(new Date().getTime() + 144 * 60 * 60 * 1000);
+    let tom5 = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+    res.render("MakeAppoitment", { doctor: data, patient: req.user, today: today, tom: tom, tom1: tom1, tom2: tom2, tom3: tom3, tom4: tom4, tom5: tom5 });
+  });
+  //res.send(req.params.did);
+});
 
+router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
+  console.log(req.user._id);
 
+  var t;
+  DUser.find({ _id: req.body.doctorId }, function (err, data) {
+    if (err) console.log(err);
+    else {
+      t = data[0].clinicTiming;
+      console.log(req.body.day);
+      appoint.find({ doctorId: req.params.did, date: new Date(req.body.day) }, function (err, arr) {
+        if (err)
+          console.log(err);
+        else {
+          if (arr.length >= 2) {
+            req.flash('error_msg', 'Slots full on ' + req.body.day);
+            res.redirect("/Pdashboard/makeAnAppoitment/" + req.params.did);
+          }
+          else {
+            console.log(arr.length);
+            const appointment = new appoint({
+              patientId: req.user._id,
+              patientName: req.user.name,
+              patientPhoto: req.user.photo,
+              doctorId: req.params.did,
+              doctorName: data[0].name,
+              doctorSpeciality: data[0].speciality,
+              clinicAddress: data[0].clinicAddress,
+              doctorPhoto: data[0].photo,
+              date: new Date(req.body.day),
+              bookedAt: new Date(),
+              time: t
+            });
+            //console.log(t);
+            appointment.save().then(() => {
+              res.redirect("/Pdashboard/PmyAppointments");
+            });
 
+          }
+        }
+      })
 
+    }
+  })
+
+});
+
+// Route for showing "My appointments" for patient
+router.get("/Pdashboard/PmyAppointments", ensureAuthenticated, function (req, res) {
+  appoint.find({ patientId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
+    if (err)
+      console.log(err);
+    else {
+      res.render("PMy-Appointments", { data: data });
+    }
+  })
+});
+
+//Route for showing "My Appointments" for doctor
+router.get("/Ddashboard/DmyAppointments", ensureAuthenticated, function (req, res) {
+  appoint.find({ doctorId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
+    if (err)
+      console.log(err);
+    else {
+      res.render("DMy-Appointments", { data: data });
+    }
+  })
+});
+
+//Cancel Appointment for patient
+router.delete("/Pdelete/:id", function (req, res) {
+  appoint.deleteOne({ _id: req.params.id }, function (err, r) {
+    if (err)
+      console.log(err);
+    else
+      res.redirect("/Pdashboard/PmyAppointments");
+  })
+})
+
+//Cancel Appointment for doctor
+router.delete("/Ddelete/:id", function (req, res) {
+  appoint.deleteOne({ _id: req.params.id }, function (err, r) {
+    if (err)
+      console.log(err);
+    else
+      res.redirect("/Ddashboard/DmyAppointments");
+  })
+})
+
+//for Prescriptions
+router.get("/Ddashboard/DmyAppointments/Prescription/:appid", ensureAuthenticated, function (req, res) {
+  res.render("Prescription", { appid: req.params.appid });
+})
+
+router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('photo'), function (req, res) {
+  let appid = req.params.apid;
+
+  console.log(appid);
+
+  appoint.findByIdAndUpdate({ _id: appid }, {
+    prescription: {
+      photo: {
+        data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+        contentType: req.file.mimetype
+      },
+      Pdate: new Date().toLocaleDateString()
+    }, dFlag: 1
+  }, function (err, foundUser) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUser) {
+        console.log("ha user hai yaha");
+      }
+      res.redirect("/Ddashboard/DmyAppointments")
+    }
+  });
+});
 
 
 module.exports = router;

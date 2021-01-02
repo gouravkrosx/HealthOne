@@ -19,14 +19,14 @@
 
   <%data.forEach(function(user){%>
 
-    <div class="card" style="width: 18rem;">
+    <div class="card " style="width: 18rem;">
       <img class="card-img-top"
         src="data:image/<%=user.photo.contentType%>;base64,<%=user.photo.data.toString('base64')%>"
         alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">
-          <%=user.name%>
-        </h5>
+        <h3 class="card-title">
+          Dr. <%=user.name%>
+        </h3>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
           content.</p>
       </div>
@@ -35,7 +35,7 @@
           <%=user.sex%>
         </li>
         <li class="list-group-item">
-          <%=user.speciality%>>
+          <strong>Speciality: </strong> <%=user.speciality%>
         </li>
         <li class="list-group-item">
           <%=user.yearsOfPractice%>
@@ -43,7 +43,7 @@
       </ul>
       <div class="card-body">
         <a href="#" class="card-link">View Profile</a>
-        <a href="#" class="card-link">make an Appointment</a>
+        <a href="/Pdashboard/makeAnAppoitment/<%= user._id %>" class="card-link">make an Appointment</a>
       </div>
     </div>
     <% })%>

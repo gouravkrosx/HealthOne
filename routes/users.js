@@ -282,7 +282,7 @@ router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'You are logged out');
   res.redirect('/');
-});
+}); 
 
 
 module.exports = router;
