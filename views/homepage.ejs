@@ -18,6 +18,32 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
+    <script>
+      function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        h = fun(h);
+        h = checkTime(h);
+        m = checkTime(m);
+        s = checkTime(s);
+        var am_pm = today.getHours() >= 12 ? "PM" : "AM";
+        document.getElementById('clock').innerHTML =
+          h + ":" + m + ":" + s + ' ' + am_pm;
+        var t = setTimeout(startTime, 500);
+        function fun(h) {
+          if (h > 12) { h = h - 12 }
+          return h;
+        }
+      }
+      // add zero in front of numbers < 10
+      function checkTime(i) {
+        if (i < 10) { i = "0" + i };
+        return i;
+      }
+    </script>
+
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -93,7 +119,7 @@
   <link href="css/cover.css" rel="stylesheet">
 </head>
 
-<body class="d-flex h-100 text-center text-white bg-dark">
+<body onload="startTime()" class="d-flex h-100 text-center text-white bg-dark">
 
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
@@ -120,6 +146,10 @@
       <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a
           href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
     </footer>
+    <p>
+      <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }).format(new Date()) %>
+    </p>
+    <div id="clock"></div>
   </div>
 
 
