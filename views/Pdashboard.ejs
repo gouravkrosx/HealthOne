@@ -1,112 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <title>RGS HEALTH CARE</title>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>GRS Health Care</title>
-  <link rel="stylesheet" href="css/stylep.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Montserrat"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link rel="stylesheet" href="css/styleP.css" />
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet" />
+  <link
+  href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu"
+  rel="stylesheet"
+/>
 
-  <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+<!-- CSS Stylesheets -->
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- Font Awesome -->
-  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+<!-- Font Awesome -->
+<script
+  defer
+  src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"
+></script>
 
-  <!-- Bootstrap Scripts -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-</head>
+<!-- Bootstrap Scripts -->
+<script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"
+></script>
 
-<body>
-  <div class="top-bar">
-    <nav class="navbar navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand">Welcome <%= user.name %></a>
-
-        <a class="find" href="/Pdashboard/PmyAppointments"><button class="btn btn-info">My Appointments</button></a>
-        <!-- <a class="find" href="#"><button class="btn btn-info">Find A Doctor</button></a> -->
-
-        <form class="d-flex" action="/Pdashboard" method="POST">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Options</label>
-            </div>
-            <select name="category" class="custom-select" id="inputGroupSelect01">
-              <option value="speciality">Speciality</option>
-              <option value="name">Name</option>
-            </select>
+<script
+  src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"
+></script>
+<style>
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Lato", sans-serif;
+  }
+  .w3-bar,
+    h1,
+    button {
+      font-family: "Montserrat", sans-serif;
+    }
+    .fa-anchor,
+    .fa-coffee {
+      font-size: 200px;
+    }
+    .container{
+      margin: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    body{
+      background-color:  #f1f9f9;
+    }
+    </style>
+      <script>
+        function startTime() {
+          var today = new Date();
+          var h = today.getHours();
+          var m = today.getMinutes();
+          var s = today.getSeconds();
+          h = fun(h);
+          h = checkTime(h);
+          m = checkTime(m);
+          s = checkTime(s);
+          var am_pm = today.getHours() >= 12 ? "PM" : "AM";
+          document.getElementById('clock').innerHTML =
+            h + ":" + m + ":" + s + ' ' + am_pm;
+          var t = setTimeout(startTime, 500);
+          function fun(h) {
+            if (h > 12) { h = h - 12 }
+            return h;
+          }
+        }
+        // add zero in front of numbers < 10
+        function checkTime(i) {
+          if (i < 10) { i = "0" + i };
+          return i;
+        }
+      </script>
+  </head>
+  <body onload="startTime()" class="d-flex h-100 ">
+    
+    <!-- Navbar -->
+    <div class="w3-top myclass">      
+      <div class="top-bar">
+        <nav class="navbar navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand">Welcome <%= user.name %></a>
+            <a class="find" href="#"
+                ><button class="btn btn-info">Fix an Appointment</button></a
+              >
+              <a class="find" href="#"
+                ><button class="btn btn-info">Find A Doctor</button></a
+              >
+            <form action="/Pdashboard" method="POST">
+              
+              <!-- <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button> -->
+             
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                      </div>
+                      <select name="category" class="custom-select" id="inputGroupSelect01">
+                        <option value="speciality">Speciality</option>
+                        <option value="name">Name</option>
+                      </select>
+                    </div>
+                    <div class="myinput">
+                    <input class="form-control me-2" name="search" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              </div>
+            </form>
+            <!-- <button class="logout btn btn-info">
+              <a href="/users/logout">Logout</a>
+            </button> -->
           </div>
-          <input class="form-control me-2" name="search" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-
-
-
-
-        <button class="logout btn btn-info"><a href="/users/logout">Logout</a></button>
+        </nav>
       </div>
-    </nav>
-  </div>
-  <!-- <div class="top-bar container">
-      <ul class="top-nav-bar">
-        <li>
-          <div class="logo">
-            <ul>
-              <li>
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZgIjTebbObqvbNBHZcbKW0yDxOeHnHk4RSA&usqp=CAU"
-                  alt="logo"
-                  style="height: 40px;"
-                />
-              </li>
-              <li><h1>hi sarthak</h1></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <a href="#"><button class="btn btn-info">Find A Doctor</button></a>
-        </li>
-        <li>
-          <a href="#"><button class="btn btn-info">Appoint A Doctor</button></a>
-        </li>
-      </ul>
-    </div> -->
-  <nav>
-    <div class="hamburger">
-      <div class="line"></div>
-      <div class="line"></div>
-      <div class="line"></div>
+      <div class="w3-bar w3-card w3-left-align w3-large myclass">
+        <a
+          class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large myclass"
+          href="javascript:void(0);"
+          onclick="myFunctions()"
+          title="Toggle Navigation Menu"
+          ><i class="fa fa-bars"></i
+        ></a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white"
+         onclick="myFunctions()">Profile</a
+        >
+        <a
+          href="#"
+          class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+          >For patients</a
+        >
+        <a
+          href="#"
+          class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+          >Covid Update</a
+        >
+        <a
+          href="/Pdashboard/PmyAppointments"
+          class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+          >My Appointments</a
+        >
+        <a
+          href="#"
+          class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+          >Our Services</a
+        >
+        <a
+          href="/users/logout"
+          class="Logout w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+          >Logout</a
+        >
+      </div>
+
+      <!-- Navbar on small screens -->
+      <div
+        id="navDemo myclass"
+        class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large"
+      >
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">For patients</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Covid Update</a>
+        <a href="/Pdashboard/PmyAppointments" class="w3-bar-item w3-button w3-padding-large">My Appointments</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Our Services</a>
+        <a href="/users/logout" class="Logout w3-bar-item w3-button w3-padding-large"
+          >Logout</a
+        >
+      </div>
     </div>
-    <ul class="nav-links">
-      <li><a href="#">For patients</a></li>
-      <li><a href="#">Covid Update</a></li>
-      <li><a href="#">My Appointments</a></li>
-      <li><a href="#">Our Services</a></li>
-      <li><a href="/Pdashboard/PeditProfile">Edit Profile</a></li>
 
-    </ul>
-  </nav>
-  <section class="landing">
-    <!-- <img
-        src="data:image/png;base64,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"
-        alt="doctor"
-      /> -->
-    <h1>Your Life, We Care!</h1>
-    <img src="data:image/<%=user.photo.contentType%>;base64,<%=user.photo.data.toString('base64')%>" alt="">
-  </section>
-  <script src="/public/js/style.js"></script>
-</body>
 
+    <!-- Header -->
+    <div class="Mycontainer">
+    <header
+      class="w3-container w3-center"
+      style="padding: 70px 16px;"
+      id="myheader"
+      >
+      <h3 class="w3-margin myheading">Your Profile</h3>
+      <p class="w3-xlarge"><img id="user-image" src="data:image/<%=user.photo.contentType%>;base64,<%=user.photo.data.toString('base64')%>" alt="user-image"></p>
+      <a href="/Pdashboard/PeditProfile"> <button
+        class="w3-button w3-black w3-padding-large w3-large w3-margin-top"
+      >
+        Edit Profile
+      </button>
+    </a>
+    </header>
+
+    <!-- First Grid -->
+    <div class="w3-row-padding w3-padding-64 w3-container">
+      <div class="w3-content">
+        <div class="w3-twothird">
+          <h1>Lorem Ipsum</h1>
+          <h5 class="w3-padding-32">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </h5>
+
+          <p class="w3-text-grey">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat
+            non proident, sunt in culpa qui officia deserunt mollit anim id est
+            laborum consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.
+          </p>
+        </div>
+
+        <div class="w3-third w3-center">
+          <!-- <i class="fa fa-anchor w3-padding-64"></i> -->
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfo0w4REC5HbJ-5YkfLDHinLOzxeh2sG47hw&usqp=CAU"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Grid -->
+    <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+      <div class="w3-content">
+        <div class="w3-third w3-center">
+          <!-- <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i> -->
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoabOpr2WmVDLZ2l-pIgPjFzFLvJMXGX8HSw&usqp=CAU"
+            alt=""
+          />
+        </div>
+
+        <div class="w3-twothird">
+          <h1>Lorem Ipsum</h1>
+          <h5 class="w3-padding-32">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </h5>
+
+          <p class="w3-text-grey">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat
+            non proident, sunt in culpa qui officia deserunt mollit anim id est
+            laborum consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>  
+    <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+      <h1 class="w3-margin w3-xlarge">Quote of the day: live life</h1>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-64 w3-center w3-opacity">
+      <div class="w3-xlarge w3-padding-32">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+      </div>
+      <p>
+        Powered by
+        <a href="https://www.w3schools.com/w3css/default.asp" target="_blank"
+          >RGS Health Care</a
+        >
+      </p>
+      <p>
+        <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }).format(new Date()) %>
+      </p>
+      <div id="clock"></div>
+    </footer>
+      <script src="js/style.js"></script>
+    <script>
+      // Used to toggle the menu on small screens when clicking on the menu button
+      function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+          x.className += " w3-show";
+        } else {
+          x.className = x.className.replace(" w3-show", "");
+        }
+      }
+    </script>
+  </body>
 </html>
