@@ -41,6 +41,7 @@ const UserSchema = new mongoose.Schema({
   patients: [{
       id: String
   }],
+  consultancyFees:Number,
   acheivements: []
 });
 

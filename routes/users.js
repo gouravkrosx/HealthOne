@@ -38,10 +38,10 @@ router.get('/Doctor/register', forwardAuthenticated, (req, res) => res.render('R
 //-----------doc-----------
 router.post('/Doctor/register', upload.single('photo'), (req, res) => {
   console.log(req.file);
-  const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, speciality, phone, sex, email, password, password2, startTime, endTime } = req.body;
+  const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, speciality, phone, sex, email, password, password2, startTime, endTime, consultancyFees } = req.body;
   let errors = [];
 
-  if (!name || !email || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex) {
+  if (!name || !email || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex || !consultancyFees) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -67,6 +67,7 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
       phone,
       sex,
       email,
+      consultancyFees,
       password,
       password2
     });
@@ -106,6 +107,7 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
           phone,
           sex,
           email,
+          consultancyFees,
           password,
           password2
         });
@@ -131,11 +133,13 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
           sex,
           email,
           password,
+          consultancyFees,
 
         });
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
+            console.log("register user pass start wlala"+newUser.password)
             newUser.password = hash;
 
 
@@ -282,7 +286,7 @@ router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'You are logged out');
   res.redirect('/');
-}); 
+});
 
 
 module.exports = router;

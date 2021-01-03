@@ -112,6 +112,14 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <input type="text"
+                                                name="consultancyFees" class="form-control"
+                                                placeholder="ConsultancyFees *"
+                                                value="<%= typeof  consultancyFees != 'undefined' ?  consultancyFees : '' %>" />
+                                        </div>
+
+
+                                        <div class="form-group">
                                             <input type="password" required class="form-control" id="password"
                                                 name="password" placeholder="Password *"
                                                 value="<%= typeof password != 'undefined' ? password : '' %>" />
@@ -121,6 +129,7 @@
                                                 name="password2" placeholder="Confirm Password *"
                                                 value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
                                         </div>
+                                        
                                         <button type="submit" class="btnRegister">Register</button>
                                     </div>
                                     <label for="photo">Upload your profile picture</label>
