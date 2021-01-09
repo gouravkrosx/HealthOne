@@ -31,10 +31,13 @@ const appointmentSchema = new mongoose.Schema({
     pFlag: Number,
     dFlag: Number,
     date: Date,
+    datE: String,
     bookedAt: Date,
     time: {
         start: Date,
-        end: Date
+        end: Date,
+        Start: String,
+        End: String
     },
     description: String
 });

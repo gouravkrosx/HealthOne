@@ -29,7 +29,9 @@ const UserSchema = new mongoose.Schema({
     },
     end:{
       type:Date
-    }
+    },
+    Start: String,
+    End: String
   },
   photo: {
     data: Buffer,

@@ -27,7 +27,7 @@ module.exports = function (passport) {
 
     let sessionConstructor = new SessionConstructor(userObject.id, userGroup, '');
 
-    console.log(sessionConstructor);
+    //console.log(sessionConstructor);
     done(null, sessionConstructor);
   });
 

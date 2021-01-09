@@ -112,11 +112,15 @@
               <label class="input-group-text" for="inputGroupSelect01">Choose a day for your Appointment</label>
             </div>
             <select name="day" class="custom-select" id="inputGroupSelect01">
+              
+              <% if(doctor[0].clinicTiming.start.getHours()> new Date().getHours() ||
+              (doctor[0].clinicTiming.start.getHours() === new Date().getHours() &&
+              doctor[0].clinicTiming.start.getMinutes() > new Date().getMinutes()) ){ %> 
               <option value="<%=today%>">
-                <% if(doctor[0].clinicTiming.start.getHours()> new Date().getHours() ||
-                  (doctor[0].clinicTiming.start.getHours() === new Date().getHours() &&
-                  doctor[0].clinicTiming.start.getMinutes() > new Date().getMinutes()) ){ %> today <% } %>
+                today
               </option>
+              <% } %>
+              
               <option value="<%=tom%>">
                 <%=tom%>
               </option>
@@ -141,8 +145,7 @@
             </div>
             <select name="time" class="custom-select" id="inputGroupSelect01">
               <option value="time">
-                <%= doctor[0].clinicTiming.start.getHours()%>:<%= doctor[0].clinicTiming.start.getMinutes()%> - <%=
-                      doctor[0].clinicTiming.end.getHours()%>:<%= doctor[0].clinicTiming.end.getMinutes()%>
+                <%= doctor[0].clinicTiming.Start%> - <%=doctor[0].clinicTiming.End%>
               </option>
             </select>
             <input type="text" name="doctorId" hidden value="<%= doctor[0]._id %>">

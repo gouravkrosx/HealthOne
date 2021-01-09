@@ -119,7 +119,7 @@ router.get('/Ddashboard/DeditProfile', ensureAuthenticated, (req, res) => {
     etime += emin;
   }
 
-  console.log(stime + " " + etime);
+  //console.log(stime + " " + etime);
   res.render('DeditProfile', { user: req.user, date: daTe, start: stime, end: etime });
 });
 
@@ -143,7 +143,7 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
     res.redirect("/Ddashboard/DeditProfile");
   } else {
 
-    console.log(req.body);
+    //console.log(req.body);
 
 
     //clinic timings
@@ -165,7 +165,7 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
       } else {
         if (!foundUser) {
         } else {
-          console.log(stime + " " + etime);
+          //console.log(stime + " " + etime);
           foundUser.name = name;
           foundUser.address = address;
           foundUser.dateOfBirth = new Date(dateOfBirth);
@@ -207,7 +207,7 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
                     'success_msg',
                     'You have updated your profile'
                   );
-                  console.log(foundUser);
+                  //console.log(foundUser);
                   res.redirect('/Ddashboard');
                 })
                 .catch(err => console.log(err));
@@ -283,7 +283,7 @@ router.post('/Pdashboard/PeditProfile', upload.single('photo'), (req, res) => {
             address: emergencyAddress
           }
 
-          console.log("abhi tak to bhar hi hu");
+          //console.log("abhi tak to bhar hi hu");
 
 
           bcrypt.genSalt(10, (err, salt) => {
@@ -296,7 +296,7 @@ router.post('/Pdashboard/PeditProfile', upload.single('photo'), (req, res) => {
                     'success_msg',
                     'You have updated your profile'
                   );
-                  console.log(foundUser);
+                  //console.log(foundUser);
                   res.redirect('/Pdashboard');
                 })
                 .catch(err => console.log(err));
@@ -313,7 +313,7 @@ router.post('/Pdashboard/PeditProfile', upload.single('photo'), (req, res) => {
 
 router.post('/Pdashboard', function (req, res) {
   if (req.isAuthenticated()) {
-    console.log(req.body);
+    //console.log(req.body);
     let x = req.body.search;
     if (req.body.category === 'speciality') {
       DUser.find({ speciality: _.lowerCase(x) }, function (err, data) {
@@ -321,7 +321,7 @@ router.post('/Pdashboard', function (req, res) {
           console.log(err);
         }
         else {
-          console.log(data);
+          //console.log(data);
           res.render('searchForDoctors', { data: data });
         }
       });
@@ -332,7 +332,7 @@ router.post('/Pdashboard', function (req, res) {
           console.log(err);
         }
         else {
-          console.log(data);
+          //console.log(data);
           res.render('searchForDoctors', { data: data });
         }
       });
@@ -366,14 +366,14 @@ router.get("/Pdashboard/makeAnAppoitment/:did", ensureAuthenticated, function (r
 });
 
 router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
-  console.log(req.user._id);
+  //console.log(req.user._id);
 
   var t;
   DUser.find({ _id: req.body.doctorId }, function (err, data) {
     if (err) console.log(err);
     else {
       t = data[0].clinicTiming;
-      console.log(req.body.day);
+      //console.log(req.body.day);
       appoint.find({ doctorId: req.params.did, date: new Date(req.body.day) }, function (err, arr) {
         if (err)
           console.log(err);
@@ -383,7 +383,29 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
             res.redirect("/Pdashboard/makeAnAppoitment/" + req.params.did);
           }
           else {
-            console.log(arr.length);
+            let now = new Date(req.body.day);
+
+            let options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            };
+
+            now.toLocaleString('en-us', options); 
+            
+            let options1 = {
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            let x = {
+              start: t.start,
+              end: t.end,
+              Start : t.start.toLocaleString('en-us', options1),
+              End : t.end.toLocaleString('en-us', options1)
+            };
+            //console.log(arr.length);
+            //console.log(x);
             const appointment = new appoint({
               patientId: req.user._id,
               patientName: req.user.name,
@@ -394,8 +416,9 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
               clinicAddress: data[0].clinicAddress,
               doctorPhoto: data[0].photo,
               date: new Date(req.body.day),
+              datE: now.toLocaleString('en-us', options),
               bookedAt: new Date(),
-              time: t
+              time: x
             });
             //console.log(t);
             appointment.save().then(() => {
@@ -476,7 +499,7 @@ router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('pho
       console.log(err);
     } else {
       if (foundUser) {
-        console.log("ha user hai yaha");
+        //console.log("ha user hai yaha");
       }
       res.redirect("/Ddashboard/DmyAppointments")
     }
