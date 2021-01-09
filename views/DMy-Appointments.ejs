@@ -16,6 +16,7 @@
 <body>
   <h1>My Appointments</h1>
   <%data.forEach(function(user){%>
+    <% if(!user.prescription){ %>
     <div class="card" style="width: 18rem;">
       <img class="card-img-top"
         src="data:image/<%=user.patientPhoto.contentType%>;base64,<%=user.patientPhoto.data.toString('base64')%>"
@@ -31,6 +32,7 @@
         <%=user.datE%>
       </li>
       <li class="list-group-item">
+        <strong>Time:</strong>
         <%= user.time.Start%> - <%= user.time.End%>
       </li>
       </ul>
@@ -39,6 +41,7 @@
         <a href="/Ddelete/<%= user._id %>?_method=DELETE" class="card-link">Cancel Appointment</a>
       </div>
     </div>
+    <% } %>
     <% })%>
 
 </body>
