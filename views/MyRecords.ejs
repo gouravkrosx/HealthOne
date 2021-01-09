@@ -38,11 +38,6 @@
       background-color: #fff;
     }
 
-    h1{
-      padding: 5%;
-      text-align: center;
-    }
-
     .heading {
       text-transform: uppercase;
       font-size: 3.5rem;
@@ -54,9 +49,12 @@
       position: relative;
     }
     .name{
-      text-transform: capitalize;
+        text-transform: capitalize;
     }
-
+    h1{
+        text-align: center;
+        padding: 5%;
+    }
     .heading::after {
       content: "";
       width: 10rem;
@@ -257,31 +255,22 @@
 
   <section>
     <div class="container">
-      <h1 class="heading">My Appointments</h1>
+      <h1 class="heading">My Past Appointments</h1>
       <div class="card-wrapper">
       <%data.forEach(function(user){%>
+        <% if(user.prescription){ %>
           <div class="card">
             <img
               src="https://images.unsplash.com/photo-1500530447821-8fccc8203b7f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvcm9uYSUyMHZhY2NpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
               alt="card background" class="card-img">
-            <img src="data:image/<%=user.doctorPhoto.contentType%>;base64,<%=user.doctorPhoto.data.toString('base64')%>"
+            <img src="data:image/<%=user.patientPhoto.contentType%>;base64,<%=user.patientPhoto.data.toString('base64')%>"
               alt="profile-img" class="profile-img">
-            <h1> Appointment with Dr. <span class="name"><%=user.doctorName%></span>
+            <h1> Appointment with <span class="name"><%= user.patientName %></span> 
             </h1>
-            <p class="job-title">
-              
-            </p>
+            
             <p class="about">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <strong>Doctor's Speciality:</strong>
-                <%=user.doctorSpeciality%>
-              </li>
-              <li class="list-group-item">
-                <strong>Address:</strong>
-                <%=user.clinicAddress%>
-              </li>
-
+              
               <li class="list-group-item">
                 <strong>Date:</strong>
                 <%=user.datE%>
@@ -294,8 +283,8 @@
             </p>
 
 
-            <a href="#" class="btn">View Profile</a>
-            <%if(user.dFlag===1) { %>
+            
+            
               <p>Prescription given on <%=user.prescription.Pdate%>
               </p>
               <a class="btn"
@@ -306,10 +295,7 @@
                   alt="Prescription" width="104" height="142">
               </a>
 
-              <%}else{%>
-                <a class="btn" href="/Pdelete/<%= user._id %>?_method=DELETE" class="card-link">Cancel-Appointment</a>
-                <% } %>
-
+            
                     <!-- <ul class="social-media">
                       <li> <a href="#"> <i class="fab fa-facebook-square"></i> </a> </li>
                       <li> <a href="#"> <i class="fab fa-twitter-square"></i> </a> </li>
@@ -317,6 +303,7 @@
                       <li> <a href="#"> <i class="fab fa-google-plus-square"></i> </a> </li>
                     </ul> -->
           </div>
+          <% } %>
           <% })%>
 
 

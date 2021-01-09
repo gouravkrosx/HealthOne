@@ -42,6 +42,7 @@ const PUser = require('../models/Patient');
 const DUser = require('../models/Doctor');
 const { mainModule } = require('process');
 const appoint = require('../models/Appointment');
+const { route } = require('./users');
 
 
 //Homepage
@@ -506,5 +507,15 @@ router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('pho
   });
 });
 
+//Doctor records for past appointments
+router.get("/myRecords", ensureAuthenticated, function(req, res){
+  appoint.find({ doctorId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
+    if (err)
+      console.log(err);
+    else {
+      res.render("MyRecords", { data: data });
+    }
+  })
+});
 
 module.exports = router;
