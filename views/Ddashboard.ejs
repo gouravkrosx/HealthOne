@@ -115,7 +115,13 @@
                     aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-instagram"
                     aria-hidden="true"></i></span> </p><small class="rights"><span>&#174;</span> RGS Health Care All
                 Rights Reserved.</small>
-            </div>
+                <div class="Date">
+                  <p>
+                    <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }).format(new Date()) %>
+                  </p>
+                  <div id="clock"></div>
+                </div>
+              </div>
             <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
               <h6 class="mt-55 mt-2 text-muted bold-text"><b>
                   <%=user.name%>

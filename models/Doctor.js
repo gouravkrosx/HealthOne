@@ -29,7 +29,9 @@ const UserSchema = new mongoose.Schema({
     },
     end:{
       type:Date
-    }
+    },
+    Start: String,
+    End: String
   },
   photo: {
     data: Buffer,
@@ -41,6 +43,7 @@ const UserSchema = new mongoose.Schema({
   patients: [{
       id: String
   }],
+  consultancyFees:Number,
   acheivements: []
 });
 

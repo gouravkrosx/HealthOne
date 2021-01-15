@@ -27,7 +27,7 @@ module.exports = function (passport) {
 
     let sessionConstructor = new SessionConstructor(userObject.id, userGroup, '');
 
-    console.log(sessionConstructor);
+    //console.log(sessionConstructor);
     done(null, sessionConstructor);
   });
 
@@ -82,6 +82,7 @@ module.exports = function (passport) {
           return done(null, false, { message: 'That email is not registered' });
         }
 
+
         // Match password
         bcrypt.compare(password, user.password, (err, isMatch) => {
           if (err) throw err;
@@ -91,6 +92,7 @@ module.exports = function (passport) {
             return done(null, false, { message: 'Password incorrect' });
           }
         });
+
       });
     })
   );

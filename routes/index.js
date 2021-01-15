@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
 const moment = require('moment');
-
+const fast2sms = require('fast-two-sms');
 //Change get to delete request
 router.use(function (req, res, next) {
   // this middleware will call for each requested
@@ -119,15 +119,15 @@ router.get('/Ddashboard/DeditProfile', ensureAuthenticated, (req, res) => {
     etime += emin;
   }
 
-  console.log(stime + " " + etime);
+  //console.log(stime + " " + etime);
   res.render('DeditProfile', { user: req.user, date: daTe, start: stime, end: etime });
 });
 
 router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
-  const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, startTime, endTime, speciality, phone, sex, email, password, password2 } = req.body;
+  const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, startTime, endTime, speciality, phone, sex, email, password, password2, consultancyFees } = req.body;
   let errors = [];
 
-  if (!name || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex) {
+  if (!name || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex || !consultancyFees) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -143,7 +143,7 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
     res.redirect("/Ddashboard/DeditProfile");
   } else {
 
-    console.log(req.body);
+    //console.log(req.body);
 
 
     //clinic timings
@@ -165,7 +165,7 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
       } else {
         if (!foundUser) {
         } else {
-          console.log(stime + " " + etime);
+          //console.log(stime + " " + etime);
           foundUser.name = name;
           foundUser.address = address;
           foundUser.dateOfBirth = new Date(dateOfBirth);
@@ -180,7 +180,7 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
           foundUser.speciality = speciality;
           foundUser.phone = phone;
           foundUser.sex = sex;
-          foundUser.password = password;
+          foundUser.consultancyFees = consultancyFees;
 
 
 
@@ -198,27 +198,23 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
 
 
           bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(req.body.password, salt, (err, hash) => {
+            bcrypt.hash(password, salt, (err, hash) => {
               if (err) throw err;
-              console.log("old Pass=>" + foundUser.password);
               foundUser.password = hash;
-              console.log("new Pass=>" + foundUser.password);
+              foundUser.save()
+                .then(user => {
+                  req.flash(
+                    'success_msg',
+                    'You have updated your profile'
+                  );
+                  //console.log(foundUser);
+                  res.redirect('/Ddashboard');
+                })
+                .catch(err => console.log(err));
             });
           });
 
 
-
-          foundUser.save(function (err) {
-            if (err) {
-              console.log(err);
-            } else {
-              req.flash(
-                'success_msg',
-                'You have updated your Profile'
-              );
-              res.redirect("/Ddashboard")
-            }
-          });
         }
       }
     });
@@ -287,64 +283,26 @@ router.post('/Pdashboard/PeditProfile', upload.single('photo'), (req, res) => {
             address: emergencyAddress
           }
 
-          console.log("abhi tak to bhar hi hu");
-
-          PUser.schema.pre('save', async function (next) {
-            console.log('just before saving')
-            console.log(this);
-            console.log(foundUser);
-
-            const rounds = 10; // What you want number for round paasword
-
-            const hash = await bcrypt.hash(this.password, rounds);
-            this.password = hash;
-            next()
-          })
+          //console.log("abhi tak to bhar hi hu");
 
 
-          // PUser.schema.pre('save', function (next) {
-          //   var user = this;
-          //   console.log(user);
-          //   console.log(foundUser);
-          //   console.log("chal andr to agya");
-          //   // only hash the password if it has been modified or is new
-          //   if (!user.isModified('hash')) return next();
-          //   // generate a salt
-          //   bcrypt.genSalt(10, function (err, salt) {
-          //     if (err) return next(err);
-          //     // hashing the password using our new salt
-          //     bcrypt.hash(user.hash, salt, function (err, hash) {
-          //       if (err) return next(err);
-          //       // override the password with the hashed one
-          //       foundUser.password = hash;
-          //       user.hash = hash;
-          //       next();
-          //     });
-          //   });
-          // });
-
-
-          // bcrypt.genSalt(10, (err, salt) => {
-          //   bcrypt.hash(req.body.password, salt, (err, hash) => {
-          //     if (err) throw err;
-          //     console.log("old Pass=>" + foundUser.password);
-          //     foundUser.password = hash;
-          //     console.log("new Pass=>" + foundUser.password);
-          //   });
-          // });
-
-
-          foundUser.save(function (err) {
-            if (err) {
-              console.log(err);
-            } else {
-              req.flash(
-                'success_msg',
-                'You have updated your Profile'
-              );
-              res.redirect("/Pdashboard")
-            }
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(password, salt, (err, hash) => {
+              if (err) throw err;
+              foundUser.password = hash;
+              foundUser.save()
+                .then(user => {
+                  req.flash(
+                    'success_msg',
+                    'You have updated your profile'
+                  );
+                  //console.log(foundUser);
+                  res.redirect('/Pdashboard');
+                })
+                .catch(err => console.log(err));
+            });
           });
+
         }
       }
     });
@@ -355,7 +313,7 @@ router.post('/Pdashboard/PeditProfile', upload.single('photo'), (req, res) => {
 
 router.post('/Pdashboard', function (req, res) {
   if (req.isAuthenticated()) {
-    console.log(req.body);
+    //console.log(req.body);
     let x = req.body.search;
     if (req.body.category === 'speciality') {
       DUser.find({ speciality: _.lowerCase(x) }, function (err, data) {
@@ -363,7 +321,7 @@ router.post('/Pdashboard', function (req, res) {
           console.log(err);
         }
         else {
-          console.log(data);
+          //console.log(data);
           res.render('searchForDoctors', { data: data });
         }
       });
@@ -374,7 +332,7 @@ router.post('/Pdashboard', function (req, res) {
           console.log(err);
         }
         else {
-          console.log(data);
+          //console.log(data);
           res.render('searchForDoctors', { data: data });
         }
       });
@@ -408,14 +366,14 @@ router.get("/Pdashboard/makeAnAppoitment/:did", ensureAuthenticated, function (r
 });
 
 router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
-  console.log(req.user._id);
+  //console.log(req.user._id);
 
   var t;
   DUser.find({ _id: req.body.doctorId }, function (err, data) {
     if (err) console.log(err);
     else {
       t = data[0].clinicTiming;
-      console.log(req.body.day);
+      //console.log(req.body.day);
       appoint.find({ doctorId: req.params.did, date: new Date(req.body.day) }, function (err, arr) {
         if (err)
           console.log(err);
@@ -425,7 +383,28 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
             res.redirect("/Pdashboard/makeAnAppoitment/" + req.params.did);
           }
           else {
-            console.log(arr.length);
+            let now = new Date(req.body.day);
+            let options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            };
+
+            now.toLocaleString('en-us', options); 
+            
+            let options1 = {
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            let x = {
+              start: t.start,
+              end: t.end,
+              Start : t.start.toLocaleString('en-us', options1),
+              End : t.end.toLocaleString('en-us', options1)
+            };
+            //console.log(arr.length);
+            //console.log(x);
             const appointment = new appoint({
               patientId: req.user._id,
               patientName: req.user.name,
@@ -436,10 +415,19 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
               clinicAddress: data[0].clinicAddress,
               doctorPhoto: data[0].photo,
               date: new Date(req.body.day),
+              datE: now.toLocaleString('en-us', options),
               bookedAt: new Date(),
-              time: t
+              time: x
             });
             //console.log(t);
+            let a = data[0].name;
+            let t1 = req.body.time;
+            let d = req.body.day;
+            let message1 = `Your appointment has been successfully booked with docId ${a} at timings ${t1} on ${d} `;
+            console.log(message1);
+             fast2sms.sendMessage({ authorization: process.env.API_KEY, message: message1, numbers: 9958178959 });
+            // res.send(response);
+        
             appointment.save().then(() => {
               res.redirect("/Pdashboard/PmyAppointments");
             });
@@ -518,12 +506,17 @@ router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('pho
       console.log(err);
     } else {
       if (foundUser) {
-        console.log("ha user hai yaha");
+        //console.log("ha user hai yaha");
       }
       res.redirect("/Ddashboard/DmyAppointments")
     }
   });
 });
 
-
+router.get("/Pdashboard/viewprofile/:did", ensureAuthenticated, function (req, res) {
+  DUser.find({ _id: req.params.did }, function (err, data) {
+    res.render("Viewprofile.ejs", { doctor: data, patient: req.user});
+  });
+  //res.send(req.params.did);
+});
 module.exports = router;

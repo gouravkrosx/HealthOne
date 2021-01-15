@@ -2,169 +2,884 @@
 <html lang="en">
 
 <head>
+    <!-- Required meta tags-->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>DOCTOR REGISTER !!</title>
+
+    <!-- Icons font CSS-->
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/register2.css" rel="stylesheet" media="all">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/css/register.css" type="text/css">
-</head>
+    <style>
+        
 
-<body>
-    <div class="container register">
-        <div class="row">
-            <div class="col-md-3 register-left">
-                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
-                <h3>Welcome</h3>
-                <p>We are here to help you</p>
+        /* ==========================================================================
+   #FONT
+   ========================================================================== */
+        .font-robo {
+            font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+        }
 
-            </div>
-            <div class="col-md-9 register-right">
+        .font-poppins {
+            font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+        }
 
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <h3 class="register-heading">Fill your details</h3>
-                        <% include ./partials/messages %>
-                            <form action="/users/Doctor/register" method="POST" enctype="multipart/form-data">
-                                <div class="row register-form">
+        /* ==========================================================================
+   #GRID
+   ========================================================================== */
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
 
-                                    <div class="col-md-6">
+        .row-space {
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            -moz-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
 
-                                        <div class="form-group">
-                                            <input type="text" required class="form-control" name="name"
-                                                placeholder="Enter your name *"
-                                                value="<%= typeof name != 'undefined' ? name : '' %>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" required class="form-control" name="address"
-                                                placeholder="Address *"
-                                                value="<%= typeof address != 'undefined' ? address : '' %>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" required class="form-control" name="medicalSchool"
-                                                placeholder="Medical School Attended *"
-                                                value="<%= typeof medicalSchool != 'undefined' ? medicalSchool : '' %>" />
-                                        </div>
+        .col-2 {
+            width: -webkit-calc((100% - 30px) / 2);
+            width: -moz-calc((100% - 30px) / 2);
+            width: calc((100% - 30px) / 2);
+        }
 
-                                        <div class="form-group">
-                                            <input type="text" required class="form-control" name="clinicAddress"
-                                                placeholder="Clinic Address *"
-                                                value="<%= typeof clinicAddress != 'undefined' ? clinicAddress : '' %>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" required class="form-control" name="language"
-                                                placeholder="Language *"
-                                                value="<%= typeof language != 'undefined' ? language : '' %>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" required class="form-control" name="email"
-                                                placeholder="Your Email *"
-                                                value="<%= typeof email != 'undefined' ? email : '' %>" />
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="maxl">
-                                                <label class="radio inline">
-                                                    <input type="radio" name="sex" value="male" checked>
-                                                    <span> Male </span>
-                                                </label>
-                                                <label class="radio inline">
-                                                    <input type="radio" name="sex" value="female">
-                                                    <span>Female </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="date" required class="form-control" name="dateOfBirth"
-                                                placeholder="Date Of Birth *"
-                                                value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" required class="form-control" name="yearsOfPractice"
-                                                placeholder="Years Of Practice *"
-                                                value="<%= typeof yearsOfPractice != 'undefined' ? yearsOfPractice : '' %>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" required class="form-control" name="speciality"
-                                                placeholder="Speciality *"
-                                                value="<%= typeof speciality != 'undefined' ? speciality : '' %>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <!-- <input type="text" required class="form-control" name="clinicTiming"
-                                                placeholder="Clinic Timings *"
-                                                value="<%= typeof clinicTiming != 'undefined' ? clinicTiming : '' %>" /> -->
-                                            <p>Choose your clinic timings</p>
-                                            <label for="st">From</label>
-                                            <input type="time" id="st" name="startTime" required>
-                                            <label for="et">To</label>
-                                            <input type="time" id="et" name="endTime" required>
-
-
-
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" minlength="10" required maxlength="10" name="phone"
-                                                class="form-control" placeholder="Your Phone *"
-                                                value="<%= typeof phone != 'undefined' ? phone : '' %>" />
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="password" required class="form-control" id="password"
-                                                name="password" placeholder="Password *"
-                                                value="<%= typeof password != 'undefined' ? password : '' %>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" required class="form-control" id="confirm_password"
-                                                name="password2" placeholder="Confirm Password *"
-                                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
-                                        </div>
-                                        <button type="submit" class="btnRegister">Register</button>
-                                    </div>
-                                    <label for="photo">Upload your profile picture</label>
-
-                                    <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
-                                            name="photo" onchange="loadFile(event)"></p>
-                                    <p><label for="file" style="cursor: pointer;"></label>
-                                    </p>
-                                    <p><img id="output" width="200" /></p>
-
-
-
-
-                                </div>
-                            </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        var loadFile = function (event) {
-            var image = document.getElementById('output');
-            image.src = URL.createObjectURL(event.target.files[0]);
-        };
-    </script>
-    <script>
-        var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
-
-        function validatePassword() {
-            if (password.value != confirm_password.value) {
-                confirm_password.setCustomValidity("Passwords Don't Match");
-            } else {
-                confirm_password.setCustomValidity('');
+        @media (max-width: 767px) {
+            .col-2 {
+                width: 100%;
             }
         }
 
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
+        /* ==========================================================================
+   #BOX-SIZING
+   ========================================================================== */
+        /**
+ * More sensible default box-sizing:
+ * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+ */
+        html {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
 
-    </script>
-</body>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        *,
+        *:before,
+        *:after {
+            -webkit-box-sizing: inherit;
+            -moz-box-sizing: inherit;
+            box-sizing: inherit;
+        }
+
+        /* ==========================================================================
+   #RESET
+   ========================================================================== */
+        /**
+ * A very simple reset that sits on top of Normalize.css.
+ */
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        blockquote,
+        p,
+        pre,
+        dl,
+        dd,
+        ol,
+        ul,
+        figure,
+        hr,
+        fieldset,
+        legend {
+            margin: 0;
+            padding: 0;
+        }
+
+        /**
+ * Remove trailing margins from nested lists.
+ */
+        li>ol,
+        li>ul {
+            margin-bottom: 0;
+        }
+
+        /**
+ * Remove default table spacing.
+ */
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        /**
+ * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+ *    on fieldsets.
+ */
+        fieldset {
+            min-width: 0;
+            /* [1] */
+            border: 0;
+        }
+
+        button {
+            outline: none;
+            background: none;
+            border: none;
+        }
+
+        /* ==========================================================================
+   #PAGE WRAPPER
+   ========================================================================== */
+        .page-wrapper {
+            min-height: 100vh;
+        }
+
+        body {
+            font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 400;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        h2 {
+            font-size: 30px;
+        }
+
+        h3 {
+            font-size: 24px;
+        }
+
+        h4 {
+            font-size: 18px;
+        }
+
+        h5 {
+            font-size: 15px;
+        }
+
+        h6 {
+            font-size: 13px;
+        }
+
+        /* ==========================================================================
+   #BACKGROUND
+   ========================================================================== */
+        .bg-blue {
+            background: #2c6ed5;
+        }
+
+        .bg-red {
+            background: #fa4251;
+        }
+
+        .bg-gra-01 {
+            background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
+            background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+            background: -moz-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+            background: -o-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
+            background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
+        }
+
+        .bg-gra-02 {
+            background: -webkit-gradient(linear, left bottom, right top, from(#fc2c77), to(#6c4079));
+            background: -webkit-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+            background: -moz-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+            background: -o-linear-gradient(bottom left, #fc2c77 0%, #6c4079 100%);
+            background: linear-gradient(to top right, #fc2c77 0%, #6c4079 100%);
+        }
+
+        /* ==========================================================================
+   #SPACING
+   ========================================================================== */
+        .p-t-100 {
+            padding-top: 100px;
+        }
+
+        .p-t-130 {
+            padding-top: 130px;
+        }
+
+        .p-t-180 {
+            padding-top: 180px;
+        }
+
+        .p-t-20 {
+            padding-top: 20px;
+        }
+
+        .p-t-15 {
+            padding-top: 15px;
+        }
+
+        .p-t-10 {
+            padding-top: 10px;
+        }
+
+        .p-t-30 {
+            padding-top: 30px;
+        }
+
+        .p-b-100 {
+            padding-bottom: 100px;
+        }
+
+        .m-r-45 {
+            margin-right: 45px;
+        }
+
+        /* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+        .wrapper {
+            margin: 0 auto;
+        }
+
+        .wrapper--w960 {
+            max-width: 960px;
+        }
+
+        .wrapper--w780 {
+            max-width: 780px;
+        }
+
+        .wrapper--w680 {
+            max-width: 680px;
+        }
+
+        /* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+        .btn {
+            display: inline-block;
+            line-height: 50px;
+            padding: 0 50px;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            -moz-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            font-size: 18px;
+            color: #fff;
+            font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+        }
+
+        .btn--radius {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+        .btn--radius-2 {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        .btn--pill {
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px;
+        }
+
+        .btn--green {
+            background: #57b846;
+        }
+
+        .btn--green:hover {
+            background: #4dae3c;
+        }
+
+        .btn--blue {
+            background: #4272d7;
+        }
+
+        .btn--blue:hover {
+            background: #3868cd;
+        }
+
+        /* ==========================================================================
+   #DATE PICKER
+   ========================================================================== */
+        td.active {
+            background-color: #2c6ed5;
+        }
+
+        input[type="date"i] {
+            padding: 14px;
+        }
+
+        .table-condensed td,
+        .table-condensed th {
+            font-size: 14px;
+            font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+            font-weight: 400;
+        }
+
+        .daterangepicker td {
+            width: 40px;
+            height: 30px;
+        }
+
+        .daterangepicker {
+            border: none;
+            -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+            box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+            display: none;
+            border: 1px solid #e0e0e0;
+            margin-top: 5px;
+        }
+
+        .daterangepicker::after,
+        .daterangepicker::before {
+            display: none;
+        }
+
+        .daterangepicker thead tr th {
+            padding: 10px 0;
+        }
+
+        .daterangepicker .table-condensed th select {
+            border: 1px solid #ccc;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            font-size: 14px;
+            padding: 5px;
+            outline: none;
+        }
+
+        /* ==========================================================================
+   #FORM
+   ========================================================================== */
+        input {
+            outline: none;
+            margin: 0;
+            border: none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            width: 100%;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .input--style-4 {
+            line-height: 50px;
+            background: #fafafa;
+            -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+            -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+            box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            padding: 0 20px;
+            font-size: 16px;
+            color: #666;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            -moz-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .input--style-4::-webkit-input-placeholder {
+            /* WebKit, Blink, Edge */
+            color: #666;
+        }
+
+        .input--style-4:-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #666;
+            opacity: 1;
+        }
+
+        .input--style-4::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #666;
+            opacity: 1;
+        }
+
+        .input--style-4:-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: #666;
+        }
+
+        .input--style-4:-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: #666;
+        }
+
+        .label {
+            font-size: 16px;
+            color: #555;
+            text-transform: capitalize;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .radio-container {
+            display: inline-block;
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #666;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .radio-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radio-container input:checked~.checkmark {
+            background-color: #e5e5e5;
+        }
+
+        .radio-container input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .radio-container .checkmark:after {
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background: #57b846;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #e5e5e5;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+            -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+            box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .input-group-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            font-size: 18px;
+            color: #999;
+            right: 18px;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+   #SELECT2
+   ========================================================================== */
+        .select--no-search .select2-search {
+            display: none !important;
+        }
+
+        .rs-select2 .select2-container {
+            width: 100% !important;
+            outline: none;
+            background: #fafafa;
+            -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+            -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+            box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        .rs-select2 .select2-container .select2-selection--single {
+            outline: none;
+            border: none;
+            height: 50px;
+            background: transparent;
+        }
+
+        .rs-select2 .select2-container .select2-selection--single .select2-selection__rendered {
+            line-height: 50px;
+            padding-left: 0;
+            color: #555;
+            font-size: 16px;
+            font-family: inherit;
+            padding-left: 22px;
+            padding-right: 50px;
+        }
+
+        .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow {
+            height: 50px;
+            right: 20px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -moz-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -moz-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+        .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow b {
+            display: none;
+        }
+
+        .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow:after {
+            font-family: "Material-Design-Iconic-Font";
+            content: '\f2f9';
+            font-size: 24px;
+            color: #999;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            -moz-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .rs-select2 .select2-container.select2-container--open .select2-selection--single .select2-selection__arrow::after {
+            -webkit-transform: rotate(-180deg);
+            -moz-transform: rotate(-180deg);
+            -ms-transform: rotate(-180deg);
+            -o-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+        }
+
+        .select2-container--open .select2-dropdown--below {
+            border: none;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+            box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e0e0e0;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .select2-container--default .select2-results__option {
+            padding-left: 22px;
+        }
+
+        /* ==========================================================================
+   #TITLE
+   ========================================================================== */
+        .title {
+            font-size: 24px;
+            color: #525252;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        /* ==========================================================================
+   #CARD
+   ========================================================================== */
+        .card {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3%;
+            background: #fff;
+        }
+
+        .card-4 {
+            background: #fff;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+            box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-4 .card-body {
+            padding: 57px 65px;
+            padding-bottom: 65px;
+        }
+
+        @media (max-width: 767px) {
+            .card-4 .card-body {
+                padding: 50px 40px;
+            }
+        }
+        choose-file {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #file {
+            margin: 10px;
+            color: grey;
+        }
+
+        .p-t-15 {
+            display: block;
+            width: 50%;
+            margin: auto;
+        }
+
+        .card-body {
+            margin: 10px;
+        }
+      
+    </style>
+</head>
+
+<!-- style="background: #97e1f3;  
+background: -webkit-linear-gradient(to right, #1bbee2, #afefff);  
+background: linear-gradient(to right, #e4faff, #c4f3ff);
+" -->
+<!-- style="background: #97e1f3;  
+    background: -webkit-linear-gradient(to right, #1bbee2, #afefff);  
+    background: linear-gradient(to right, #e4faff, #c4f3ff); 
+    " -->
+
+<body >
+    <div  class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <h2 class="title">FILL YOUR DETAILS</h2>
+                    <% include ./partials/messages %>
+                        <form action="/users/Doctor/register" method="POST" enctype="multipart/form-data">
+                            <div class="row row-space">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <label class="label">Your name</label>
+                                        <input required class="input--style-4" type="text" name="name"
+                                            placeholder="Enter your name *"
+                                            value="<%= typeof name != 'undefined' ? name : '' %>" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Address</label>
+                                        <input class="input--style-4" type="text" name="address" placeholder="Address *"
+                                            value="<%= typeof address != 'undefined' ? address : '' %>" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Medical School</label>
+                                        <input class="input--style-4" type="text" name="medicalSchool"
+                                            placeholder="Medical School Attended *"
+                                            value="<%= typeof medicalSchool != 'undefined' ? medicalSchool : '' %>"
+                                            required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Clinic Address</label>
+                                        <input class="input--style-4" type="text" name="clinicAddress"
+                                            placeholder="Clinic Address *"
+                                            value="<%= typeof clinicAddress != 'undefined' ? clinicAddress : '' %>"
+                                            required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Language</label>
+                                        <input class="input--style-4" type="text" name="language"
+                                            placeholder="Language *"
+                                            value="<%= typeof language != 'undefined' ? language : '' %>" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Email</label>
+                                        <input class="input--style-4" type="text" name="email"
+                                            placeholder="Your Email *"
+                                            value="<%= typeof email != 'undefined' ? email : '' %>" required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label class="label">Gender</label>
+                                        <div class="p-t-10">
+                                            <label class="radio-container m-r-45">Male
+                                                <input type="radio" name="sex" value="male" checked required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-container">Female
+                                                <input type="radio" name="sex" value="female" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <label class="label">Date of birth: </label>
+                                        <div class="input-group-icon">
+                                            <input class="input--style-4 js-datepicker" name="dateOfBirth" type="date"
+                                                placeholder="Date Of Birth *"
+                                                value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>"
+                                                required>
+                                            <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Years of Practice</label>
+                                        <input class="input--style-4" type="text" name="yearsOfPractice"
+                                            placeholder="Years Of Practice *"
+                                            value="<%= typeof yearsOfPractice != 'undefined' ? yearsOfPractice : '' %>"
+                                            required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Speciality</label>
+                                        <input class="input--style-4" type="text" name="speciality"
+                                            placeholder="Speciality *"
+                                            value="<%= typeof speciality != 'undefined' ? speciality : '' %>" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <!-- <input type="text" required class="form-control" name="clinicTiming"
+                                        placeholder="Clinic Timings *"
+                                        value="<%= typeof clinicTiming != 'undefined' ? clinicTiming : '' %>" /> -->
+                                        <p>Choose your clinic timings</p>
+                                        <label class="label" for="st">From</label>
+                                        <input class="input--style-4" type="time" id="st" name="startTime" required>
+                                        <label class="label" for="et">To</label>
+                                        <input class="input--style-4" type="time" id="et" name="endTime" required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label class="label">Consultancy
+                                            Fees</label>
+                                        <input class="input--style-4" type="text" name="consultancyFees"
+                                            placeholder="ConsultancyFees *"
+                                            value="<%= typeof  consultancyFees != 'undefined' ?  consultancyFees : '' %>"
+                                            required>
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label class="label">Password</label>
+                                        <input class="input--style-4" type="password" name="password"
+                                            placeholder="Password *"
+                                            value="<%= typeof password != 'undefined' ? password : '' %>" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label class="label">Confirm Password</label>
+                                        <input class="input--style-4" type="password" name="password2"
+                                            placeholder="Confirm Password *"
+                                            value="<%= typeof password2 != 'undefined' ? password2 : '' %>" required>
+                                    </div>
+
+                                </div>
+                                <div class="choose-file">
+                                    <label class="label" for="photo">Upload your profile picture</label>
+
+                                    <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
+                                            name="photo" onchange="loadFile(event)"></p>
+                                    <p><label class="label" for="file" style="cursor: pointer;"></label>
+                                    </p>
+                                    <p><img id="output" width="200" /></p>
+
+                                </div>
+                            </div>
+                            <div class="p-t-15">
+                                <button class="btn btn--radius-2 btn--blue" type="submit">Register</button>
+                            </div>
+
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
+<!-- end document-->

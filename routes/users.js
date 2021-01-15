@@ -37,11 +37,11 @@ router.get('/Doctor/register', forwardAuthenticated, (req, res) => res.render('R
 // Register
 //-----------doc-----------
 router.post('/Doctor/register', upload.single('photo'), (req, res) => {
-  console.log(req.file);
-  const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, speciality, phone, sex, email, password, password2, startTime, endTime } = req.body;
+  //console.log(req.file);
+  const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, speciality, phone, sex, email, password, password2, startTime, endTime, consultancyFees } = req.body;
   let errors = [];
 
-  if (!name || !email || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex) {
+  if (!name || !email || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex || !consultancyFees) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -67,6 +67,7 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
       phone,
       sex,
       email,
+      consultancyFees,
       password,
       password2
     });
@@ -86,7 +87,7 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
     etime.setHours(ehours, eminutes);
 
 
-    console.log(stime + "  " + etime);
+    //console.log(stime + "  " + etime);
 
 
 
@@ -106,10 +107,21 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
           phone,
           sex,
           email,
+          consultancyFees,
           password,
           password2
         });
       } else {
+        let options1 = {
+          hour: '2-digit',
+          minute: '2-digit'
+      };
+      let x = {
+        start: stime,
+        end: etime,
+        Start : stime.toLocaleString('en-us', options1),
+        End : etime.toLocaleString('en-us', options1)
+      };
         const newUser = new DUser({
           name: _.lowerCase(name),
           address,
@@ -117,10 +129,7 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
           medicalSchool,
           yearsOfPractice,
           clinicAddress,
-          clinicTiming: {
-            start: stime,
-            end: etime
-          },
+          clinicTiming: x,
           language,
           photo: {
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
@@ -131,11 +140,13 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
           sex,
           email,
           password,
+          consultancyFees,
 
         });
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
+            //console.log("register user pass start wlala"+newUser.password)
             newUser.password = hash;
 
 
@@ -192,7 +203,7 @@ router.post('/Patient/register', upload.single('photo'), (req, res) => {
   } else {
     PUser.findOne({ email: email }).then(user => {
       if (user) {
-        console.log(user);
+        //console.log(user);
         errors.push({ msg: 'Email already exists' });
         res.render('RegisterforPatient', {
           errors,
@@ -240,7 +251,7 @@ router.post('/Patient/register', upload.single('photo'), (req, res) => {
                   'You are now registered and can log in'
                 );
 
-                console.log(newUser);
+                //console.log(newUser);
                 res.redirect('/users/Patient/login');
               })
               .catch(err => console.log(err));
@@ -282,7 +293,7 @@ router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'You are logged out');
   res.redirect('/');
-}); 
+});
 
 
 module.exports = router;

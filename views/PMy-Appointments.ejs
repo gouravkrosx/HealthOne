@@ -2,68 +2,323 @@
 <html lang="en">
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HealthCare</title>
+  <title>Profile Cards</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://kit.fontawesome.com/1d4badc57d.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 15px;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+
+    section {
+      padding: 10rem 0;
+      background-color: #fff;
+    }
+
+    .heading {
+      text-transform: uppercase;
+      font-size: 3.5rem;
+      letter-spacing: 3px;
+      margin-right: -3px;
+      margin-bottom: 5rem;
+      text-align: center;
+      color: #333;
+      position: relative;
+    }
+
+    .heading::after {
+      content: "";
+      width: 10rem;
+      height: .8rem;
+      background-color: #45e19f;
+      position: absolute;
+      bottom: -2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2rem;
+    }
+
+
+    .card-wrapper {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      flex-direction: column;
+    }
+
     .card {
-      float: left;
+      width: 32rem;
+      background-color: #ebeef8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
+      box-shadow: .5rem .5rem 3rem rgba(0, 0, 0, 0.2);
 
     }
-  </style>
 
+    .card .card-img {
+      width: 100%;
+      height: 26rem;
+      object-fit: cover;
+      clip-path: polygon(0 0, 100% 0, 100% 69%, 0% 100%);
+    }
+
+
+    .profile-img {
+      width: 15rem;
+      height: 15rem;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-top: -10rem;
+      z-index: 999;
+      border: 1rem solid #ebeef8;
+    }
+
+    .card h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin: 1.5rem 0;
+    }
+
+    .job-title {
+      color: #777;
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+
+    .about {
+      font-size: 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      text-align: center;
+      color: #333;
+    }
+
+    .btn {
+      padding: 1rem 2.5rem;
+      background-color: #455ae3;
+      border-radius: 2rem;
+      margin: 1rem 0;
+      text-transform: uppercase;
+      color: #eee;
+      font-size: 1.4rem;
+      transition: all .5s;
+
+    }
+
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: .5rem .5rem 2rem rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .social-media {
+      width: 100%;
+      list-style: none;
+      display: flex;
+      justify-content: space-evenly;
+      padding: 2rem 0;
+      margin-top: 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, .1);
+
+    }
+
+
+    .social-media i {
+      font-size: 3rem;
+      transition: color 1s;
+    }
+
+
+
+    .fa-facebook-square {
+      color: #3b5999;
+
+    }
+
+
+    .fa-twitter-square {
+      color: #55acee;
+
+    }
+
+    .fa-instagram {
+      color: #e6683c;
+
+    }
+
+    .fa-google-plus-square {
+      color: #dd4b39;
+
+    }
+
+    .fa-facebook-square:hover,
+    .fa-google-plus-square:hover,
+    .fa-instagram:hover,
+    .fa-twitter-square:hover {
+      color: #45e19f;
+    }
+
+
+
+
+
+
+
+
+    @media screen and (min-width: 700px) {
+      .card-wrapper {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .card {
+        margin: 2rem;
+        transition: transform .5s;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+
+      }
+
+      .card:nth-child(1) {
+        animation: fadeIn .5s .5s backwards;
+      }
+
+      .card:nth-child(2) {
+        animation: fadeIn .5s 1s backwards;
+      }
+
+
+      .card:nth-child(3) {
+        animation: fadeIn .5s 1.5s backwards;
+      }
+
+      .card:nth-child(4) {
+        animation: fadeIn .5s 2s backwards;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <h1>My Appointments</h1>
-  <%data.forEach(function(user){%>
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top"
-        src="data:image/<%=user.doctorPhoto.contentType%>;base64,<%=user.doctorPhoto.data.toString('base64')%>"
-        alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">
-          Appointment with Dr. <%=user.doctorName%>
-        </h5>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <strong>Speciality:</strong>
-          <%=user.doctorSpeciality%>
-        </li>
-        <li class="list-group-item">
-          <strong>Address:</strong>
-          <%=user.clinicAddress%>
-        </li>
 
-        <li class="list-group-item">
-          <strong>Date:</strong>
-          <%=user.date%>
-        </li>
-        <li class="list-group-item">
-          <strong>Time: </strong>
-          <%= user.time.start.getHours()%>:<%= user.time.start.getMinutes()%> - <%= user.time.end.getHours()%>:<%=
-                  user.time.end.getMinutes()%>
-        </li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link">View Profile</a>
-        <%if(user.dFlag===1) { %>
-          <p>Prescription given on <%=user.prescription.Pdate%>
-          </p>
-          <a href="data:image/<%=user.prescription.photo.contentType%>;base64,<%=user.prescription.photo.data.toString('base64')%>"
-            download="MyPrescription.jpg">
+
+  <section>
+    <div class="container">
+      <h1 class="heading">My Appointments</h1>
+      <div class="card-wrapper">
+      <%data.forEach(function(user){%>
+          <div class="card">
             <img
-              src="data:image/<%=user.prescription.photo.contentType%>;base64,<%=user.prescription.photo.data.toString('base64')%>"
-              alt="Prescription" width="104" height="142">
-          </a>
+              src="https://images.unsplash.com/photo-1500530447821-8fccc8203b7f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvcm9uYSUyMHZhY2NpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+              alt="card background" class="card-img">
+            <img src="data:image/<%=user.doctorPhoto.contentType%>;base64,<%=user.doctorPhoto.data.toString('base64')%>"
+              alt="profile-img" class="profile-img">
+            <h1> Appointment with Dr. <%=user.doctorName%>
+            </h1>
+            <p class="job-title">
+              
+            </p>
+            <p class="about">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <strong>Doctor's Speciality:</strong>
+                <%=user.doctorSpeciality%>
+              </li>
+              <li class="list-group-item">
+                <strong>Address:</strong>
+                <%=user.clinicAddress%>
+              </li>
 
-          <%}else{%>
-            <a href="/Pdelete/<%= user._id %>?_method=DELETE" class="card-link">Cancel-Appointment</a>
-            <% } %>
+              <li class="list-group-item">
+                <strong>Date:</strong>
+                <%=user.datE%>
+              </li>
+              <li class="list-group-item">
+                <strong>Time: </strong>
+                <%= user.time.Start %> - <%= user.time.End %>
+              </li>
+            </ul>
+            </p>
+
+
+            <a href="#" class="btn">View Profile</a>
+            <%if(user.dFlag===1) { %>
+              <p>Prescription given on <%=user.prescription.Pdate%>
+              </p>
+              <a class="btn"
+                href="data:image/<%=user.prescription.photo.contentType%>;base64,<%=user.prescription.photo.data.toString('base64')%>"
+                download="MyPrescription.jpg">
+                <img
+                  src="data:image/<%=user.prescription.photo.contentType%>;base64,<%=user.prescription.photo.data.toString('base64')%>"
+                  alt="Prescription" width="104" height="142">
+              </a>
+
+              <%}else{%>
+                <a class="btn" href="/Pdelete/<%= user._id %>?_method=DELETE" class="card-link">Cancel-Appointment</a>
+                <% } %>
+
+                    <!-- <ul class="social-media">
+                      <li> <a href="#"> <i class="fab fa-facebook-square"></i> </a> </li>
+                      <li> <a href="#"> <i class="fab fa-twitter-square"></i> </a> </li>
+                      <li> <a href="#"> <i class="fab fa-instagram"></i> </a> </li>
+                      <li> <a href="#"> <i class="fab fa-google-plus-square"></i> </a> </li>
+                    </ul> -->
+          </div>
+          <% })%>
+
+
+
+
       </div>
     </div>
-    <% })%>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </body>
 

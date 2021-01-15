@@ -1,10 +1,12 @@
-const hamburger = document.querySelector(".hamburger");
-const navLinks = document.querySelector(".nav-links");
-const links = document.querySelector(".nav-links li");
-
-hamburger.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
-    links.forEach(link => {
-        link.classList.toggle("fade");
-    });
-});
+function myFunctions() {
+    var x = document.getElementById("myheader");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+      // x.style.position= "static";
+      
+    } else {
+      x.style.display = "block";
+    }
+    
+  }
+  
