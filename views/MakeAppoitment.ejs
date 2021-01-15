@@ -74,6 +74,11 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
     id="heading"
     class="text-4xl sm:text-6xl lg:text-4xl leading-none font-extrabold tracking-tight text-gray-100 mt-10 mb-8 sm:mt-14 sm:mb-10"
     style="text-align: center;">BOOK YOUR APPOINTMENT HERE !!</h3>
+  </style>
+</head>
+
+<body class="font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover"
+  style="background-image: url('https://image.freepik.com/free-photo/3d-rendering-big-red-coronavirus-cell-left-with-black-background_181624-26047.jpg');">
   <div class="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
     <!--Main Col-->
     <div id="profile"
@@ -123,7 +128,6 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
               <label class="input-group-text" for="inputGroupSelect01">Choose a day for your Appointment</label>
             </div>
             <select name="day" class="custom-select" id="inputGroupSelect01">
-
               <% if(doctor[0].clinicTiming.start.getHours()> new Date().getHours() ||
                 (doctor[0].clinicTiming.start.getHours() === new Date().getHours() &&
                 doctor[0].clinicTiming.start.getMinutes() > new Date().getMinutes()) ){ %>
@@ -149,6 +153,35 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                   <option value="<%=tom5%>">
                     <%=tom5%>
                   </option>
+
+              
+              <% if(doctor[0].clinicTiming.start.getHours()> new Date().getHours() ||
+              (doctor[0].clinicTiming.start.getHours() === new Date().getHours() &&
+              doctor[0].clinicTiming.start.getMinutes() > new Date().getMinutes()) ){ %> 
+              <option value="<%=today%>">
+                today
+              </option>
+              <% } %>
+              
+              <option value="<%=tom%>">
+                <%=tom%>
+              </option>
+              <option value="<%=tom1%>">
+                <%=tom1%>
+              </option>
+              <option value="<%=tom2%>">
+                <%=tom2%>
+              </option>
+              <option value="<%=tom3%>">
+                <%=tom3%>
+              </option>
+              <option value="<%=tom4%>">
+                <%=tom4%>
+              </option>
+              <option value="<%=tom5%>">
+                <%=tom5%>
+              </option>
+
             </select>
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Choose time</label>
@@ -164,12 +197,42 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
         </form>
         </p>
 
+
         <!-- <div class="pt-12 pb-8">
           <form action="/sendMessage" method="post">
             <input class='btn' type="submit" value="Send message">
         </form>
         </div> -->
 
+      </div>
+    </div>
+
+    <!--Img Col-->
+    <div class="w-full lg:w-2/5">
+      <!-- Big profile image for side bar (desktop) -->
+      <img src="data:image/<%=doctor[0].photo.contentType%>;base64,<%=doctor[0].photo.data.toString('base64')%>"
+        class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block" />
+      <!-- Image from: http://unsplash.com/photos/MP0IUfwrn0A -->
+    </div>
+
+    <!-- Pin to top right corner -->
+    <div class="absolute top-0 right-0 h-12 w-18 p-4">
+      <button class="js-change-theme focus:outline-none">🌙</button>
+    </div>
+
+        <div class="pt-12 pb-8">
+          <!-- <button
+              class="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full"
+            >
+              Get In Touch
+            </button> -->
+        </div>
+        <!-- 
+        <div class="mt-6 pb-16 lg:pb-0 w-4/5 lg:w-full mx-auto flex flex-wrap items-center justify-between">
+      
+        </div> -->
+
+        <!-- Use https://simpleicons.org/ to find the svg for your preferred product -->
       </div>
     </div>
 
@@ -205,6 +268,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
         toggle.innerHTML = "☀️";
         body.classList.remove("text-gray-900");
         body.classList.add("text-gray-300");
+        body.classList.add("text-gray-100");
         profile.classList.remove("bg-white");
         profile.classList.add("bg-gray-900");
       } else {

@@ -787,6 +787,20 @@ background: linear-gradient(to right, #e4faff, #c4f3ff);
                                                 <input type="radio" name="sex" value="female" required>
                                                 <span class="checkmark"></span>
                                             </label>
+
+                                        <div class="form-group">
+                                            <input type="text"
+                                                name="consultancyFees" class="form-control"
+                                                placeholder="ConsultancyFees *"
+                                                value="<%= typeof  consultancyFees != 'undefined' ?  consultancyFees : '' %>" />
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <input type="password" required class="form-control" id="password"
+                                                name="password" placeholder="Password *"
+                                                value="<%= typeof password != 'undefined' ? password : '' %>" />
+
                                         </div>
                                     </div>
                                 </div>
@@ -800,6 +814,11 @@ background: linear-gradient(to right, #e4faff, #c4f3ff);
                                                 required>
                                             <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                         </div>
+
+
+                                        
+                                        <button type="submit" class="btnRegister">Register</button>
+
                                     </div>
                                     <div class="input-group">
                                         <label class="label">Years of Practice</label>

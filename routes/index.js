@@ -42,6 +42,7 @@ const PUser = require('../models/Patient');
 const DUser = require('../models/Doctor');
 const { mainModule } = require('process');
 const appoint = require('../models/Appointment');
+const { route } = require('./users');
 
 
 //Homepage
@@ -384,6 +385,7 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
           }
           else {
             let now = new Date(req.body.day);
+
             let options = {
                 weekday: 'long',
                 year: 'numeric',
@@ -513,10 +515,22 @@ router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('pho
   });
 });
 
+
 router.get("/Pdashboard/viewprofile/:did", ensureAuthenticated, function (req, res) {
   DUser.find({ _id: req.params.did }, function (err, data) {
     res.render("Viewprofile.ejs", { doctor: data, patient: req.user});
   });
   //res.send(req.params.did);
 });
+//Doctor records for past appointments
+router.get("/myRecords", ensureAuthenticated, function(req, res){
+  appoint.find({ doctorId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
+    if (err)
+      console.log(err);
+    else {
+      res.render("MyRecords", { data: data });
+    }
+  })
+});
+
 module.exports = router;
