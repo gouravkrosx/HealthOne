@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Care</title>
+    <link rel="stylesheet" href="css/styleD.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Ubuntu" rel="stylesheet" />
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+
+    <!-- Font Awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <!-- Bootstrap Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            h = checkTime(h);
+            h = fun(h);
+            m = checkTime(m);
+            s = checkTime(s);
+            var am_pm = today.getHours() >= 12 ? "PM" : "AM";
+            document.getElementById("clock").innerHTML =
+                h + ":" + m + ":" + s + " " + am_pm;
+            var t = setTimeout(startTime, 500);
+        }
+        // add zero in front of numbers < 10
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+        function fun(h) {
+            if (h > 12) {
+                h = h - 12;
+            }
+            return h;
+        }
+    </script>
+    <style>
+        body {
+            margin-top: 13vh;
+            background: rgba(167, 241, 235, 0.55);
+            background: #2980B9;
+            background: #50C9C3;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #96DEDA, #50C9C3);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #96DEDA, #50C9C3);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        .icons-list {
+            list-style-type: none;
+        }
+
+        .container {
+            background: #dbf6e9;
+            box-shadow: 0.5rem 0.5rem 3rem rgba(0, 0, 0, 0.329);
+            text-align: center;
+            border-radius: 7px;
+        }
+
+        .thumbnail img {
+            vertical-align: middle;
+            border-style: none;
+            height: 200px;
+            border-radius: 50%;
+            margin: 7px;
+            width: 100%;
+        }
+
+        .col-md-4.col-sm-5 {
+            padding-bottom: 14px;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: "Times New Roman", Times, serif;
+            margin-top: 0;
+        }
+
+        #heading {
+            color: #2B32B2;
+        }
+    </style>
+</head>
+
+<body onload="startTime()">
+    <h2 id="heading">RGS HEALTH CARE</h2>
+    <div class="container bootstrap snippets bootdey">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-4 col-sm-5">
+                    <div class="thumbnail">
+                        <img src="data:image/<%=doctor[0].photo.contentType%>;base64,<%=doctor[0].photo.data.toString('base64')%>"
+                            alt="Profile Picture" />
+                    </div>
+                    <!-- /.thumbnail -->
+                    <br />
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-asterisk"></i> &nbsp;Successful Appointments:10
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-hourglass-end" aria-hidden="true"></i> &nbsp;Experiance:
+                            <%=doctor[0].yearsOfPractice%> years
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-graduation-cap"></i> &nbsp;Education : <%=doctor[0].medicalSchool%>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                            &nbsp;phone number : <%=doctor[0].phone%>
+                        </a>
+
+                        <a href="#" class="list-group-item">
+                            <i class="fa fa-star" aria-hidden="true"></i> &nbsp;Rating : 8.5
+                        </a>
+
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-sm-7">
+                    <h2>Dr <%=doctor[0].name%>
+                    </h2>
+                    <h4>
+                        <%=doctor[0].speciality%>
+                    </h4>
+                    <hr />
+                    <p>
+                        <a href="/Pdashboard/makeAnAppoitment/<%=doctor[0]._id%>" class="btn btn-success">Make an
+                            Appontment</a>
+                        &nbsp;&nbsp;
+                        <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank"
+                            class="btn btn-info">Send an Email</a>
+                    </p>
+                    <hr />
+                    <ul class="icons-list">
+                        <li><i class="icon-li fa fa-envelope"></i>
+                            <%=doctor[0].email%>
+                        </li>
+                        <li>
+                            <i class="icon-li fa fa-map-marker"></i>
+                            <%=doctor[0].clinicAddress%>
+                        </li>
+                        <li>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <%=doctor[0].clinicTiming.start%> - <%=doctor[0].clinicTiming.end%>
+                        </li>
+                    </ul>
+                    <br />
+                    <p>
+                        <%if(doctor[0].sex=='male' ){%>
+                            <span>He</span>
+                            <%}%>
+                                <%if(doctor[0].sex=='female' ){%>
+                                    <span>She</span>
+                                    <%}%>
+                                        is a great <%=doctor[0].speciality%> treating people for last
+                                            <%=doctor[0].yearsOfPractice%> years.
+                                                <%if(doctor[0].sex=='male' ){%>
+                                                    <span>He</span>
+                                                    <%}%>
+                                                        <%if(doctor[0].sex=='female' ){%>
+                                                            <span>She</span>
+                                                            <%}%>
+                                                                has competed
+                                                                <%if(doctor[0].sex=='male' ){%>
+                                                                    <span>his</span>
+                                                                    <%}%>
+                                                                        <%if(doctor[0].sex=='female' ){%>
+                                                                            <span>her</span>
+                                                                            <%}%>
+                                                                                graduation from
+                                                                                <%=doctor[0].medicalSchool%> .
+
+                    </p>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
