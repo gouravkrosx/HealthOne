@@ -34,6 +34,25 @@
     <style>
         
 
+<body>
+    <div class="container register">
+        <div class="row">
+            <!-- <div class="col-md-3 register-left">
+                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+                <h3>Welcome</h3>
+                <p>We are here to help you</p>
+
+            </div> -->
+            <div class="col-md-9 register-right">
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Fill your details</h3>
+                        
+                            <form action="/users/Doctor/register" method="POST" enctype="multipart/form-data">
+                                <% include ./partials/messages %>
+                                <div class="row register-form">
+
         /* ==========================================================================
    #FONT
    ========================================================================== */
@@ -59,6 +78,7 @@
             flex-wrap: wrap;
         }
 
+
         .row-space {
             -webkit-box-pack: justify;
             -webkit-justify-content: space-between;
@@ -66,6 +86,96 @@
             -ms-flex-pack: justify;
             justify-content: space-between;
         }
+
+
+                                        <div class="form-group">
+                                            <label for="name">Full Name</label>
+                                            <input type="text" required class="form-control" name="name"
+                                                 id="name" 
+                                                value="<%= typeof name != 'undefined' ? name : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address">Your Address</label>
+                                            <input type="text" required class="form-control" name="address"
+                                                 id="address" 
+                                                value="<%= typeof address != 'undefined' ? address : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="medicalSchool">Medical School </label>
+                                            <input type="text" required class="form-control" name="medicalSchool"
+                                                     id="medicalSchool" 
+                                                value="<%= typeof medicalSchool != 'undefined' ? medicalSchool : '' %>" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="clinicAddress">Your Clinic Address</label>
+                                            <input type="text" required class="form-control" name="clinicAddress"
+                                                 id="clinicAddress" 
+                                                value="<%= typeof clinicAddress != 'undefined' ? clinicAddress : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="language">Languages </label>
+                                            <input type="text" required class="form-control" name="language"
+                                                 id="language" 
+                                                value="<%= typeof language != 'undefined' ? language : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Username</label>
+                                            <input type="email" required class="form-control" name="email"
+                                                 id="email" 
+                                                value="<%= typeof email != 'undefined' ? email : '' %>" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="maxl">
+                                                <label class="radio inline">
+                                                    <input type="radio" name="sex" value="male" checked>
+                                                    <span> Male </span>
+                                                </label>
+                                                <label class="radio inline">
+                                                    <input type="radio" name="sex" value="female">
+                                                    <span>Female </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">        
+                                            <label for="file">Upload your profile picture</label>
+
+                                            <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
+                                                     name="photo" onchange="loadFile(event)"></p>
+                                            <!-- <p><label for="file" style="cursor: pointer;"></label>
+                                            </p> -->
+                                            <p><img id="output" width="200" /></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="dob">Date of Birth</label>
+                                            <input type="date" required class="form-control" name="dateOfBirth"
+                                                 id="dob" 
+                                                value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="yearsOfPractice">Years of Practice</label>
+                                            <input type="text" required class="form-control" name="yearsOfPractice"
+                                                 id="yearsOfPractice" 
+                                                value="<%= typeof yearsOfPractice != 'undefined' ? yearsOfPractice : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="speciality">Speciality</label>
+                                            <input type="text" required class="form-control" name="speciality"
+                                                 id="speciality" 
+                                                value="<%= typeof speciality != 'undefined' ? speciality : '' %>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- <input type="text" required class="form-control" name="clinicTiming"
+                                                placeholder="Clinic Timings *"
+                                                value="<%= typeof clinicTiming != 'undefined' ? clinicTiming : '' %>" /> -->
+                                            <p>Choose your clinic timings</p>
+                                            <label for="st">From</label>
+                                            <input type="time" id="st" name="startTime" required>
+                                            <label for="et">To</label>
+                                            <input type="time" id="et" name="endTime" required>
 
         .col-2 {
             width: -webkit-calc((100% - 30px) / 2);
@@ -92,6 +202,7 @@
             box-sizing: border-box;
         }
 
+
         * {
             padding: 0;
             margin: 0;
@@ -104,6 +215,15 @@
             -moz-box-sizing: inherit;
             box-sizing: inherit;
         }
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone Number</label>
+                                            <input type="text" minlength="10" required maxlength="10" name="phone"
+                                                class="form-control"  id="phone" 
+                                                value="<%= typeof phone != 'undefined' ? phone : '' %>" />
+                                        </div>
 
         /* ==========================================================================
    #RESET
@@ -788,20 +908,30 @@ background: linear-gradient(to right, #e4faff, #c4f3ff);
                                                 <span class="checkmark"></span>
                                             </label>
 
+
                                         <div class="form-group">
+                                            <label for="consultancyFees">Consultancy Fees</label>
                                             <input type="text"
                                                 name="consultancyFees" class="form-control"
-                                                placeholder="ConsultancyFees *"
+                                                 id="consultancyFees" 
                                                 value="<%= typeof  consultancyFees != 'undefined' ?  consultancyFees : '' %>" />
                                         </div>
 
 
                                         <div class="form-group">
+                                            <label for="password">Password</label>
                                             <input type="password" required class="form-control" id="password"
-                                                name="password" placeholder="Password *"
+                                                name="password"  id="password" 
                                                 value="<%= typeof password != 'undefined' ? password : '' %>" />
 
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="confirm_password">Confirm Password</label>
+                                            <input type="password" required class="form-control" id="confirm_password"
+                                                name="password2"  id="confirm_password" 
+                                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -813,6 +943,7 @@ background: linear-gradient(to right, #e4faff, #c4f3ff);
                                                 value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>"
                                                 required>
                                             <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+
                                         </div>
 
 
@@ -853,6 +984,8 @@ background: linear-gradient(to right, #e4faff, #c4f3ff);
                                             required>
                                     </div>
 
+
+
                                     <div class="input-group">
                                         <label class="label">Password</label>
                                         <input class="input--style-4" type="password" name="password"
@@ -875,6 +1008,7 @@ background: linear-gradient(to right, #e4faff, #c4f3ff);
                                     <p><label class="label" for="file" style="cursor: pointer;"></label>
                                     </p>
                                     <p><img id="output" width="200" /></p>
+
 
                                 </div>
                             </div>

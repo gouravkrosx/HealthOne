@@ -16,12 +16,7 @@
 <body>
     <div class="container register">
         <div class="row">
-            <div class="col-md-3 register-left">
-                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
-                <h3>Welcome</h3>
-                <p>We are here to help you</p>
-
-            </div>
+            
             <div class="col-md-9 register-right">
 
                 <div class="tab-content" id="myTabContent">
@@ -34,22 +29,26 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
+                                            <label for="name">Full Name</label>
                                             <input type="text" required class="form-control" name="name"
-                                                placeholder="Enter your name *"
+                                                id="name "
                                                 value="<%= typeof name != 'undefined' ? name : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="address">Your Address</label>
                                             <input type="text" required class="form-control" name="address"
-                                                placeholder="Address *"
+                                                id="address"
                                                 value="<%= typeof address != 'undefined' ? address : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="email">Username</label>
                                             <input type="email" required class="form-control" name="email"
-                                                placeholder="Your Email *"
+                                                id="email"
                                                 value="<%= typeof email != 'undefined' ? email : '' %>" />
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="">Gender</label>
                                             <div class="maxl">
                                                 <label class="radio inline">
                                                     <input type="radio" name="sex" value="male" checked>
@@ -64,63 +63,71 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label for="dob">Date of Birth</label>
                                             <input type="date" required class="form-control" name="dateOfBirth"
-                                                placeholder="Date Of Birth *"
+                                                id="dob"
                                                 value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>" />
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="phone">Phone Number</label>
                                             <input type="text" minlength="10" required maxlength="10" name="phone"
-                                                class="form-control" placeholder="Your Phone *"
+                                                class="form-control" id="phone"
                                                 value="<%= typeof phone != 'undefined' ? phone : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="password">Password</label>
                                             <input type="password" required class="form-control" id="password"
-                                                name="password" placeholder="Password *"
+                                                name="password" id="password"
                                                 value="<%= typeof password != 'undefined' ? password : '' %>" />
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="password2">Confirm Password</label>
                                             <input type="password" required class="form-control" id="password2"
-                                                name="password2" placeholder="Confirm Password *"
+                                                name="password2" id="password2"
                                                 value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
                                         </div>
 
                                     </div>
-                                    <label for="photo">Upload your profile picture</label>
+                                    <div class="form-group">
+                                        <label for="file">Upload your profile picture</label>
 
-                                    <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
-                                            name="photo" onchange="loadFile(event)"></p>
-                                    <p><label for="file" style="cursor: pointer;"></label>
-                                    </p>
-                                    <p><img id="output" width="200" /></p>
-
+                                        <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
+                                                name="photo" onchange="loadFile(event)"></p>
+                                        <p><label for="file" style="cursor: pointer;"></label>
+                                        </p>
+                                        <p><img id="output" width="200" /></p>
+                                    </div>
 
 
 
                                     <div class="col-md-6">
                                         <label>Emergency Contact Details </label>
                                         <div class="form-group">
+                                            <label for="Enter Name *">Name</label>
                                             <input type="text" required class="form-control" name="emergencyName"
-                                                placeholder="Enter Name *"
+                                                id="Enter Name *"
                                                 value="<%= typeof emergencyName != 'undefined' ? emergencyName : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="Phonenumber">Phone Number</label>
                                             <input type="text" minlength="10" required maxlength="10"
                                                 name="emergencyPhone" class="form-control"
-                                                placeholder="Emergency Phone Number *"
+                                                id="Phonenumber"
                                                 value="<%= typeof emergencyPhone != 'undefined' ? emergencyPhone : '' %>" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <label>. </label>
                                         <div class="form-group">
+                                            <label for="EmergencyAddress">Address</label>
                                             <input type="text" required class="form-control" name="emergencyAddress"
-                                                placeholder="Emergency Address *"
+                                                id="EmergencyAddress"
                                                 value="<%= typeof emergencyAddress != 'undefined' ? emergencyAddress : '' %>" />
                                         </div>
                                         <button type="submit" class="btnRegister">Register</button>
-
+ 
                                     </div>
                                 </div>
                             </form>
