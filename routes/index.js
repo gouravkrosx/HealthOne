@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
 const moment = require('moment');
-
+const fast2sms = require('fast-two-sms');
 //Change get to delete request
 router.use(function (req, res, next) {
   // this middleware will call for each requested
@@ -422,6 +422,14 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
               time: x
             });
             //console.log(t);
+            let a = data[0].name;
+            let t1 = req.body.time;
+            let d = req.body.day;
+            let message1 = `Your appointment has been successfully booked with docId ${a} at timings ${t1} on ${d} `;
+            console.log(message1);
+             fast2sms.sendMessage({ authorization: process.env.API_KEY, message: message1, numbers: 9958178959 });
+            // res.send(response);
+        
             appointment.save().then(() => {
               res.redirect("/Pdashboard/PmyAppointments");
             });
@@ -507,6 +515,13 @@ router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('pho
   });
 });
 
+
+router.get("/Pdashboard/viewprofile/:did", ensureAuthenticated, function (req, res) {
+  DUser.find({ _id: req.params.did }, function (err, data) {
+    res.render("Viewprofile.ejs", { doctor: data, patient: req.user});
+  });
+  //res.send(req.params.did);
+});
 //Doctor records for past appointments
 router.get("/myRecords", ensureAuthenticated, function(req, res){
   appoint.find({ doctorId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
