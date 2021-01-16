@@ -4,17 +4,238 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RGS Health Care</title>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Static Template</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap"
+    rel="stylesheet">
+  <script>
+    function startTime() {
+      var today = new Date();
+      var h = today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      h = fun(h);
+      h = checkTime(h);
+      m = checkTime(m);
+      s = checkTime(s);
+      var am_pm = today.getHours() >= 12 ? "PM" : "AM";
+      document.getElementById("clock").innerHTML =
+        h + ":" + m + ":" + s + " " + am_pm;
+      var t = setTimeout(startTime, 500);
+      function fun(h) {
+        if (h > 12) {
+          h = h - 12;
+        }
+        return h;
+      }
+    }
+    // add zero in front of numbers < 10
+    function checkTime(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    }
+  </script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+    }
+
+    html {
+      box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    .column {
+      float: left;
+      width: 33.3%;
+      margin-bottom: 16px;
+      padding: 0 8px;
+    }
+
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      margin: 8px;
+    }
+
+    .about-section {
+      padding: 2%;
+      text-align: center;
+      background: #360033;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #0b8793, #360033);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #0b8793, #360033);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      color: white;
+    }
+
+    .container {
+      padding: 0 16px;
+    }
+
+    .container::after,
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .title {
+      color: grey;
+    }
+
+    .button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 8px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .button:hover {
+      background-color: #555;
+    }
+
+    @media screen and (max-width: 650px) {
+      .column {
+        width: 100%;
+        display: block;
+      }
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(4, 30, 59, 0.5);
+      background: #1e003610;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #0b8793, #360033);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #0b8793, #360033);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      height: 7rem;
+      color: white;
+      text-align: center;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
+    .Mycontainer {
+      padding: 35px;
+      margin: 9rem;
+      text-align: center;
+      background: #00d2ff;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #3a7bd5, #00d2ff);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #609ff7, #00d2ff);
+      color: white;
+      font: 1em sans-serif;
+      font-size: 1.5rem;
+      border-radius: 3px;
+      box-shadow: 0.5rem 0.5rem 0.5rem rgb(80, 78, 78);
+      font-family: 'Yusei Magic', sans-serif;
+    }
+
+    #quote {
+      font-family: 'Hachi Maru Pop', cursive;
+    }
+
+    @media (min-width: 1400px) {
+
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-lg {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-md {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-sm {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-xl {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-xxl {
+        max-width: 100%;
+        padding: 0;
+      }
+    }
+
+    .social-icon {
+      color: rgb(4, 28, 36);
+      margin: 10px 20px;
+      margin-bottom: 10px;
+
+    }
+
+    .social-icon:hover {
+      color: rgb(220, 235, 240);
+      cursor: pointer;
+    }
+  </style>
 </head>
 
-<body>
+<body onload="startTime()">
+  <div class="about-section">
+    <h1>Know about Us</h1>
+    <p id="quote">Serving Mankind is serving god...</p>
+  </div>
+  <div class="Mycontainer">
+    <p>
+      At RGS Healthcare we aim to bridge the gap between the Doctor and Patients. To provide the Patients with a
+      seamless healthcare experience we have designed our site such that patients can choose the Doctors according to
+      their specializations and book appointments to receive hassle-free treatment. We are not only patient-oriented but
+      we have focussed on the Doctors also, they can register their profile having their complete details, thus saving
+      their advertisement cost.
+    </p>
 
+  </div>
 
-  <p>At RGS Healthcare we aim to bridge the gap between the Doctor and Patients. To provide the Patients with a seamless
-    healthcare experience we have designed our site such that patients can choose the Doctors according to their
-    specializations and book appointments to receive hassle-free treatment. We are not only patient-oriented but we have
-    focussed on the Doctors also, they can register their profile having their complete details, thus saving their
-    advertisement cost.</p>
+  <footer class="footer">
+    <div class="container-fluid">
+      <i class="social-icon fab fa-facebook-f"></i>
+      <i class="social-icon fab fa-twitter"></i>
+      <i class="social-icon fab fa-instagram"></i>
+      <i class="social-icon fas fa-envelope"></i>
+      <p>© Copyright 2021</p>
+      <p id="date-time">
+        <span id="clock" style="color: rgb(255, 255, 255);"> </span>
+        <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }).format(new Date()) %>
+      </p>
+    </div>
+  </footer>
+
 </body>
 
 </html>

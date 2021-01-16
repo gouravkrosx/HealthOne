@@ -37,10 +37,7 @@
       padding: 10rem 0;
       background-color: #fff;
     }
-    h1{
-      padding: 5%;
-      text-align: center;
-    }
+
     .heading {
       text-transform: uppercase;
       font-size: 3.5rem;
@@ -51,9 +48,7 @@
       color: #333;
       position: relative;
     }
-.name{
-      text-transform: capitalize;
-    }
+
     .heading::after {
       content: "";
       width: 10rem;
@@ -196,11 +191,6 @@
 
 
 
-
-
-
-
-
     @media screen and (min-width: 700px) {
       .card-wrapper {
         flex-direction: row;
@@ -264,8 +254,6 @@
             <img src="data:image/<%=user.doctorPhoto.contentType%>;base64,<%=user.doctorPhoto.data.toString('base64')%>"
               alt="profile-img" class="profile-img">
             <h1> Appointment with Dr. <%=user.doctorName%>
-            <h1> Appointment with Dr. <span class="name"><%=user.doctorName%></span>
-
             </h1>
             <p class="job-title">
               
@@ -292,8 +280,7 @@
             </ul>
             </p>
 
-
-            <a href="#" class="btn">View Profile</a>
+            <a href="/Pdashboard/viewprofile/<%=user.doctorId%>" class="btn">View Profile</a>
             <%if(user.dFlag===1) { %>
               <p>Prescription given on <%=user.prescription.Pdate%>
               </p>

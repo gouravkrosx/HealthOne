@@ -50,6 +50,15 @@ router.get('/', (req, res) => (
   res.render("homepage")
 ))
 
+router.get('/About-us', (req, res) => (
+  res.render("AboutUs")
+))
+
+router.get('/Contact-us', (req, res) => (
+  res.render("ContactUs")
+))
+
+
 // Register/Login Page
 router.get('/welcome', forwardAuthenticated, (req, res) => res.render('welcome'));
 router.get('/users/Patient', (req, res) => res.render('Patient'));
@@ -445,6 +454,7 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
 
 // Route for showing "My appointments" for patient
 router.get("/Pdashboard/PmyAppointments", ensureAuthenticated, function (req, res) {
+  
   appoint.find({ patientId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
     if (err)
       console.log(err);
@@ -488,6 +498,13 @@ router.delete("/Ddelete/:id", function (req, res) {
 //for Prescriptions
 router.get("/Ddashboard/DmyAppointments/Prescription/:appid", ensureAuthenticated, function (req, res) {
   res.render("Prescription", { appid: req.params.appid });
+  // appoint.find({ patientId: req.params.appid }, null, function (err, data) {
+  //   if (err)
+  //     console.log(err);
+  //   else {
+  //     res.render("Prescription", { data: data });
+  //   }
+  // })
 })
 
 router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('photo'), function (req, res) {
