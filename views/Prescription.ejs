@@ -2,33 +2,260 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prescription</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Static Template</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap"
+    rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Hachi+Maru+Pop&family=Yusei+Magic&display=swap"
+    rel="stylesheet" />
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- Font Awesome -->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+  <script>
+    function startTime() {
+      var today = new Date();
+      var h = today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      h = fun(h);
+      h = checkTime(h);
+      m = checkTime(m);
+      s = checkTime(s);
+      var am_pm = today.getHours() >= 12 ? "PM" : "AM";
+      document.getElementById("clock").innerHTML =
+        h + ":" + m + ":" + s + " " + am_pm;
+      var t = setTimeout(startTime, 500);
+      function fun(h) {
+        if (h > 12) {
+          h = h - 12;
+        }
+        return h;
+      }
+    }
+    // add zero in front of numbers < 10
+    function checkTime(i) {
+      if (i < 10) {
+        i = "0" + i;
+      }
+      return i;
+    }
+  </script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+    }
+
+    html {
+      box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    .column {
+      float: left;
+      width: 33.3%;
+      margin-bottom: 16px;
+      padding: 0 8px;
+    }
+
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      margin: 8px;
+    }
+
+    .about-section {
+      padding: 2%;
+      font-size: 1rem;
+      text-align: center;
+      background: #360033;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #0b8793, #360033);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #0b8793, #360033);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      color: white;
+    }
+
+    .container {
+      padding: 0 16px;
+    }
+
+    .container::after,
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .title {
+      color: grey;
+    }
+
+    .button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 8px;
+      color: white;
+      background: #360033;
+      text-align: center;
+      cursor: pointer;
+      width: 50%;
+      border-radius: 10px;
+    }
+
+    .button:hover {
+      background-color: rgba(89, 7, 92, 0.829);
+    }
+
+    @media screen and (max-width: 650px) {
+      .column {
+        width: 100%;
+        display: block;
+      }
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(4, 30, 59, 0.5);
+      background: #1e003610;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #0b8793, #360033);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #0b8793, #360033);
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      height: 7rem;
+      color: white;
+      text-align: center;
+    }
+
+    @import url("https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap");
+
+    .Mycontainer {
+      padding: 3%;
+      margin: 9rem;
+      text-align: center;
+      background: #00d2ff;
+      /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #3a7bd5, #00d2ff);
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #609ff7, #00d2ff);
+      color: white;
+      border-radius: 3px;
+      box-shadow: 0.5rem 0.5rem 0.5rem rgb(80, 78, 78);
+    }
+
+    #quote {
+      font-family: "Hachi Maru Pop", cursive;
+    }
+
+    @media (min-width: 1400px) {
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-lg {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-md {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-sm {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-xl {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .container-xxl {
+        max-width: 100%;
+        padding: 0;
+      }
+    }
+
+    .social-icon {
+      color: rgb(4, 28, 36);
+      margin: 10px 20px;
+      margin-bottom: 10px;
+    }
+
+    .social-icon:hover {
+      color: rgb(220, 235, 240);
+      cursor: pointer;
+    }
+
+    #heading {
+      font-size: 2rem;
+    }
+  </style>
 </head>
 
-<body>
+<body >
+  <div class="about-section">
+    <h1 id="heading">Prescriptions Page </h1>
+    <p id="quote">Serving Mankind is serving god...</p>
+  </div>
+  <div class="Mycontainer">
+    <form action="/Ddashboard/DmyAppointments/Prescription/<%=appid%>" method="POST" enctype="multipart/form-data">
+      <label for="photo">Upload Prescription</label>
 
-  <form action="/Ddashboard/DmyAppointments/Prescription/<%=appid%>" method="POST" enctype="multipart/form-data">
+      <p>
+        <input style="cursor:pointer;" class="button" type="file" accept="image/png,image/jpeg,image/jpg"
+          id="file" required name="photo" onchange="loadFile(event)" />
+      </p>
 
-    <label for="photo">Upload Prescription</label>
+      <p><label for="file"></label></p>
+      <p><img id="output" width="200" /></p>
 
-    <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required name="photo"
-        onchange="loadFile(event)"></p>
-    <p><label for="file" style="cursor: pointer;"></label>
-    </p>
-    <p><img id="output" width="200" /></p>
+      <button class="btn btn-dark" style="cursor:pointer;" type="submit">send file</button>
+    </form>
+  </div>
 
-    <button type="submit">send file</button>
-  </form>
+  <footer class="footer">
+    <div class="container-fluid">
+      <i class="social-icon fab fa-facebook-f"></i>
+      <i class="social-icon fab fa-twitter"></i>
+      <i class="social-icon fab fa-instagram"></i>
+      <i class="social-icon fas fa-envelope"></i>
+      <p>© Copyright 2021</p>
+      <p id="date-time">
+        <span id="clock" style="color: rgb(255, 255, 255);"> </span>
+        <%= new Intl.DateTimeFormat('en-GB', { year: 'numeric' , month: 'long' , day: '2-digit' }).format(new Date()) %>
+      </p>
+    </div>
+  </footer>
   <script>
     var loadFile = function (event) {
-      var image = document.getElementById('output');
+      var image = document.getElementById("output");
       image.src = URL.createObjectURL(event.target.files[0]);
     };
   </script>
-
-
 </body>
 
 </html>
