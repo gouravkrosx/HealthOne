@@ -34,7 +34,9 @@
     }
 
     section {
-      padding: 10rem 0;
+      
+    padding-bottom: 10rem;
+    padding-top: 5rem;
       background-color: #fff;
     }
 
@@ -83,7 +85,7 @@
 
     .card .card-img {
       width: 100%;
-      height: 26rem;
+      height: 20rem;
       object-fit: cover;
       clip-path: polygon(0 0, 100% 0, 100% 69%, 0% 100%);
     }
@@ -100,9 +102,12 @@
     }
 
     .card h1 {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       color: #333;
-      margin: 1.5rem 0;
+      margin-top: 2rem;
+      margin-bottom: 0;
+      text-align: center;
+      text-transform: capitalize;
     }
 
     .job-title {
@@ -273,6 +278,9 @@
     #dashboard{
       font-size: 1.5rem;
     }
+    .capitalize{
+      text-transform: capitalize;
+    }
   </style>
 </head>
 
@@ -290,13 +298,14 @@
       <h1 class="heading">My Appointments</h1>
       <div class="card-wrapper">
       <%data.forEach(function(user){%>
+        <% if(!user.prescription){ %>
           <div class="card">
             <img
               src="https://images.unsplash.com/photo-1500530447821-8fccc8203b7f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvcm9uYSUyMHZhY2NpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
               alt="card background" class="card-img">
             <img src="data:image/<%=user.doctorPhoto.contentType%>;base64,<%=user.doctorPhoto.data.toString('base64')%>"
               alt="profile-img" class="profile-img">
-            <h1> Appointment with Dr. <%=user.doctorName%>
+            <h1 class="capitalize"> Appointment with Dr. <%=user.doctorName%>
             </h1>
             <p class="job-title">
               
@@ -305,7 +314,7 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
                 <strong>Doctor's Speciality:</strong>
-                <%=user.doctorSpeciality%>
+                <span class="capitalize"><%=user.doctorSpeciality%></span>
               </li>
               <li class="list-group-item">
                 <strong>Address:</strong>
@@ -346,6 +355,7 @@
                       <li> <a href="#"> <i class="fab fa-google-plus-square"></i> </a> </li>
                     </ul> -->
           </div>
+          <% } %>
           <% })%>
 
 
