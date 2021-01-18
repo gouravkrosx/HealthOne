@@ -32,64 +32,73 @@
                                     <div class="col-md-6">
 
                                         <div class="form-group">
+                                            <label for="fname">Full Name</label>
                                             <input type="text" required class="form-control" name="name"
-                                                placeholder="Enter your name *"
+                                                id="fname"
                                                 value="<%= typeof name != 'undefined' ? name : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="Address">Residential Address</label>
                                             <input type="text" required class="form-control" name="address"
-                                                placeholder="Address *"
+                                                id="Address "
                                                 value="<%= typeof address != 'undefined' ? address : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="MedicalSchoolAttended">Medical School Attended</label>
                                             <input type="text" required class="form-control" name="medicalSchool"
-                                                placeholder="Medical School Attended *"
+                                                id="MedicalSchoolAttended "
                                                 value="<%= typeof medicalSchool != 'undefined' ? medicalSchool : '' %>" />
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="ClinicAddress">Clinic Address</label>
                                             <input type="text" required class="form-control" name="clinicAddress"
-                                                placeholder="Clinic Address *"
+                                                id="ClinicAddress "
                                                 value="<%= typeof clinicAddress != 'undefined' ? clinicAddress : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="Language">Language</label>
                                             <input type="text" required class="form-control" name="language"
-                                                placeholder="Language *"
+                                                id="Language "
                                                 value="<%= typeof language != 'undefined' ? language : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="Email">Enter your email address</label>
                                             <input type="email" required class="form-control" name="email"
-                                                placeholder="Your Email *"
+                                                id=" Email "
                                                 value="<%= typeof email != 'undefined' ? email : '' %>" />
                                         </div>
-
                                         <div class="form-group">
-                                            <div class="maxl">
-                                                <label class="radio inline">
-                                                    <input type="radio" name="sex" value="male" checked>
-                                                    <span> Male </span>
-                                                </label>
-                                                <label class="radio inline">
-                                                    <input type="radio" name="sex" value="female">
-                                                    <span>Female </span>
-                                                </label>
-                                            </div>
+                                            <label for="Password">Enter Password</label>
+                                            <input type="password" required class="form-control" id="password"
+                                                name="password" id="Password "
+                                                value="<%= typeof password != 'undefined' ? password : '' %>" />
                                         </div>
+                                        <div class="form-group">
+                                            <label for="ConfirmPassword">Confirm Password</label>
+                                            <input type="password" required class="form-control" id="confirm_password"
+                                                name="password2" id="ConfirmPassword "
+                                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
+                                        </div>
+                                        
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label for="DateOfBirth">Date Of Birth</label>
                                             <input type="date" required class="form-control" name="dateOfBirth"
-                                                placeholder="Date Of Birth *"
+                                                id="DateOfBirth "
                                                 value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="YearsOfPractice">Years Of Practice</label>
                                             <input type="text" required class="form-control" name="yearsOfPractice"
-                                                placeholder="Years Of Practice *"
+                                                id="YearsOfPractice "
                                                 value="<%= typeof yearsOfPractice != 'undefined' ? yearsOfPractice : '' %>" />
                                         </div>
                                         <div class="form-group">
+                                            <label for="Speciality">Speciality</label>
                                             <input type="text" required class="form-control" name="speciality"
-                                                placeholder="Speciality *"
+                                                id="Speciality "
                                                 value="<%= typeof speciality != 'undefined' ? speciality : '' %>" />
                                         </div>
                                         <div class="form-group">
@@ -106,39 +115,45 @@
 
                                         </div>
                                         <div class="form-group">
+                                            <label for="YourPhone">Mobile No</label>
                                             <input type="text" minlength="10" required maxlength="10" name="phone"
-                                                class="form-control" placeholder="Your Phone *"
+                                                class="form-control" id="YourPhone "
                                                 value="<%= typeof phone != 'undefined' ? phone : '' %>" />
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="ConsultancyFees">Consultancy Fees</label>
                                             <input type="text" name="consultancyFees" class="form-control"
-                                                placeholder="ConsultancyFees *"
+                                                id="ConsultancyFees "
                                                 value="<%= typeof  consultancyFees != 'undefined' ?  consultancyFees : '' %>" />
                                         </div>
 
+                                        <div class="form-group">
+                                            <label for="gender">Gender</label>
+                                            <div id="gender" class="maxl">
+                                                <label class="radio inline">
+                                                    <input  type="radio" name="sex" value="male" checked>
+                                                    <span> Male </span>
+                                                </label>
+                                                <label class="radio inline x">
+                                                    <input type="radio" name="sex" value="female">
+                                                    <span>Female </span>
+                                                </label>
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
-                                            <input type="password" required class="form-control" id="password"
-                                                name="password" placeholder="Password *"
-                                                value="<%= typeof password != 'undefined' ? password : '' %>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" required class="form-control" id="confirm_password"
-                                                name="password2" placeholder="Confirm Password *"
-                                                value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
-                                        </div>
+                                                    
+                                            <label for="photo">Upload your profile picture</label>
 
+                                            <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
+                                                    name="photo" onchange="loadFile(event)"></p>
+                                            <p><label for="file" style="cursor: pointer;"></label>
+                                            </p>
+                                            <p><img id="output" width="200" /></p>
+                                        </div>
                                         <button type="submit" class="btnRegister">Register</button>
                                     </div>
-                                    <label for="photo">Upload your profile picture</label>
-
-                                    <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
-                                            name="photo" onchange="loadFile(event)"></p>
-                                    <p><label for="file" style="cursor: pointer;"></label>
-                                    </p>
-                                    <p><img id="output" width="200" /></p>
-
 
 
 
