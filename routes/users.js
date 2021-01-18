@@ -141,7 +141,8 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
           email,
           password,
           consultancyFees,
-
+          numberOfAppoints: 0,
+          sumOfRate: 0,
         });
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {

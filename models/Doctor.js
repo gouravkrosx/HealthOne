@@ -23,6 +23,9 @@ const UserSchema = new mongoose.Schema({
   yearsOfPractice: String,
   language:String,
   clinicAddress: String,
+  rating: Number,
+  numberOfAppoints: Number,
+  sumOfRate: Number,
   clinicTiming:{
     start:{
       type:Date

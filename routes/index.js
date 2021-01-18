@@ -42,6 +42,7 @@ const PUser = require('../models/Patient');
 const DUser = require('../models/Doctor');
 const { mainModule } = require('process');
 const appoint = require('../models/Appointment');
+const Quote = require('../models/quotes');
 const { route } = require('./users');
 
 
@@ -82,7 +83,12 @@ router.get('/Pdashboard', ensureAuthenticated, (req, res) => {
     res.redirect("/");
   }
   else {
-    res.render('Pdashboard', { user: req.user });
+    let curr = new Date();
+    let c = curr.getDate()%7;
+    Quote.find({}, function(err, data){
+      res.render('Pdashboard', { user: req.user, quote:data[c] });
+    })
+    
   }
 });
 
@@ -326,7 +332,7 @@ router.post('/Pdashboard', function (req, res) {
     //console.log(req.body);
     let x = req.body.search;
     if (req.body.category === 'speciality') {
-      DUser.find({ speciality: _.lowerCase(x) }, function (err, data) {
+      DUser.find({ speciality: _.lowerCase(x) }, null, { sort: { rating: -1 } }, function (err, data) {
         if (err) {
           console.log(err);
         }
@@ -337,7 +343,7 @@ router.post('/Pdashboard', function (req, res) {
       });
     }
     else {
-      DUser.find({ name: _.lowerCase(x) }, function (err, data) {
+      DUser.find({ name: _.lowerCase(x) }, null, { sort: { rating: -1 } }, function (err, data) {
         if (err) {
           console.log(err);
         }
@@ -470,7 +476,7 @@ router.get("/Ddashboard/DmyAppointments", ensureAuthenticated, function (req, re
     if (err)
       console.log(err);
     else {
-      res.render("DMy-Appointments", { data: data });
+      res.render("DMy-Appointments", { data: data, currD: new Date() });
     }
   })
 });
@@ -539,6 +545,19 @@ router.get("/Pdashboard/viewprofile/:did", ensureAuthenticated, function (req, r
   });
   //res.send(req.params.did);
 });
+
+//Patient records for past appointments
+router.get("/myRecordsP", ensureAuthenticated, function(req, res){
+  appoint.find({patientId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function(err, data){
+    if(err){
+      console.log(err);
+    }
+    else{
+      res.render("MyRecordsP", {data: data});
+    }
+  })
+})
+
 //Doctor records for past appointments
 router.get("/myRecords", ensureAuthenticated, function(req, res){
   appoint.find({ doctorId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
@@ -549,5 +568,46 @@ router.get("/myRecords", ensureAuthenticated, function(req, res){
     }
   })
 });
+
+//rate Doctor Rout
+router.get("/Pdashboard/rateDoctor/:did/:appid", ensureAuthenticated, function(req, res){
+  DUser.find({ _id: req.params.did }, function (err, data) {
+    //console.log(data);
+    res.render("Rate", { doctor: data[0], patient: req.user, appid:req.params.appid});
+  });
+});
+router.post("/Pdashboard/rateDoctor/:did/:appid", ensureAuthenticated, function(req, res){
+  DUser.findById({_id: req.params.did}, function(err, data){
+    if(err)
+      console.log(err);
+    else{
+      console.log(parseInt(req.body.rating));
+      
+      DUser.findByIdAndUpdate({_id: req.params.did}, {
+        rating: (data.sumOfRate+parseInt(req.body.rating))/(data.numberOfAppoints+1),
+        sumOfRate: data.sumOfRate+parseInt(req.body.rating),
+        numberOfAppoints: data.numberOfAppoints+1
+      }, function(err, f){
+        if(err)
+          console.log(err);
+        else{
+          //console.log(f);
+          appoint.findByIdAndUpdate({ _id: req.params.appid }, {
+             pFlag: 1
+          }, function (err, foundUser) {
+            if (err) {
+              console.log(err);
+            } else {
+              if (foundUser) {
+                //console.log("ha user hai yaha");
+              }
+              res.redirect("/myRecordsP");
+            }
+          });
+        }
+      })
+    }
+  })
+})
 
 module.exports = router;

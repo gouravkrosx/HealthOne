@@ -77,7 +77,7 @@
       width: 40%;
     }
     #final-nav{
-      margin: 2rem;
+      margin: 2rem 0;
       display: flex;
       flex-direction: row;
       justify-content: space-around;
@@ -132,12 +132,42 @@
       font-size: 2rem;
       text-transform: capitalize;
     }
+    .common-nav { 
+      display: flex;
+      flex-direction: row;
+      color: #333;
+      background: #9ddfd3;
+      flex-wrap: wrap;
+      box-shadow: 0.5rem 0.5rem 0.5rem rgba(90, 89, 89, 0.863);
+      width: 100%;
+      margin-top: 2rem;
+      padding: 1rem;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+     a {
+      margin: 1rem;
+      text-decoration: none;
+      color: rgba(32, 31, 31, 0.856);
+    }
+
+     a:hover {
+     color: #ebeef8;
+    }
+    
+    #dashboard{
+      font-size: 1.5rem;
+    }
+    .capitalize{
+      text-transform: capitalize;
+    }
 </style>
   
   <body>
     <div class="top__container">
       <img id="profile-pic" src="data:image/<%=user.photo.contentType%>;base64,<%=user.photo.data.toString('base64')%>" alt="mypic">  
-      <span class="welcome">Welcome ! <%= user.name %> </span>
+      <span class="welcome">Welcome! <%= user.name %> </span>
         <span class="welcome">
         <a href="/Pdashboard/PeditProfile" title="Edit your profile"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -156,14 +186,14 @@
           </a>
       </div>
       <div>
-          <a href="/Pdashboard/myRecordsP" class="btn btn-info">Previous Appointments</a>
-          <a href="/Pdashboard/PmyAppointments" class="btn btn-info"> Active Appointments</a>   
+          <a href="/myRecordsP" class="" id="dashboard">Previous Appointments</a>
+          <a href="/Pdashboard/PmyAppointments" class="" id="dashboard"> Active Appointments</a>   
       </div>
 
       <form action="/Pdashboard" method="POST">     
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Options</label>
+              
               <select name="category" class="custom-select" id="inputGroupSelect01">
                   <option value="speciality">Speciality</option>
                   <option value="name">Name</option>
@@ -175,7 +205,7 @@
             </div>    
           </div> 
         </form>
-        <a href="/users/logout" class="btn btn-info">Logout</a>
+        <a href="/users/logout" class="" id="dashboard">Logout</a>
         
     </div>
     
@@ -186,7 +216,7 @@
     <div class="w3-row-padding w3-padding-64 w3-container">
       <div class="w3-content">
         <div class="w3-twothird">
-          <h1>Lorem Ipsum</h1>
+          <h1>General Instructions</h1>
           <h5 class="w3-padding-32">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -218,42 +248,10 @@
     </div>
 
     <!-- Second Grid -->
-    <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
-      <div class="w3-content">
-        <div class="w3-third w3-center">
-          <!-- <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i> -->
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoabOpr2WmVDLZ2l-pIgPjFzFLvJMXGX8HSw&usqp=CAU"
-            alt=""
-          />
-        </div>
-
-        <div class="w3-twothird">
-          <h1>Lorem Ipsum</h1>
-          <h5 class="w3-padding-32">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </h5>
-
-          <p class="w3-text-grey">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat
-            non proident, sunt in culpa qui officia deserunt mollit anim id est
-            laborum consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </p>
-        </div>
-      </div>
-    </div>
+    
   </div>  
     <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-      <h1 class="w3-margin w3-xlarge">Quote of the day: live life</h1>
+      <h1 class="w3-margin w3-xlarge">Quote of the day: <%= quote.quotes %></h1>
     </div>
 
     <!-- Footer -->
