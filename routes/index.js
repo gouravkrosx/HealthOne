@@ -407,7 +407,7 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
         if (err)
           console.log(err);
         else {
-          if (arr.length >= 2) {
+          if (arr.length >= 3) {
             req.flash('error_msg', 'Slots full on ' + req.body.day);
             res.redirect("/Pdashboard/makeAnAppoitment/" + req.params.did);
           }
