@@ -34,7 +34,7 @@
     }
 
     section {
-      padding-bottom: 10rem ;
+      padding-bottom: 10rem;
       padding-top: 5rem;
       background-color: #fff;
     }
@@ -237,7 +237,8 @@
         transform: scale(1.05);
       }
     }
-    .common-nav { 
+
+    .common-nav {
       display: flex;
       flex-direction: row;
       color: #333;
@@ -258,7 +259,7 @@
     }
 
     .common-nav a:hover {
-     color: #ebeef8;
+      color: #ebeef8;
     }
 
     #RGSlogo {
@@ -269,9 +270,10 @@
       width: 2.5rem;
       border-radius: 50%;
       margin-right: 1rem;
-     
+
     }
-    #dashboard{
+
+    #dashboard {
       font-size: 1.5rem;
     }
   </style>
@@ -301,8 +303,10 @@
               <img
                 src="data:image/<%=user.patientPhoto.contentType%>;base64,<%=user.patientPhoto.data.toString('base64')%>"
                 alt="profile-img" class="profile-img">
-                <h1> Appointment with <span class="name"><%= user.patientName %></span> 
-                </h1>
+              <h1> Appointment with <span class="name">
+                  <%= user.patientName %>
+                </span>
+              </h1>
               <p class="about">
               <ul class="list-group list-group-flush">
 
@@ -317,10 +321,14 @@
               </ul>
               </p>
 
-              <% if(currD.getDate()>=user.date.getDate() && currD.getMonth()>=user.date.getMonth() && currD.getFullYear()>=user.date.getFullYear() && currD.getHours()>=user.time.start.getHours() && currD.getMinutes()>=user.time.start.getMinutes() ){  %>
-              <a href="/Ddashboard/DmyAppointments/Prescription/<%=user.id%>" class="btn">Attach Prescription</a>
-              <% } %>
-              <a href="/Ddelete/<%= user._id %>?_method=DELETE" class="btn">Cancel Appointment</a>
+              <% if(currD.getDate()>=user.date.getDate() && currD.getMonth()>=user.date.getMonth() &&
+                currD.getFullYear()>=user.date.getFullYear() && currD.getHours()>=user.time.start.getHours() &&
+                currD.getMinutes()>=user.time.start.getMinutes() ){ %>
+
+                <a href="/Ddashboard/DmyAppointments/Prescription/<%=user.id%>" class="btn">Attach Prescription</a>
+
+                <% } %>
+                  <a href="/Ddelete/<%= user._id %>?_method=DELETE" class="btn">Cancel Appointment</a>
 
             </div>
             <% }%>

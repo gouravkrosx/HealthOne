@@ -84,11 +84,11 @@ router.get('/Pdashboard', ensureAuthenticated, (req, res) => {
   }
   else {
     let curr = new Date();
-    let c = curr.getDate()%7;
-    Quote.find({}, function(err, data){
-      res.render('Pdashboard', { user: req.user, quote:data[c] });
+    let c = curr.getDate() % 7;
+    Quote.find({}, function (err, data) {
+      res.render('Pdashboard', { user: req.user, quote: data[c] });
     })
-    
+
   }
 });
 
@@ -216,7 +216,11 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(password, salt, (err, hash) => {
               if (err) throw err;
-              foundUser.password = hash;
+
+              if (foundUser.password !== password) {
+                foundUser.password = hash;
+              }
+              
               foundUser.save()
                 .then(user => {
                   req.flash(
@@ -302,10 +306,17 @@ router.post('/Pdashboard/PeditProfile', upload.single('photo'), (req, res) => {
           //console.log("abhi tak to bhar hi hu");
 
 
+
+
+
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(password, salt, (err, hash) => {
               if (err) throw err;
-              foundUser.password = hash;
+
+              if (foundUser.password !== password) {
+                foundUser.password = hash;
+              }
+
               foundUser.save()
                 .then(user => {
                   req.flash(
@@ -316,8 +327,10 @@ router.post('/Pdashboard/PeditProfile', upload.single('photo'), (req, res) => {
                   res.redirect('/Pdashboard');
                 })
                 .catch(err => console.log(err));
+
             });
           });
+
 
         }
       }
@@ -402,23 +415,23 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
             let now = new Date(req.body.day);
 
             let options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
+              weekday: 'long',
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric'
             };
 
-            now.toLocaleString('en-us', options); 
-            
+            now.toLocaleString('en-us', options);
+
             let options1 = {
-                hour: '2-digit',
-                minute: '2-digit'
+              hour: '2-digit',
+              minute: '2-digit'
             };
             let x = {
               start: t.start,
               end: t.end,
-              Start : t.start.toLocaleString('en-us', options1),
-              End : t.end.toLocaleString('en-us', options1)
+              Start: t.start.toLocaleString('en-us', options1),
+              End: t.end.toLocaleString('en-us', options1)
             };
             //console.log(arr.length);
             //console.log(x);
@@ -442,9 +455,9 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
             let d = req.body.day;
             let message1 = `Your appointment has been successfully booked with docId ${a} at timings ${t1} on ${d} `;
             console.log(message1);
-             fast2sms.sendMessage({ authorization: process.env.API_KEY, message: message1, numbers: 9958178959 });
+            fast2sms.sendMessage({ authorization: process.env.API_KEY, message: message1, numbers: 9958178959 });
             // res.send(response);
-        
+
             appointment.save().then(() => {
               res.redirect("/Pdashboard/PmyAppointments");
             });
@@ -460,7 +473,7 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
 
 // Route for showing "My appointments" for patient
 router.get("/Pdashboard/PmyAppointments", ensureAuthenticated, function (req, res) {
-  
+
   appoint.find({ patientId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
     if (err)
       console.log(err);
@@ -541,25 +554,25 @@ router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('pho
 
 router.get("/Pdashboard/viewprofile/:did", ensureAuthenticated, function (req, res) {
   DUser.find({ _id: req.params.did }, function (err, data) {
-    res.render("Viewprofile.ejs", { doctor: data, patient: req.user});
+    res.render("Viewprofile.ejs", { doctor: data, patient: req.user });
   });
   //res.send(req.params.did);
 });
 
 //Patient records for past appointments
-router.get("/myRecordsP", ensureAuthenticated, function(req, res){
-  appoint.find({patientId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function(err, data){
-    if(err){
+router.get("/myRecordsP", ensureAuthenticated, function (req, res) {
+  appoint.find({ patientId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
+    if (err) {
       console.log(err);
     }
-    else{
-      res.render("MyRecordsP", {data: data});
+    else {
+      res.render("MyRecordsP", { data: data });
     }
   })
 })
 
 //Doctor records for past appointments
-router.get("/myRecords", ensureAuthenticated, function(req, res){
+router.get("/myRecords", ensureAuthenticated, function (req, res) {
   appoint.find({ doctorId: req.user._id }, null, { sort: { date: 1, bookedAt: 1 } }, function (err, data) {
     if (err)
       console.log(err);
@@ -570,30 +583,30 @@ router.get("/myRecords", ensureAuthenticated, function(req, res){
 });
 
 //rate Doctor Rout
-router.get("/Pdashboard/rateDoctor/:did/:appid", ensureAuthenticated, function(req, res){
+router.get("/Pdashboard/rateDoctor/:did/:appid", ensureAuthenticated, function (req, res) {
   DUser.find({ _id: req.params.did }, function (err, data) {
     //console.log(data);
-    res.render("Rate", { doctor: data[0], patient: req.user, appid:req.params.appid});
+    res.render("Rate", { doctor: data[0], patient: req.user, appid: req.params.appid });
   });
 });
-router.post("/Pdashboard/rateDoctor/:did/:appid", ensureAuthenticated, function(req, res){
-  DUser.findById({_id: req.params.did}, function(err, data){
-    if(err)
+router.post("/Pdashboard/rateDoctor/:did/:appid", ensureAuthenticated, function (req, res) {
+  DUser.findById({ _id: req.params.did }, function (err, data) {
+    if (err)
       console.log(err);
-    else{
+    else {
       console.log(parseInt(req.body.rating));
-      
-      DUser.findByIdAndUpdate({_id: req.params.did}, {
-        rating: (data.sumOfRate+parseInt(req.body.rating))/(data.numberOfAppoints+1),
-        sumOfRate: data.sumOfRate+parseInt(req.body.rating),
-        numberOfAppoints: data.numberOfAppoints+1
-      }, function(err, f){
-        if(err)
+
+      DUser.findByIdAndUpdate({ _id: req.params.did }, {
+        rating: (data.sumOfRate + parseInt(req.body.rating)) / (data.numberOfAppoints + 1),
+        sumOfRate: data.sumOfRate + parseInt(req.body.rating),
+        numberOfAppoints: data.numberOfAppoints + 1
+      }, function (err, f) {
+        if (err)
           console.log(err);
-        else{
+        else {
           //console.log(f);
           appoint.findByIdAndUpdate({ _id: req.params.appid }, {
-             pFlag: 1
+            pFlag: 1
           }, function (err, foundUser) {
             if (err) {
               console.log(err);
