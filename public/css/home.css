@@ -81,6 +81,7 @@ body {
   /* Containers */
   
   .container-fluid {
+    margin: 3% 0;
     padding: 7% 15%;
   }
   
@@ -98,14 +99,30 @@ body {
   /* Navigation Bar */
   
   .navbar {
-    padding: 0 0 4.5rem;
+    
+    background: rgba(1, 11, 37, 0.74);
+    padding: 0px 0 0rem;
+    margin: 3% auto;
+    width: 90%;
+    box-shadow: 0.5rem 0.5rem 3rem black;
+    position: relative;
+    
   }
   
+  .nav-heading{
+    
+    display: inline;
+    margin:1% 0 ;  
+  }
+
   .navbar-brand {
-    font-family: "Ubuntu";
-    font-size: 2.5rem;
-    font-weight: bold;
+    margin: 0;
+    margin-left: 16px;
+    font-size: 1.5rem;
+    width: 40%;
     margin-left: 1rem;
+    text-transform: none;
+    text-align: left;
   }
   
   .nav-item {
@@ -235,9 +252,13 @@ body {
   }
   .navbar {
     background: rgba(1, 11, 37, 0.74);
-    padding: 0px 0 0.5rem;
-    box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.329);
+    padding: 0px 0 0rem;
+    margin: 3% auto;
+    width: 90%;
+    box-shadow: 0.5rem 0.5rem 3rem black;
+    position: relative;
   }
+
   
   .press-logo {
     width: 5rem;
