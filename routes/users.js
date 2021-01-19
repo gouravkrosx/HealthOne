@@ -122,6 +122,7 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
         Start : stime.toLocaleString('en-us', options1),
         End : etime.toLocaleString('en-us', options1)
       };
+      //console.log(x);
         const newUser = new DUser({
           name: _.lowerCase(name),
           address,
@@ -143,6 +144,7 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
           consultancyFees,
           numberOfAppoints: 0,
           sumOfRate: 0,
+          rating: 0,
         });
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {

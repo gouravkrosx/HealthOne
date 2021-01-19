@@ -321,6 +321,9 @@
     #dashboard{
       font-size: 1.5rem;
     }
+    ul{
+      width: 50%;
+    }
   </style>
 </head>
 
@@ -349,6 +352,11 @@
 
       <ul class="list-group list-group-flush">
 
+        
+        <li class="list-group-item">
+          <strong>Rating: </strong>
+          <%=user.rating%>/5
+        </li>
         <li class="list-group-item">
           <strong>SEX:</strong>
           <%=user.sex%>
@@ -359,7 +367,7 @@
           <%=user.speciality%>
         </li>
         <li class="list-group-item">
-          <strong>Years of Expert: </strong>
+          <strong>Years of Practice: </strong>
           <%=user.yearsOfPractice%>
         </li>
       </ul>

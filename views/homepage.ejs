@@ -83,7 +83,12 @@
       width: 15%;
       border-radius: 100%;
     }
-   
+    .dark{
+      width: 2px;
+      background-color:black;
+      height: 100%;
+      border: 1px solid white;
+    }
   </style>
 </head>
 
@@ -124,8 +129,7 @@
           <h1 class="big-heading">
             Want to Consult from experienced doctors ??
           </h1>
-          <a href="/users/Patient" class="btn btn-outline-light btn-lg download-button">Login as Patient</a>
-          <a href="/users/Doctor" class="btn btn-dark btn-lg download-button">Login as Doctor
+          <a href="/users/Patient" class="btn btn-light btn-lg download-button">Login as Patient</a><span class="dark"></span><a href="/users/Doctor" class="btn btn-dark btn-lg download-button">Login as Doctor
           </a>
         </div>
 
@@ -215,9 +219,8 @@
         RGS helps you to find the best doctor for you as , Your Life we Cares
         !
       </h3>
-      <a class="download-button btn btn-lg btn-dark" href="/users/Doctor">Login as doctor
+      <a class="download-button btn btn-lg btn-light" href="/users/Patient">Login as Patient</a><span class="dark"></span><a class="download-button btn btn-lg btn-dark" href="/users/Doctor">Login as Doctor
       </a>
-      <a class="download-button btn btn-lg btn-light" href="/users/Patient">Login as patient</a>
     </div>
   </section>
 
