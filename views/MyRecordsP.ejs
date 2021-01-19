@@ -32,11 +32,13 @@
       text-decoration: none;
       color: white;
     }
-    ul{
+
+    ul {
       width: 75%;
     }
+
     section {
-      padding-bottom: 10rem ;
+      padding-bottom: 10rem;
       background-color: #fff;
     }
 
@@ -241,7 +243,8 @@
         transform: scale(1.05);
       }
     }
-    .common-nav { 
+
+    .common-nav {
       display: flex;
       flex-direction: row;
       color: #333;
@@ -262,8 +265,9 @@
     }
 
     .common-nav a:hover {
-     color: #ebeef8;
+      color: #ebeef8;
     }
+
     #RGSlogo {
       float: left;
       justify-content: center;
@@ -272,20 +276,36 @@
       width: 2.5rem;
       border-radius: 50%;
       margin-right: 1rem;
-     
+
     }
-    #dashboard{
+
+    #dashboard {
       font-size: 1.5rem;
     }
-    .capitalize{
+
+    .capitalize {
       text-transform: capitalize;
     }
-    .unrated{
+
+    .unrated {
       border: 2px solid grey;
       border-radius: 3%;
       display: flex;
       width: 100%;
       background-color: #f8f7de;
+    }
+    .mainbox {
+      padding: 6rem;
+      justify-content: center;
+      /* margin: 5rem; */
+    }
+    .mainbox img {
+      width: 100%;
+      height: 100%;
+      margin: 2rem;
+      border: 1px solid rgb(129, 126, 126);
+      box-shadow: 1rem 1rem 1rem rgba(139, 128, 128, 0.856);
+      border-radius: 50%;
     }
   </style>
 </head>
@@ -294,7 +314,7 @@
   <div class="common-nav">
     <a class="navbar-brand" href="/">
       <span><img id="RGSlogo" src="/assets/RGSlogo.png" alt="Logo"></span>
-      RGS Health Care  <span>/ Home</span>
+      RGS Health Care <span>/ Home</span>
     </a>
     <a href="/Pdashboard" id="dashboard">My Dashboard</a>
   </div>
@@ -304,61 +324,76 @@
       <h1 class="heading">My Past Appointments</h1>
       <div class="card-wrapper">
         <div class="unrated">
-      
-      <%data.forEach(function(user){%>
-        <% if(user.prescription && !user.pFlag){ %>
-          <div class="card">
-            <img
-              src="https://images.unsplash.com/photo-1500530447821-8fccc8203b7f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvcm9uYSUyMHZhY2NpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-              alt="card background" class="card-img">
-            <img src="data:image/<%=user.doctorPhoto.contentType%>;base64,<%=user.doctorPhoto.data.toString('base64')%>"
-              alt="profile-img" class="profile-img">
-            <h1> Dr. <%=user.doctorName%>
-            </h1>
-            <p class="job-title">
-              
-            </p>
-            <p class="about">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <strong>Doctor's Speciality:</strong>
-                <span class="capitalize"><%=user.doctorSpeciality%></span>
-              </li>
-              <li class="list-group-item">
-                <strong>Address:</strong>
-                <%=user.clinicAddress%>
-              </li>
+          <%if(data.length===0){%>
+            <!-- <h1>HI NICE !!</h1> -->
+            <div class="mainbox">
+              <!-- <i class="far fa-question-circle fa-spin">    -->
+              <!-- <p class="err">No results to show !!</p> -->
+              <img
+                src="https://cdn.dribbble.com/users/436620/screenshots/8386175/media/d622c2e11b1b3c139061449e426bd6ba.jpg"
+                alt="" />
+              <!-- <div class="msg">Maybe this page moved? Got deleted? Is hiding out in quarantine? Never existed in the first place?<p>Let's go <a href="#">home</a> and try from there.</p></div> -->
+            </div>
 
-              
-            </ul>
-            </p>
-            <%if(user.dFlag===1) { %>
-              <p>Prescription given on <%=user.prescription.Pdate%>
-              </p>
-              <a class="btn"
-                href="data:image/<%=user.prescription.photo.contentType%>;base64,<%=user.prescription.photo.data.toString('base64')%>"
-                download="MyPrescription.jpg">
-                <img
-                  src="data:image/<%=user.prescription.photo.contentType%>;base64,<%=user.prescription.photo.data.toString('base64')%>"
-                  alt="Prescription" width="104" height="142">
-              </a>
+            <% } else{ %>
+              <%data.forEach(function(user){%>
+                <% if(user.prescription && !user.pFlag){ %>
+                  <div class="card">
+                    <img
+                      src="https://images.unsplash.com/photo-1500530447821-8fccc8203b7f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvcm9uYSUyMHZhY2NpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                      alt="card background" class="card-img">
+                    <img
+                      src="data:image/<%=user.doctorPhoto.contentType%>;base64,<%=user.doctorPhoto.data.toString('base64')%>"
+                      alt="profile-img" class="profile-img">
+                    <h1> Dr. <%=user.doctorName%>
+                    </h1>
+                    <p class="job-title">
 
-              <%}else{%>
-                <a class="btn" href="/Pdelete/<%= user._id %>?_method=DELETE" class="card-link">Cancel-Appointment</a>
-                <% } %>
-            <a href="/Pdashboard/rateDoctor/<%=user.doctorId%>/<%=user._id%>" class="btn">Rate Doctor</a>
-            
-            
+                    </p>
+                    <p class="about">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <strong>Doctor's Speciality:</strong>
+                        <span class="capitalize">
+                          <%=user.doctorSpeciality%>
+                        </span>
+                      </li>
+                      <li class="list-group-item">
+                        <strong>Address:</strong>
+                        <%=user.clinicAddress%>
+                      </li>
 
-                    <!-- <ul class="social-media">
+
+                    </ul>
+                    </p>
+                    <%if(user.dFlag===1) { %>
+                      <p>Prescription given on <%=user.prescription.Pdate%>
+                      </p>
+                      <a class="btn"
+                        href="data:image/<%=user.prescription.photo.contentType%>;base64,<%=user.prescription.photo.data.toString('base64')%>"
+                        download="MyPrescription.jpg">
+                        <img
+                          src="data:image/<%=user.prescription.photo.contentType%>;base64,<%=user.prescription.photo.data.toString('base64')%>"
+                          alt="Prescription" width="104" height="142">
+                      </a>
+
+                      <%}else{%>
+                        <a class="btn" href="/Pdelete/<%= user._id %>?_method=DELETE"
+                          class="card-link">Cancel-Appointment</a>
+                        <% } %>
+                          <a href="/Pdashboard/rateDoctor/<%=user.doctorId%>/<%=user._id%>" class="btn">Rate Doctor</a>
+
+
+
+                          <!-- <ul class="social-media">
                       <li> <a href="#"> <i class="fab fa-facebook-square"></i> </a> </li>
                       <li> <a href="#"> <i class="fab fa-twitter-square"></i> </a> </li>
                       <li> <a href="#"> <i class="fab fa-instagram"></i> </a> </li>
                       <li> <a href="#"> <i class="fab fa-google-plus-square"></i> </a> </li>
                     </ul> -->
-          </div>
-          <% } %>
-          <% })%>
+                  </div>
+                  <% } %>
+                    <% })%>
 
         </div>
 
@@ -368,25 +403,28 @@
               <img
                 src="https://images.unsplash.com/photo-1500530447821-8fccc8203b7f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvcm9uYSUyMHZhY2NpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
                 alt="card background" class="card-img">
-              <img src="data:image/<%=user.doctorPhoto.contentType%>;base64,<%=user.doctorPhoto.data.toString('base64')%>"
+              <img
+                src="data:image/<%=user.doctorPhoto.contentType%>;base64,<%=user.doctorPhoto.data.toString('base64')%>"
                 alt="profile-img" class="profile-img">
               <h1> Dr. <%=user.doctorName%>
               </h1>
               <p class="job-title">
-                
+
               </p>
               <p class="about">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <strong>Doctor's Speciality:</strong>
-                  <span class="capitalize"><%=user.doctorSpeciality%></span>
+                  <span class="capitalize">
+                    <%=user.doctorSpeciality%>
+                  </span>
                 </li>
                 <li class="list-group-item">
                   <strong>Address:</strong>
                   <%=user.clinicAddress%>
                 </li>
-  
-                
+
+
               </ul>
               </p>
               <%if(user.dFlag===1) { %>
@@ -399,15 +437,15 @@
                     src="data:image/<%=user.prescription.photo.contentType%>;base64,<%=user.prescription.photo.data.toString('base64')%>"
                     alt="Prescription" width="104" height="142">
                 </a>
-  
+
                 <%}else{%>
                   <a class="btn" href="/Pdelete/<%= user._id %>?_method=DELETE" class="card-link">Cancel-Appointment</a>
                   <% } %>
-              
-              
-              
-  
-                      <!-- <ul class="social-media">
+
+
+
+
+                    <!-- <ul class="social-media">
                         <li> <a href="#"> <i class="fab fa-facebook-square"></i> </a> </li>
                         <li> <a href="#"> <i class="fab fa-twitter-square"></i> </a> </li>
                         <li> <a href="#"> <i class="fab fa-instagram"></i> </a> </li>
@@ -415,8 +453,8 @@
                       </ul> -->
             </div>
             <% } %>
-            <% })%>
-
+              <% })%>
+              <% } %>
       </div>
     </div>
   </section>

@@ -276,6 +276,19 @@
     #dashboard {
       font-size: 1.5rem;
     }
+    .mainbox {
+      padding: 6rem;
+      justify-content: center;
+      /* margin: 5rem; */
+    }
+    .mainbox img {
+      width: 100%;
+      height: 100%;
+      margin: 2rem;
+      border: 1px solid rgb(129, 126, 126);
+      box-shadow: 1rem 1rem 1rem rgba(139, 128, 128, 0.856);
+      border-radius: 50%;
+    }
   </style>
 </head>
 
@@ -294,46 +307,55 @@
     <div class="container">
       <h1 class="heading">My Appointments</h1>
       <div class="card-wrapper">
-        <%data.forEach(function(user){%>
-          <% if(!user.prescription){ %>
-            <div class="card">
-              <img
-                src="https://images.unsplash.com/photo-1500530447821-8fccc8203b7f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvcm9uYSUyMHZhY2NpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                alt="card background" class="card-img">
-              <img
-                src="data:image/<%=user.patientPhoto.contentType%>;base64,<%=user.patientPhoto.data.toString('base64')%>"
-                alt="profile-img" class="profile-img">
-              <h1> Appointment with <span class="name">
-                  <%= user.patientName %>
-                </span>
-              </h1>
-              <p class="about">
-              <ul class="list-group list-group-flush">
+        <%if(data.length===0){%>
+          <div class="mainbox">
 
-                <li class="list-group-item">
-                  <strong>Date:</strong>
-                  <%=user.datE%>
-                </li>
-                <li class="list-group-item">
-                  <strong>Time: </strong>
-                  <%= user.time.Start%> - <%= user.time.End%>
-                </li>
-              </ul>
-              </p>
+            <img
+              src="https://cdn.dribbble.com/users/436620/screenshots/8386175/media/d622c2e11b1b3c139061449e426bd6ba.jpg"
+              alt="" />
 
-              <% if(currD.getDate()>=user.date.getDate() && currD.getMonth()>=user.date.getMonth() &&
-                currD.getFullYear()>=user.date.getFullYear() && currD.getHours()>=user.time.start.getHours() &&
-                currD.getMinutes()>=user.time.start.getMinutes() ){ %>
+          </div>
+          <%}else{%>
+            <%data.forEach(function(user){%>
+              <% if(!user.prescription){ %>
+                <div class="card">
+                  <img
+                    src="https://images.unsplash.com/photo-1500530447821-8fccc8203b7f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvcm9uYSUyMHZhY2NpbmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                    alt="card background" class="card-img">
+                  <img
+                    src="data:image/<%=user.patientPhoto.contentType%>;base64,<%=user.patientPhoto.data.toString('base64')%>"
+                    alt="profile-img" class="profile-img">
+                  <h1> Appointment with <span class="name">
+                      <%= user.patientName %>
+                    </span>
+                  </h1>
+                  <p class="about">
+                  <ul class="list-group list-group-flush">
 
-                <a href="/Ddashboard/DmyAppointments/Prescription/<%=user.id%>" class="btn">Attach Prescription</a>
+                    <li class="list-group-item">
+                      <strong>Date:</strong>
+                      <%=user.datE%>
+                    </li>
+                    <li class="list-group-item">
+                      <strong>Time: </strong>
+                      <%= user.time.Start%> - <%= user.time.End%>
+                    </li>
+                  </ul>
+                  </p>
 
-                <% } %>
-                  <a href="/Ddelete/<%= user._id %>?_method=DELETE" class="btn">Cancel Appointment</a>
+                  <% if(currD.getDate()>=user.date.getDate() && currD.getMonth()>=user.date.getMonth() &&
+                    currD.getFullYear()>=user.date.getFullYear() && currD.getHours()>=user.time.start.getHours() &&
+                    currD.getMinutes()>=user.time.start.getMinutes() ){ %>
 
-            </div>
-            <% }%>
-              <% })%>
+                    <a href="/Ddashboard/DmyAppointments/Prescription/<%=user.id%>" class="btn">Attach Prescription</a>
 
+                    <% } %>
+                      <a href="/Ddelete/<%= user._id %>?_method=DELETE" class="btn">Cancel Appointment</a>
+
+                </div>
+                <% }%>
+                  <% })%>
+                    <% }%>
       </div>
     </div>
   </section>

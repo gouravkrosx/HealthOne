@@ -73,7 +73,11 @@ router.get('/Ddashboard', ensureAuthenticated, (req, res) => {
     res.redirect("/");
   }
   else {
-    res.render('Ddashboard', { user: req.user });
+    let curr = new Date();
+    let c = curr.getDate() % 7;
+    Quote.find({}, function (err, data) {
+      res.render('Pdashboard', { user: req.user, quote: data[c] });
+    })
   }
 });
 
@@ -196,8 +200,8 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
           foundUser.clinicTiming = {
             start: stime,
             end: etime,
-            Start : stime.toLocaleString('en-us', options1),
-            End : etime.toLocaleString('en-us', options1)
+            Start: stime.toLocaleString('en-us', options1),
+            End: etime.toLocaleString('en-us', options1)
           };
           foundUser.speciality = speciality;
           foundUser.phone = phone;
@@ -226,7 +230,7 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
               if (foundUser.password !== password) {
                 foundUser.password = hash;
               }
-              
+
               foundUser.save()
                 .then(user => {
                   req.flash(
