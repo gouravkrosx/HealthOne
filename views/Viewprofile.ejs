@@ -128,7 +128,7 @@
                     <br />
                     <div class="list-group">
                         <a href="#" class="list-group-item">
-                            <i class="fa fa-asterisk"></i> &nbsp;Successful Appointments:10
+                            <i class="fa fa-asterisk"></i> &nbsp;Successful Appointments: <%= doctor[0].numberOfAppoints %>
                         </a>
                         <a href="#" class="list-group-item">
                             <i class="fa fa-hourglass-end" aria-hidden="true"></i> &nbsp;Experiance:
@@ -143,7 +143,7 @@
                         </a>
 
                         <a href="#" class="list-group-item">
-                            <i class="fa fa-star" aria-hidden="true"></i> &nbsp;Rating : 8.5
+                            <i class="fa fa-star" aria-hidden="true"></i> &nbsp;Rating : <%= doctor[0].rating %>
                         </a>
 
                     </div>
@@ -174,7 +174,7 @@
                         </li>
                         <li>
                             <i class="fa fa-calendar" aria-hidden="true"></i>
-                            <%=doctor[0].clinicTiming.start%> - <%=doctor[0].clinicTiming.end%>
+                            <%=doctor[0].clinicTiming.Start%> - <%=doctor[0].clinicTiming.End%>
                         </li>
                     </ul>
                     <br />

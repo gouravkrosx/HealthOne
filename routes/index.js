@@ -181,6 +181,10 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
       } else {
         if (!foundUser) {
         } else {
+          let options1 = {
+            hour: '2-digit',
+            minute: '2-digit'
+          };
           //console.log(stime + " " + etime);
           foundUser.name = name;
           foundUser.address = address;
@@ -191,7 +195,9 @@ router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
           foundUser.clinicAddress = clinicAddress;
           foundUser.clinicTiming = {
             start: stime,
-            end: etime
+            end: etime,
+            Start : stime.toLocaleString('en-us', options1),
+            End : etime.toLocaleString('en-us', options1)
           };
           foundUser.speciality = speciality;
           foundUser.phone = phone;
