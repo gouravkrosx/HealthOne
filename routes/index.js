@@ -76,7 +76,7 @@ router.get('/Ddashboard', ensureAuthenticated, (req, res) => {
     let curr = new Date();
     let c = curr.getDate() % 7;
     Quote.find({}, function (err, data) {
-      res.render('Pdashboard', { user: req.user, quote: data[c] });
+      res.render('Ddashboard', { user: req.user, quote: data[c] });
     })
   }
 });
@@ -460,12 +460,12 @@ router.post("/Pdashboard/makeAnAppoitment/:did", function (req, res) {
               time: x
             });
             //console.log(t);
-            let a = data[0].name;
-            let t1 = req.body.time;
-            let d = req.body.day;
-            let message1 = `Your appointment has been successfully booked with docId ${a} at timings ${t1} on ${d} `;
-            console.log(message1);
-            fast2sms.sendMessage({ authorization: process.env.API_KEY, message: message1, numbers: 9958178959 });
+            // let a = data[0].name;
+            // let t1 = req.body.time;
+            // let d = req.body.day;
+            // let message1 = `Your appointment has been successfully booked with docId ${a} at timings ${t1} on ${d} `;
+            // console.log(message1);
+            // fast2sms.sendMessage({ authorization: process.env.API_KEY, message: message1, numbers: 9958178959 });
             // res.send(response);
 
             appointment.save().then(() => {
@@ -539,7 +539,7 @@ router.get("/Ddashboard/DmyAppointments/Prescription/:appid", ensureAuthenticate
 router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('photo'), function (req, res) {
   let appid = req.params.apid;
 
-  console.log(appid);
+  // console.log(appid);
 
   appoint.findByIdAndUpdate({ _id: appid }, {
     prescription: {
@@ -604,7 +604,7 @@ router.post("/Pdashboard/rateDoctor/:did/:appid", ensureAuthenticated, function 
     if (err)
       console.log(err);
     else {
-      console.log(parseInt(req.body.rating));
+      // console.log(parseInt(req.body.rating));
 
       DUser.findByIdAndUpdate({ _id: req.params.did }, {
         rating: (data.sumOfRate + parseInt(req.body.rating)) / (data.numberOfAppoints + 1),
