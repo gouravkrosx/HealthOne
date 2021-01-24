@@ -18,7 +18,20 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage });
+// var upload = multer({ storage: storage,});
+const maxSize = 400 * 1024; //400kb
+var upload = multer({
+  storage: storage,
+  limits: { fileSize: maxSize },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+  }
+})
 
 // Load User model
 const DUser = require('../models/Doctor');
@@ -36,64 +49,29 @@ router.get('/Doctor/register', forwardAuthenticated, (req, res) => res.render('R
 
 // Register
 //-----------doc-----------
-router.post('/Doctor/register', upload.single('photo'), (req, res) => {
-  //console.log(req.file);
-  const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, speciality, phone, sex, email, password, password2, startTime, endTime, consultancyFees } = req.body;
-  let errors = [];
+router.post('/Doctor/register', (req, res) => {
+  upload.single('photo')(req, res, function (err) {
+    if (err) {
+      req.flash('error_msg', 'File Size Exceeded');
+      res.render("partials/FileLimitExceeded");
+    } else {
 
-  if (!name || !email || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex || !consultancyFees) {
-    errors.push({ msg: 'Please enter all fields' });
-  }
+      const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, speciality, phone, sex, email, password, password2, startTime, endTime, consultancyFees } = req.body;
+      let errors = [];
 
-  if (password != password2) {
-    errors.push({ msg: 'Passwords do not match' });
-  }
+      if (!name || !email || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex || !consultancyFees) {
+        errors.push({ msg: 'Please enter all fields' });
+      }
 
-  if (password.length < 6) {
-    errors.push({ msg: 'Password must be at least 6 characters' });
-  }
+      if (password != password2) {
+        errors.push({ msg: 'Passwords do not match' });
+      }
 
-  if (errors.length > 0) {
-    res.render('RegisterforDoctor', {
-      errors,
-      name,
-      address,
-      dateOfBirth,
-      medicalSchool,
-      yearsOfPractice,
-      clinicAddress,
-      language,
-      speciality,
-      phone,
-      sex,
-      email,
-      consultancyFees,
-      password,
-      password2
-    });
-  } else {
+      if (password.length < 6) {
+        errors.push({ msg: 'Password must be at least 6 characters' });
+      }
 
-
-    //clinic timings
-    //start
-    const shours = startTime.slice(0, 2);
-    const sminutes = startTime.slice(3);
-    const stime = new Date();
-    stime.setHours(shours, sminutes);
-    //end
-    const ehours = endTime.slice(0, 2);
-    const eminutes = endTime.slice(3);
-    const etime = new Date();
-    etime.setHours(ehours, eminutes);
-
-
-    //console.log(stime + "  " + etime);
-
-
-
-    DUser.findOne({ email: email }).then(user => {
-      if (user) {
-        errors.push({ msg: 'Email already exists' });
+      if (errors.length > 0) {
         res.render('RegisterforDoctor', {
           errors,
           name,
@@ -112,157 +90,210 @@ router.post('/Doctor/register', upload.single('photo'), (req, res) => {
           password2
         });
       } else {
-        let options1 = {
-          hour: '2-digit',
-          minute: '2-digit'
-      };
-      let x = {
-        start: stime,
-        end: etime,
-        Start : stime.toLocaleString('en-us', options1),
-        End : etime.toLocaleString('en-us', options1)
-      };
-      console.log(x);
-        const newUser = new DUser({
-          name: _.lowerCase(name),
-          address,
-          dateOfBirth: new Date(dateOfBirth),
-          medicalSchool,
-          yearsOfPractice,
-          clinicAddress,
-          clinicTiming: x,
-          language,
-          photo: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: req.file.mimetype
-          },
-          speciality: _.lowerCase(speciality),
-          phone,
-          sex,
-          email,
-          password,
-          consultancyFees,
-          numberOfAppoints: 0,
-          sumOfRate: 0,
-          rating: 0,
-        });
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            //console.log("register user pass start wlala"+newUser.password)
-            newUser.password = hash;
 
 
-            newUser
-              .save()
-              .then(user => {
-                req.flash(
-                  'success_msg',
-                  'You are now registered and can log in'
-                );
-                res.redirect('/users/Doctor/login');
-              })
-              .catch(err => console.log(err));
-          });
+        //clinic timings
+        //start
+        const shours = startTime.slice(0, 2);
+        const sminutes = startTime.slice(3);
+        const stime = new Date();
+        stime.setHours(shours, sminutes);
+        //end
+        const ehours = endTime.slice(0, 2);
+        const eminutes = endTime.slice(3);
+        const etime = new Date();
+        etime.setHours(ehours, eminutes);
+
+
+        //console.log(stime + "  " + etime);
+
+
+
+        DUser.findOne({ email: email }).then(user => {
+          if (user) {
+            errors.push({ msg: 'Email already exists' });
+            res.render('RegisterforDoctor', {
+              errors,
+              name,
+              address,
+              dateOfBirth,
+              medicalSchool,
+              yearsOfPractice,
+              clinicAddress,
+              language,
+              speciality,
+              phone,
+              sex,
+              email,
+              consultancyFees,
+              password,
+              password2
+            });
+          } else {
+            let options1 = {
+              hour: '2-digit',
+              minute: '2-digit'
+            };
+            let x = {
+              start: stime,
+              end: etime,
+              Start: stime.toLocaleString('en-us', options1),
+              End: etime.toLocaleString('en-us', options1)
+            };
+            console.log(x);
+            const newUser = new DUser({
+              name: _.lowerCase(name),
+              address,
+              dateOfBirth: new Date(dateOfBirth),
+              medicalSchool,
+              yearsOfPractice,
+              clinicAddress,
+              clinicTiming: x,
+              language,
+              photo: {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                contentType: req.file.mimetype
+              },
+              speciality: _.lowerCase(speciality),
+              phone,
+              sex,
+              email,
+              password,
+              consultancyFees,
+              numberOfAppoints: 0,
+              sumOfRate: 0,
+              rating: 0,
+            });
+            bcrypt.genSalt(10, (err, salt) => {
+              bcrypt.hash(newUser.password, salt, (err, hash) => {
+                if (err) throw err;
+                //console.log("register user pass start wlala"+newUser.password)
+                newUser.password = hash;
+
+
+                newUser
+                  .save()
+                  .then(user => {
+                    req.flash(
+                      'success_msg',
+                      'You are now registered and can log in'
+                    );
+                    res.redirect('/users/Doctor/login');
+                  })
+                  .catch(err => console.log(err));
+              });
+            });
+          }
         });
       }
-    });
-  }
+    }
+  });
 });
 
 //----------------patient--------------------
-router.post('/Patient/register', upload.single('photo'), (req, res) => {
-  const { name, address, dateOfBirth, password, sex, email, phone, password2, emergencyName, emergencyPhone, emergencyAddress } = req.body;
-  let errors = [];
+router.post('/Patient/register', (req, res) => {
 
-  if (!name || !email || !password || !password2 || !address || !dateOfBirth || !sex || !phone || !emergencyName || !emergencyPhone || !emergencyAddress) {
-    errors.push({ msg: 'Please enter all fields' });
-  }
+  upload.single('photo')(req, res, function (err) {
+    if (err) {
+      // An unknown error occurred when uploadings
+      //  return res.redirect('/Patient/register');
+      req.flash('error_msg', 'File Size Exceeded');
+      res.render("partials/FileLimitExceeded");
+    } else {
 
-  if (password != password2) {
-    errors.push({ msg: 'Passwords do not match' });
-  }
+      const { name, address, dateOfBirth, password, sex, email, phone, password2, emergencyName, emergencyPhone, emergencyAddress } = req.body;
+      let errors = [];
 
-  if (password.length < 6) {
-    errors.push({ msg: 'Password must be at least 6 characters' });
-  }
+      if (!name || !email || !password || !password2 || !address || !dateOfBirth || !sex || !phone || !emergencyName || !emergencyPhone || !emergencyAddress) {
+        errors.push({ msg: 'Please enter all fields' });
+      }
 
-  if (errors.length > 0) {
-    res.render('RegisterforPatient', {
-      errors,
-      name,
-      address,
-      dateOfBirth,
-      emergencyAddress,
-      emergencyName,
-      emergencyPhone,
-      password,
+      if (password != password2) {
+        errors.push({ msg: 'Passwords do not match' });
+      }
 
-      sex,
-      email,
-      phone,
-      password2
-    });
-  } else {
-    PUser.findOne({ email: email }).then(user => {
-      if (user) {
-        //console.log(user);
-        errors.push({ msg: 'Email already exists' });
+      if (password.length < 6) {
+        errors.push({ msg: 'Password must be at least 6 characters' });
+      }
+
+      if (errors.length > 0) {
         res.render('RegisterforPatient', {
           errors,
           name,
           address,
           dateOfBirth,
-          emergencyPhone,
-          emergencyName,
           emergencyAddress,
+          emergencyName,
+          emergencyPhone,
           password,
+
           sex,
           email,
           phone,
           password2
         });
       } else {
-        const newUser = new PUser({
-          name: _.lowerCase(name),
-          address,
-          dateOfBirth: new Date(dateOfBirth),
-          password,
-          emergencyContacts: {
-            name: emergencyName,
-            phone: emergencyPhone,
-            address: emergencyAddress
-          },
-          photo: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: req.file.mimetype
-          },
-          sex,
-          email,
-          phone,
+        PUser.findOne({ email: email }).then(user => {
+          if (user) {
+            //console.log(user);
+            errors.push({ msg: 'Email already exists' });
+            res.render('RegisterforPatient', {
+              errors,
+              name,
+              address,
+              dateOfBirth,
+              emergencyPhone,
+              emergencyName,
+              emergencyAddress,
+              password,
+              sex,
+              email,
+              phone,
+              password2
+            });
+          } else {
+            const newUser = new PUser({
+              name: _.lowerCase(name),
+              address,
+              dateOfBirth: new Date(dateOfBirth),
+              password,
+              emergencyContacts: {
+                name: emergencyName,
+                phone: emergencyPhone,
+                address: emergencyAddress
+              },
+              photo: {
+                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                contentType: req.file.mimetype
+              },
+              sex,
+              email,
+              phone,
 
-        });
+            });
 
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser.save()
-              .then(user => {
-                req.flash(
-                  'success_msg',
-                  'You are now registered and can log in'
-                );
+            bcrypt.genSalt(10, (err, salt) => {
+              bcrypt.hash(newUser.password, salt, (err, hash) => {
+                if (err) throw err;
+                newUser.password = hash;
+                newUser.save()
+                  .then(user => {
+                    req.flash(
+                      'success_msg',
+                      'You are now registered and can log in'
+                    );
 
-                //console.log(newUser);
-                res.redirect('/users/Patient/login');
-              })
-              .catch(err => console.log(err));
-          });
+                    //console.log(newUser);
+                    res.redirect('/users/Patient/login');
+                  })
+                  .catch(err => console.log(err));
+              });
+            });
+          }
         });
       }
-    });
-  }
+    }
+  });
 });
 
 

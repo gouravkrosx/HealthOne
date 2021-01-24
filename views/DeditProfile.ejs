@@ -29,118 +29,113 @@
 
                                         <div class="form-group">
                                             <label for="Name">Full Name</label>
-                                            <input type="text" required class="form-control" name="name"
-                                                id="Name " value="<%=user.name%>" />
+                                            <input type="text" required class="form-control" name="name" id="Name "
+                                                value="<%=user.name%>" />
                                         </div>
-                                            <div class="form-group">
-                                                <label for="Address">Residential Address</label>
-                                                <input type="text" required class="form-control" name="address"
-                                                    id="Address " value="<%=user.address%>" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="MedicalSchoolAttended">Medical School Attended</label>
-                                                <input type="text" required class="form-control" name="medicalSchool"
-                                                    id="MedicalSchoolAttended "
-                                                    value="<%=user.medicalSchool%>" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="ClinicAddress">Clinic Address</label>
-                                                <input type="text" required class="form-control" name="clinicAddress"
-                                                    id="ClinicAddress " value="<%=user.clinicAddress%>" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Language">Language</label>
-                                                <input type="text" required class="form-control" name="language"
-                                                    id="Language " value="<%=user.language%>" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="YourEmail">Email Address</label>
-                                                <input type="email" required class="form-control" name="email"
-                                                    id="YourEmail " value="<%=user.email%>" disabled />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Password">Password</label>
-                                                <input type="password" required class="form-control" id="password"
-                                                    name="password" id="Password "
-                                                    value="<%=user.password%>" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="confirm_password">Confirm Password</label>
-                                                <input type="password" required class="form-control"
-                                                    id="confirm_password" name="password2"
-                                                     value="<%=user.password%>" />
-                                            </div>
-                                            
+                                        <div class="form-group">
+                                            <label for="Address">Residential Address</label>
+                                            <input type="text" required class="form-control" name="address"
+                                                id="Address " value="<%=user.address%>" />
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="DateOfBirth">Date Of Birth</label>
-                                                <input type="date" required class="form-control" name="dateOfBirth"
-                                                    id="DateOfBirth " value="<%=date%>" />
-
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="YearsOfPractice">Years Of Practice</label>
-                                                <input type="text" required class="form-control" name="yearsOfPractice"
-                                                    id="YearsOfPractice "
-                                                    value="<%=user.yearsOfPractice%>" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="Speciality">Speciality</label>
-                                                <input type="text" required class="form-control" name="speciality"
-                                                    id="Speciality " value="<%=user.speciality%>" />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <p>Choose your clinic timings</p>
-                                                <label for="st">From</label>
-                                                <input type="time" id="st" name="startTime" value="<%=start%>" required>
-                                                <label for="et">To</label>
-                                                <input type="time" id="et" name="endTime" value="<%=end%>" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="YourPhone">Mobile No</label>
-                                                <input type="text" minlength="10" required maxlength="10" name="phone"
-                                                    class="form-control" id="YourPhone "
-                                                    value="<%=user.phone%>" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="ConsultancyFees">Consultancy Fees</label>
-                                                <input type="text" name="consultancyFees" class="form-control"
-                                                id="ConsultancyFees " value="<%=user.consultancyFees%>" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="gender">Gender</label>
-                                                <div id="gender" class="maxl">
-
-                                                    <label  class="radio inline">
-                                                        <input type="radio" name="sex" value="<%=user.sex%>" checked>
-                                                        <span> Male </span>
-                                                    </label>
-                                                    <label class="radio inline">
-                                                        <input type="radio" name="sex" value="<%=user.sex%>">
-                                                        <span>Female </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            
+                                        <div class="form-group">
+                                            <label for="MedicalSchoolAttended">Medical School Attended</label>
+                                            <input type="text" required class="form-control" name="medicalSchool"
+                                                id="MedicalSchoolAttended " value="<%=user.medicalSchool%>" />
                                         </div>
 
-                                        <label for="photo">Want to Update you profile Pic?</label>
-                                        <input style="margin: 0 2%" type="checkbox" name="Dcheckbox">
-
-                                        <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file"
-                                                name="photo" onchange="loadFile(event)"></p>
-                                        <p><label for="file" style="cursor: pointer;"></label>
-                                        </p>
-                                        <p><img id="output" width="200" /></p>
-
-                                        <button type="submit" class="btnRegister">Update</button>
-
+                                        <div class="form-group">
+                                            <label for="ClinicAddress">Clinic Address</label>
+                                            <input type="text" required class="form-control" name="clinicAddress"
+                                                id="ClinicAddress " value="<%=user.clinicAddress%>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Language">Language</label>
+                                            <input type="text" required class="form-control" name="language"
+                                                id="Language " value="<%=user.language%>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="YourEmail">Email Address</label>
+                                            <input type="email" required class="form-control" name="email"
+                                                id="YourEmail " value="<%=user.email%>" disabled />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Password">Password</label>
+                                            <input type="password" required class="form-control" id="password"
+                                                name="password" id="Password " value="<%=user.password%>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirm_password">Confirm Password</label>
+                                            <input type="password" required class="form-control" id="confirm_password"
+                                                name="password2" value="<%=user.password%>" />
+                                        </div>
 
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="DateOfBirth">Date Of Birth</label>
+                                            <input type="date" required class="form-control" name="dateOfBirth"
+                                                id="DateOfBirth " value="<%=date%>" />
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="YearsOfPractice">Years Of Practice</label>
+                                            <input type="text" required class="form-control" name="yearsOfPractice"
+                                                id="YearsOfPractice " value="<%=user.yearsOfPractice%>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Speciality">Speciality</label>
+                                            <input type="text" required class="form-control" name="speciality"
+                                                id="Speciality " value="<%=user.speciality%>" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p>Choose your clinic timings</p>
+                                            <label for="st">From</label>
+                                            <input type="time" id="st" name="startTime" value="<%=start%>" required>
+                                            <label for="et">To</label>
+                                            <input type="time" id="et" name="endTime" value="<%=end%>" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="YourPhone">Mobile No</label>
+                                            <input type="text" minlength="10" required maxlength="10" name="phone"
+                                                class="form-control" id="YourPhone " value="<%=user.phone%>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ConsultancyFees">Consultancy Fees</label>
+                                            <input type="text" name="consultancyFees" class="form-control"
+                                                id="ConsultancyFees " value="<%=user.consultancyFees%>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="gender">Gender</label>
+                                            <div id="gender" class="maxl">
+
+                                                <label class="radio inline">
+                                                    <input type="radio" name="sex" value="<%=user.sex%>" checked>
+                                                    <span> Male </span>
+                                                </label>
+                                                <label class="radio inline">
+                                                    <input type="radio" name="sex" value="<%=user.sex%>">
+                                                    <span>Female </span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <label for="photo">Want to Update you profile Pic?</label>
+                                    <input style="margin: 0 2%" type="checkbox" name="Dcheckbox">
+
+                                    <p><input type="file" class="fsize" accept="image/png,image/jpeg,image/jpg" id="file" name="photo"
+                                            onchange="loadFile(event)"></p>
+                                    <p><label for="file" style="cursor: pointer;"></label>
+                                    </p>
+                                    <p><img id="output" width="200" /></p>
+
+                                    <button type="submit" class="btnRegister">Update</button>
+
+
+                                </div>
                             </form>
                     </div>
 
@@ -151,6 +146,19 @@
     </div>
 
     <script>
+        let input = document.querySelector(".fsize");
+
+        input.addEventListener('change', () => {
+            let files = input.files;
+
+            if (files.length > 0) {
+                if (files[0].size > 400 * 1024) {
+                    alert('File Size should not Exceed 400kb');;
+                    return;
+                }
+            }
+        });
+
         var loadFile = function (event) {
             var image = document.getElementById(' output'); image.src = URL.createObjectURL(event.target.files[0]);
         };

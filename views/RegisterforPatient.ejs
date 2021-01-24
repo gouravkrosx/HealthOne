@@ -16,7 +16,7 @@
 <body>
     <div class="container register">
         <div class="row">
-            
+
             <div class="col-md-9 register-right">
 
                 <div class="tab-content" id="myTabContent">
@@ -30,20 +30,17 @@
 
                                         <div class="form-group">
                                             <label for="name">Full Name</label>
-                                            <input type="text" required class="form-control" name="name"
-                                                id="name "
+                                            <input type="text" required class="form-control" name="name" id="name "
                                                 value="<%= typeof name != 'undefined' ? name : '' %>" />
                                         </div>
                                         <div class="form-group">
                                             <label for="address">Your Address</label>
-                                            <input type="text" required class="form-control" name="address"
-                                                id="address"
+                                            <input type="text" required class="form-control" name="address" id="address"
                                                 value="<%= typeof address != 'undefined' ? address : '' %>" />
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Username</label>
-                                            <input type="email" required class="form-control" name="email"
-                                                id="email"
+                                            <input type="email" required class="form-control" name="email" id="email"
                                                 value="<%= typeof email != 'undefined' ? email : '' %>" />
                                         </div>
 
@@ -64,8 +61,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="dob">Date of Birth</label>
-                                            <input type="date" required class="form-control" name="dateOfBirth"
-                                                id="dob"
+                                            <input type="date" required class="form-control" name="dateOfBirth" id="dob"
                                                 value="<%= typeof dateOfBirth != 'undefined' ? dateOfBirth : '' %>" />
                                         </div>
 
@@ -93,7 +89,7 @@
                                     <div class="form-group">
                                         <label for="file">Upload your profile picture</label>
 
-                                        <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
+                                        <p><input class="fsize" type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
                                                 name="photo" onchange="loadFile(event)"></p>
                                         <p><label for="file" style="cursor: pointer;"></label>
                                         </p>
@@ -113,8 +109,7 @@
                                         <div class="form-group">
                                             <label for="Phonenumber">Phone Number</label>
                                             <input type="text" minlength="10" required maxlength="10"
-                                                name="emergencyPhone" class="form-control"
-                                                id="Phonenumber"
+                                                name="emergencyPhone" class="form-control" id="Phonenumber"
                                                 value="<%= typeof emergencyPhone != 'undefined' ? emergencyPhone : '' %>" />
                                         </div>
                                     </div>
@@ -127,7 +122,7 @@
                                                 value="<%= typeof emergencyAddress != 'undefined' ? emergencyAddress : '' %>" />
                                         </div>
                                         <button type="submit" class="btnRegister">Register</button>
- 
+
                                     </div>
                                 </div>
                             </form>
@@ -141,6 +136,21 @@
 
 
     <script>
+
+        let input = document.querySelector(".fsize");
+
+        input.addEventListener('change', () => {
+            let files = input.files;
+
+            if (files.length > 0) {
+                if (files[0].size > 400 * 1024) {
+                   alert('File Size should not Exceed 400kb'); ;
+                    return;
+                }
+            }
+        });
+
+
         var loadFile = function (event) {
             var image = document.getElementById('output');
             image.src = URL.createObjectURL(event.target.files[0]);

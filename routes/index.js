@@ -35,7 +35,19 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage });
+const maxSize = 400 * 1024; //400kb
+var upload = multer({
+  storage: storage,
+  limits: { fileSize: maxSize },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+  }
+})
 
 //--- Models of db
 const PUser = require('../models/Patient');
@@ -143,112 +155,121 @@ router.get('/Ddashboard/DeditProfile', ensureAuthenticated, (req, res) => {
   res.render('DeditProfile', { user: req.user, date: daTe, start: stime, end: etime });
 });
 
-router.post('/Ddashboard/DeditProfile', upload.single('photo'), (req, res) => {
-  const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, startTime, endTime, speciality, phone, sex, email, password, password2, consultancyFees } = req.body;
-  let errors = [];
+router.post('/Ddashboard/DeditProfile', (req, res) => {
 
-  if (!name || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex || !consultancyFees) {
-    errors.push({ msg: 'Please enter all fields' });
-  }
+  upload.single('photo')(req, res, function (err) {
+    if (err) {
+      req.flash('error_msg', 'File Size Exceeded');
+      res.render("partials/FileLimitExceeded");
+    } else {
 
-  if (password != password2) {
-    errors.push({ msg: 'Passwords do not match' });
-  }
+      const { name, address, dateOfBirth, medicalSchool, yearsOfPractice, language, clinicAddress, startTime, endTime, speciality, phone, sex, email, password, password2, consultancyFees } = req.body;
+      let errors = [];
 
-  if (password.length < 6) {
-    errors.push({ msg: 'Password must be at least 6 characters' });
-  }
+      if (!name || !password || !password2 || !address || !language || !dateOfBirth || !speciality || !clinicAddress || !medicalSchool || !yearsOfPractice || !phone || !sex || !consultancyFees) {
+        errors.push({ msg: 'Please enter all fields' });
+      }
 
-  if (errors.length > 0) {
-    res.redirect("/Ddashboard/DeditProfile");
-  } else {
+      if (password != password2) {
+        errors.push({ msg: 'Passwords do not match' });
+      }
 
-    //console.log(req.body);
+      if (password.length < 6) {
+        errors.push({ msg: 'Password must be at least 6 characters' });
+      }
 
-
-    //clinic timings
-    //start
-    const shours = startTime.slice(0, 2);
-    const sminutes = startTime.slice(3);
-    const stime = new Date();
-    stime.setHours(shours, sminutes);
-    //end
-    const ehours = endTime.slice(0, 2);
-    const eminutes = endTime.slice(3);
-    const etime = new Date();
-    etime.setHours(ehours, eminutes);
-
-
-    DUser.findOne({ _id: req.body.userId }, function (err, foundUser) {
-      if (err) {
-        console.log(err);
+      if (errors.length > 0) {
+        res.redirect("/Ddashboard/DeditProfile");
       } else {
-        if (!foundUser) {
-        } else {
-          let options1 = {
-            hour: '2-digit',
-            minute: '2-digit'
-          };
-          //console.log(stime + " " + etime);
-          foundUser.name = name;
-          foundUser.address = address;
-          foundUser.dateOfBirth = new Date(dateOfBirth);
-          foundUser.medicalSchool = medicalSchool;
-          foundUser.yearsOfPractice = yearsOfPractice;
-          foundUser.language = language;
-          foundUser.clinicAddress = clinicAddress;
-          foundUser.clinicTiming = {
-            start: stime,
-            end: etime,
-            Start: stime.toLocaleString('en-us', options1),
-            End: etime.toLocaleString('en-us', options1)
-          };
-          foundUser.speciality = speciality;
-          foundUser.phone = phone;
-          foundUser.sex = sex;
-          foundUser.consultancyFees = consultancyFees;
+
+        //console.log(req.body);
 
 
+        //clinic timings
+        //start
+        const shours = startTime.slice(0, 2);
+        const sminutes = startTime.slice(3);
+        const stime = new Date();
+        stime.setHours(shours, sminutes);
+        //end
+        const ehours = endTime.slice(0, 2);
+        const eminutes = endTime.slice(3);
+        const etime = new Date();
+        etime.setHours(ehours, eminutes);
 
-          //checking because we cant set value of any file because its against security measures
-          if (req.body.Dcheckbox !== undefined) {
-            if (req.file !== undefined) {
-              foundUser.photo = {
-                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                contentType: req.file.mimetype
-              }
+
+        DUser.findOne({ _id: req.body.userId }, function (err, foundUser) {
+          if (err) {
+            console.log(err);
+          } else {
+            if (!foundUser) {
             } else {
-              return res.redirect("/Ddashboard/DeditProfile")
+              let options1 = {
+                hour: '2-digit',
+                minute: '2-digit'
+              };
+              //console.log(stime + " " + etime);
+              foundUser.name = name;
+              foundUser.address = address;
+              foundUser.dateOfBirth = new Date(dateOfBirth);
+              foundUser.medicalSchool = medicalSchool;
+              foundUser.yearsOfPractice = yearsOfPractice;
+              foundUser.language = language;
+              foundUser.clinicAddress = clinicAddress;
+              foundUser.clinicTiming = {
+                start: stime,
+                end: etime,
+                Start: stime.toLocaleString('en-us', options1),
+                End: etime.toLocaleString('en-us', options1)
+              };
+              foundUser.speciality = speciality;
+              foundUser.phone = phone;
+              foundUser.sex = sex;
+              foundUser.consultancyFees = consultancyFees;
+
+
+
+              //checking because we cant set value of any file because its against security measures
+              if (req.body.Dcheckbox !== undefined) {
+                if (req.file !== undefined) {
+                  foundUser.photo = {
+                    data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                    contentType: req.file.mimetype
+                  }
+                } else {
+                  return res.redirect("/Ddashboard/DeditProfile")
+                }
+              }
+
+
+              bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(password, salt, (err, hash) => {
+                  if (err) throw err;
+
+                  if (foundUser.password !== password) {
+                    foundUser.password = hash;
+                  }
+
+                  foundUser.save()
+                    .then(user => {
+                      req.flash(
+                        'success_msg',
+                        'You have updated your profile'
+                      );
+                      //console.log(foundUser);
+                      res.redirect('/Ddashboard');
+                    })
+                    .catch(err => console.log(err));
+                });
+              });
+
+
             }
           }
-
-
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(password, salt, (err, hash) => {
-              if (err) throw err;
-
-              if (foundUser.password !== password) {
-                foundUser.password = hash;
-              }
-
-              foundUser.save()
-                .then(user => {
-                  req.flash(
-                    'success_msg',
-                    'You have updated your profile'
-                  );
-                  //console.log(foundUser);
-                  res.redirect('/Ddashboard');
-                })
-                .catch(err => console.log(err));
-            });
-          });
-
-
-        }
+        });
       }
-    });
-  }
+    }
+  });
 });
 
 
@@ -262,90 +283,99 @@ router.get('/Pdashboard/PeditProfile', ensureAuthenticated, (req, res) => {
 });
 
 
-router.post('/Pdashboard/PeditProfile', upload.single('photo'), (req, res) => {
-  const { name, address, dateOfBirth, password, sex, email, phone, password2, emergencyName, emergencyPhone, emergencyAddress } = req.body;
-  let errors = [];
+router.post('/Pdashboard/PeditProfile', (req, res) => {
+
+  upload.single('photo')(req, res, function (err) {
+    if (err) {
+      req.flash('error_msg', 'File Size Exceeded');
+      res.render("partials/FileLimitExceeded");
+    } else {
+
+      const { name, address, dateOfBirth, password, sex, email, phone, password2, emergencyName, emergencyPhone, emergencyAddress } = req.body;
+      let errors = [];
 
 
-  if (!name || !password || !password2 || !address || !dateOfBirth || !sex || !phone || !emergencyName || !emergencyPhone || !emergencyAddress) {
-    errors.push({ msg: 'Please enter all fields' });
-  }
+      if (!name || !password || !password2 || !address || !dateOfBirth || !sex || !phone || !emergencyName || !emergencyPhone || !emergencyAddress) {
+        errors.push({ msg: 'Please enter all fields' });
+      }
 
-  if (password != password2) {
-    errors.push({ msg: 'Passwords do not match' });
-  }
+      if (password != password2) {
+        errors.push({ msg: 'Passwords do not match' });
+      }
 
-  if (password.length < 6) {
-    errors.push({ msg: 'Password must be at least 6 characters' });
-  }
+      if (password.length < 6) {
+        errors.push({ msg: 'Password must be at least 6 characters' });
+      }
 
-  if (errors.length > 0) {
-    res.redirect("/Pdashboard/PeditProfile");
-  } else {
-
-    PUser.findOne({ _id: req.body.userId }, function (err, foundUser) {
-      if (err) {
-        console.log(err);
+      if (errors.length > 0) {
+        res.redirect("/Pdashboard/PeditProfile");
       } else {
-        if (!foundUser) {
-        } else {
 
-          foundUser.name = name;
-          foundUser.address = address;
-          foundUser.dateOfBirth = new Date(dateOfBirth);
-          foundUser.phone = phone;
-          foundUser.sex = sex;
-
-          if (req.body.Pcheckbox !== undefined) {
-            if (req.file !== undefined) {
-              foundUser.photo = {
-                data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-                contentType: req.file.mimetype
-              }
+        PUser.findOne({ _id: req.body.userId }, function (err, foundUser) {
+          if (err) {
+            console.log(err);
+          } else {
+            if (!foundUser) {
             } else {
-              return res.redirect("/Pdashboard/PeditProfile")
+
+              foundUser.name = name;
+              foundUser.address = address;
+              foundUser.dateOfBirth = new Date(dateOfBirth);
+              foundUser.phone = phone;
+              foundUser.sex = sex;
+
+              if (req.body.Pcheckbox !== undefined) {
+                if (req.file !== undefined) {
+                  foundUser.photo = {
+                    data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+                    contentType: req.file.mimetype
+                  }
+                } else {
+                  return res.redirect("/Pdashboard/PeditProfile")
+                }
+              }
+
+              foundUser.emergencyContacts = {
+                name: emergencyName,
+                phone: emergencyPhone,
+                address: emergencyAddress
+              }
+
+              //console.log("abhi tak to bhar hi hu");
+
+
+
+
+
+              bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(password, salt, (err, hash) => {
+                  if (err) throw err;
+
+                  if (foundUser.password !== password) {
+                    foundUser.password = hash;
+                  }
+
+                  foundUser.save()
+                    .then(user => {
+                      req.flash(
+                        'success_msg',
+                        'You have updated your profile'
+                      );
+                      //console.log(foundUser);
+                      res.redirect('/Pdashboard');
+                    })
+                    .catch(err => console.log(err));
+
+                });
+              });
+
+
             }
           }
-
-          foundUser.emergencyContacts = {
-            name: emergencyName,
-            phone: emergencyPhone,
-            address: emergencyAddress
-          }
-
-          //console.log("abhi tak to bhar hi hu");
-
-
-
-
-
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(password, salt, (err, hash) => {
-              if (err) throw err;
-
-              if (foundUser.password !== password) {
-                foundUser.password = hash;
-              }
-
-              foundUser.save()
-                .then(user => {
-                  req.flash(
-                    'success_msg',
-                    'You have updated your profile'
-                  );
-                  //console.log(foundUser);
-                  res.redirect('/Pdashboard');
-                })
-                .catch(err => console.log(err));
-
-            });
-          });
-
-
-        }
+        });
       }
-    });
-  }
+    }
+  });
 });
 
 //Search for doctors post route
@@ -536,27 +566,35 @@ router.get("/Ddashboard/DmyAppointments/Prescription/:appid", ensureAuthenticate
   // })
 })
 
-router.post("/Ddashboard/DmyAppointments/Prescription/:apid", upload.single('photo'), function (req, res) {
-  let appid = req.params.apid;
-
-  // console.log(appid);
-
-  appoint.findByIdAndUpdate({ _id: appid }, {
-    prescription: {
-      photo: {
-        data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-        contentType: req.file.mimetype
-      },
-      Pdate: new Date().toLocaleDateString()
-    }, dFlag: 1
-  }, function (err, foundUser) {
+router.post("/Ddashboard/DmyAppointments/Prescription/:apid", function (req, res) {
+  upload.single('photo')(req, res, function (err) {
     if (err) {
-      console.log(err);
+      req.flash('error_msg', 'File Size Exceeded');
+      res.render("partials/FileLimitExceeded");
     } else {
-      if (foundUser) {
-        //console.log("ha user hai yaha");
-      }
-      res.redirect("/Ddashboard/DmyAppointments")
+
+      let appid = req.params.apid;
+
+      // console.log(appid);
+
+      appoint.findByIdAndUpdate({ _id: appid }, {
+        prescription: {
+          photo: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: req.file.mimetype
+          },
+          Pdate: new Date().toLocaleDateString()
+        }, dFlag: 1
+      }, function (err, foundUser) {
+        if (err) {
+          console.log(err);
+        } else {
+          if (foundUser) {
+            //console.log("ha user hai yaha");
+          }
+          res.redirect("/Ddashboard/DmyAppointments")
+        }
+      });
     }
   });
 });

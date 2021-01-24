@@ -33,8 +33,7 @@
 
                                         <div class="form-group">
                                             <label for="fname">Full Name</label>
-                                            <input type="text" required class="form-control" name="name"
-                                                id="fname"
+                                            <input type="text" required class="form-control" name="name" id="fname"
                                                 value="<%= typeof name != 'undefined' ? name : '' %>" />
                                         </div>
                                         <div class="form-group">
@@ -64,8 +63,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="Email">Enter your email address</label>
-                                            <input type="email" required class="form-control" name="email"
-                                                id=" Email "
+                                            <input type="email" required class="form-control" name="email" id=" Email "
                                                 value="<%= typeof email != 'undefined' ? email : '' %>" />
                                         </div>
                                         <div class="form-group">
@@ -80,7 +78,7 @@
                                                 name="password2" id="ConfirmPassword "
                                                 value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
                                         </div>
-                                        
+
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -132,7 +130,7 @@
                                             <label for="gender">Gender</label>
                                             <div id="gender" class="maxl">
                                                 <label class="radio inline">
-                                                    <input  type="radio" name="sex" value="male" checked>
+                                                    <input type="radio" name="sex" value="male" checked>
                                                     <span> Male </span>
                                                 </label>
                                                 <label class="radio inline x">
@@ -143,11 +141,11 @@
                                         </div>
 
                                         <div class="form-group">
-                                                    
+
                                             <label for="photo">Upload your profile picture</label>
 
-                                            <p><input type="file" accept="image/png,image/jpeg,image/jpg" id="file" required
-                                                    name="photo" onchange="loadFile(event)"></p>
+                                            <p><input class="fsize" type="file" accept="image/png,image/jpeg,image/jpg" id="file"
+                                                    required name="photo" onchange="loadFile(event)"></p>
                                             <p><label for="file" style="cursor: pointer;"></label>
                                             </p>
                                             <p><img id="output" width="200" /></p>
@@ -168,6 +166,20 @@
     </div>
 
     <script>
+
+        let input = document.querySelector(".fsize");
+
+        input.addEventListener('change', () => {
+            let files = input.files;
+
+            if (files.length > 0) {
+                if (files[0].size > 400 * 1024) {
+                    alert('File Size should not Exceed 400kb');;
+                    return;
+                }
+            }
+        });
+
         var loadFile = function (event) {
             var image = document.getElementById('output');
             image.src = URL.createObjectURL(event.target.files[0]);
