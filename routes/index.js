@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const _ = require('lodash');
 const moment = require('moment');
+const diseaseArr = require('../routes/diseasesArray');
 const fast2sms = require('fast-two-sms');
 //Change get to delete request
 router.use(function (req, res, next) {
@@ -670,5 +671,10 @@ router.post("/Pdashboard/rateDoctor/:did/:appid", ensureAuthenticated, function 
     }
   })
 })
+
+//find your doctor according to the symptoms
+router.get("/findYourDoc", ensureAuthenticated, function (req, res){
+  res.render("FindYourDoc", {darr:diseaseArr});
+});
 
 module.exports = router;
